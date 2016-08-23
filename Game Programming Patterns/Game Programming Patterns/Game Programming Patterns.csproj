@@ -49,6 +49,13 @@
     <Compile Include="Command\IUnit.cs" />
     <Compile Include="Command\JumpCommand.cs" />
     <Compile Include="Command\MoveCommand.cs" />
+    <Compile Include="Flyweight\Color.cs" />
+    <Compile Include="Flyweight\Mesh.cs" />
+    <Compile Include="Flyweight\Terrain.cs" />
+    <Compile Include="Flyweight\Texture.cs" />
+    <Compile Include="Flyweight\Tree.cs" />
+    <Compile Include="Flyweight\TreeModel.cs" />
+    <Compile Include="Flyweight\World.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
