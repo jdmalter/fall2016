@@ -27,10 +27,10 @@ namespace Game_Programming_Patterns.Flyweight
             }
 
             // Layer a river.
-            int x = new Random().Next(width);
+            int a = new Random().Next(width);
             for (int y = 0; y < height; y++)
             {
-                Tiles[x][y] = RiverTerrain;
+                Tiles[a][y] = RiverTerrain;
             }
         }
     }
