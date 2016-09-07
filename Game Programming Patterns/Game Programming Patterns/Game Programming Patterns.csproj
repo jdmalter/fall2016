@@ -77,6 +77,8 @@
     <Compile Include="State\Input.cs" />
     <Compile Include="State\OnGroundState.cs" />
     <Compile Include="State\StandingState.cs" />
+    <Compile Include="Subclass Sandbox\SkyLaunch.cs" />
+    <Compile Include="Subclass Sandbox\SuperPower.cs" />
     <Compile Include="Update Method\Entity.cs" />
     <Compile Include="Update Method\Skeleton.cs" />
     <Compile Include="Update Method\Statue.cs" />
