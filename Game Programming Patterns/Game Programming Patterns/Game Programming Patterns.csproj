@@ -87,6 +87,11 @@
     <Compile Include="Observer\Physics.cs" />
     <Compile Include="Observer\Subject.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Service Locator\Audio.cs" />
+    <Compile Include="Service Locator\ConsoleAudio.cs" />
+    <Compile Include="Service Locator\Locator.cs" />
+    <Compile Include="Service Locator\LoggedAudio.cs" />
+    <Compile Include="Service Locator\NullAudio.cs" />
     <Compile Include="State\DuckingState.cs" />
     <Compile Include="State\Heroine.cs" />
     <Compile Include="State\HeroineState.cs" />
