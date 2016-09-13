@@ -67,6 +67,8 @@
     <Compile Include="Component\PlayerInputComponent.cs" />
     <Compile Include="Component\Sprite.cs" />
     <Compile Include="Component\World.cs" />
+    <Compile Include="Dirty Flag\GraphNode.cs" />
+    <Compile Include="Dirty Flag\Transform.cs" />
     <Compile Include="Double Buffer\Actor.cs" />
     <Compile Include="Double Buffer\Comedian.cs" />
     <Compile Include="Double Buffer\FrameBuffer.cs" />
