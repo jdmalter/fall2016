@@ -96,6 +96,8 @@
     <Compile Include="Service Locator\Locator.cs" />
     <Compile Include="Service Locator\LoggedAudio.cs" />
     <Compile Include="Service Locator\NullAudio.cs" />
+    <Compile Include="Spatial Partition\Grid.cs" />
+    <Compile Include="Spatial Partition\Unit.cs" />
     <Compile Include="State\DuckingState.cs" />
     <Compile Include="State\Heroine.cs" />
     <Compile Include="State\HeroineState.cs" />
