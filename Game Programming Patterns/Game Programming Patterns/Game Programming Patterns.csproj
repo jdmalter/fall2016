@@ -83,6 +83,8 @@
     <Compile Include="Flyweight\Tree.cs" />
     <Compile Include="Flyweight\TreeModel.cs" />
     <Compile Include="Flyweight\World.cs" />
+    <Compile Include="Object Pool\Particle.cs" />
+    <Compile Include="Object Pool\ParticlePool.cs" />
     <Compile Include="Observer\Achievements.cs" />
     <Compile Include="Observer\Event.cs" />
     <Compile Include="Observer\Observer.cs" />
