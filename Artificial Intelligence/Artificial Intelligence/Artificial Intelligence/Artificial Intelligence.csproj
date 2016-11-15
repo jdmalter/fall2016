@@ -1,0 +1,137 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{05BB3339-64CF-46F5-A5C2-16037E9BCDF9}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Artificial_Intelligence</RootNamespace>
+    <AssemblyName>Artificial Intelligence</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Chapter 2\Agent\Action.cs" />
+    <Compile Include="Chapter 2\Agent\Agent.cs" />
+    <Compile Include="Chapter 2\Agent\Environment.cs" />
+    <Compile Include="Chapter 2\Agent\IAgentProgram.cs" />
+    <Compile Include="Chapter 2\Agent\IEnvironment.cs" />
+    <Compile Include="Chapter 2\Agent\IEnvironmentState.cs" />
+    <Compile Include="Chapter 2\Agent\ModelReflexAgentProgram.cs" />
+    <Compile Include="Chapter 2\Agent\RandomAgentProgram.cs" />
+    <Compile Include="Chapter 2\Agent\SimpleReflexAgentProgram.cs" />
+    <Compile Include="Chapter 2\Agent\TableDrivenAgentProgram.cs" />
+    <Compile Include="Chapter 2\Agent\IAgent.cs" />
+    <Compile Include="Chapter 2\Agent\IAction.cs" />
+    <Compile Include="Chapter 2\Agent\IPercept.cs" />
+    <Compile Include="Chapter 2\Agent\IModel.cs" />
+    <Compile Include="Chapter 2\Agent\ConditionActionRule.cs" />
+    <Compile Include="Chapter 2\Agent\IState.cs" />
+    <Compile Include="Chapter 3\Problem\ConstantStepCostFunction.cs" />
+    <Compile Include="Chapter 3\Problem\GoalTestFunction.cs" />
+    <Compile Include="Chapter 3\Search\INode.cs" />
+    <Compile Include="Chapter 3\Search\Node.cs" />
+    <Compile Include="Chapter 3\Search\NodeExpander.cs" />
+    <Compile Include="Chapter 3\Search\QSearch\GraphSearch.cs" />
+    <Compile Include="Chapter 3\Search\QSearch\QueueSearch.cs" />
+    <Compile Include="Chapter 3\Search\QSearch\TreeSearch.cs" />
+    <Compile Include="Environment\Queens\EightQueens\EightQueensGoalTestFunction.cs" />
+    <Compile Include="Environment\Queens\EightQueens\EightQueensState.cs" />
+    <Compile Include="Environment\Queens\OneHundredQueens\OneHundredQueensGoalTestFunction.cs" />
+    <Compile Include="Environment\Queens\OneHundredQueens\OneHundredQueensState.cs" />
+    <Compile Include="Environment\Queens\QueensAction.cs" />
+    <Compile Include="Environment\Queens\QueensActionsFunction.cs" />
+    <Compile Include="Environment\Queens\QueensGoalTestFunction.cs" />
+    <Compile Include="Environment\Queens\QueensProblem.cs" />
+    <Compile Include="Environment\Queens\QueensResultFunction.cs" />
+    <Compile Include="Environment\Queens\QueensState.cs" />
+    <Compile Include="Environment\SlidingPuzzle\NinetyNinePuzzle\NinetyNinePuzzleProblem.cs" />
+    <Compile Include="Environment\SlidingPuzzle\NinetyNinePuzzle\NinetyNinePuzzleState.cs" />
+    <Compile Include="Environment\VacuumWorld\Location.cs" />
+    <Compile Include="Environment\VacuumWorld\ModelReflexVacuumAgentProgram.cs" />
+    <Compile Include="Environment\VacuumWorld\RandomVacuumAgentProgram.cs" />
+    <Compile Include="Environment\VacuumWorld\ReflexVacuumAgentProgram.cs" />
+    <Compile Include="Environment\VacuumWorld\SimpleReflexVacuumAgentProgram.cs" />
+    <Compile Include="Environment\VacuumWorld\NDVacuumEnvironment.cs" />
+    <Compile Include="Environment\VacuumWorld\Status.cs" />
+    <Compile Include="Environment\VacuumWorld\TableDrivenVacuumAgentProgram.cs" />
+    <Compile Include="Environment\VacuumWorld\VacuumAction.cs" />
+    <Compile Include="Environment\VacuumWorld\VacuumAgent.cs" />
+    <Compile Include="Environment\VacuumWorld\VacuumEnvironmentState.cs" />
+    <Compile Include="Environment\VacuumWorld\VacuumState.cs" />
+    <Compile Include="Environment\VacuumWorld\VacuumEnvironment.cs" />
+    <Compile Include="Environment\VacuumWorld\VacuumModel.cs" />
+    <Compile Include="Environment\VacuumWorld\VacuumPercept.cs" />
+    <Compile Include="Environment\VacuumWorld\VacuumConditionActionRule.cs" />
+    <Compile Include="Environment\SlidingPuzzle\EightPuzzle\EightPuzzleState.cs" />
+    <Compile Include="Environment\SlidingPuzzle\EightPuzzle\EightPuzzleProblem.cs" />
+    <Compile Include="Environment\SlidingPuzzle\SlidingPuzzleAction.cs" />
+    <Compile Include="Chapter 3\Problem\IActionsFunction.cs" />
+    <Compile Include="Chapter 3\Problem\IGoalTestFunction.cs" />
+    <Compile Include="Chapter 3\Problem\IProblem.cs" />
+    <Compile Include="Chapter 3\Problem\IResultFunction.cs" />
+    <Compile Include="Chapter 3\Problem\IStepCostFunction.cs" />
+    <Compile Include="Chapter 3\Problem\Problem.cs" />
+    <Compile Include="Chapter 3\Problem\SimpleProblemSolvingAgentProgram.cs" />
+    <Compile Include="Environment\SlidingPuzzle\SlidingPuzzleActionsFunction.cs" />
+    <Compile Include="Environment\SlidingPuzzle\SlidingPuzzleGoalTestFunction.cs" />
+    <Compile Include="Environment\SlidingPuzzle\SlidingPuzzleProblem.cs" />
+    <Compile Include="Environment\SlidingPuzzle\SlidingPuzzleResultFunction.cs" />
+    <Compile Include="Environment\SlidingPuzzle\SlidingPuzzleState.cs" />
+    <Compile Include="Environment\VacuumWorld\VacuumActionsFunction.cs" />
+    <Compile Include="Environment\VacuumWorld\VacuumGoalTestFunction.cs" />
+    <Compile Include="Environment\VacuumWorld\VacuumProblem.cs" />
+    <Compile Include="Environment\VacuumWorld\VacuumResultFunction.cs" />
+    <Compile Include="Guard\ParameterGuard.cs" />
+    <Compile Include="List\IList.cs" />
+    <Compile Include="List\IQueue.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
