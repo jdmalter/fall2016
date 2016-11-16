@@ -7,7 +7,7 @@ namespace Artificial_Intelligence.Environment.SlidingPuzzle
     /// initial state, actions, transition model, goal test, and path cost.
     /// </summary>
     /// <typeparam name="TSlidingPuzzleState">Any state of SlidingPuzzleState.</typeparam>
-    public abstract class SlidingPuzzleProblem<TSlidingPuzzleState> : Problem<TSlidingPuzzleState, SlidingPuzzleAction>
+    public class SlidingPuzzleProblem<TSlidingPuzzleState> : Problem<TSlidingPuzzleState, SlidingPuzzleAction>
         where TSlidingPuzzleState : SlidingPuzzleState
     {
         /// <summary>

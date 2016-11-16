@@ -7,6 +7,7 @@ namespace Artificial_Intelligence.Environment.SlidingPuzzle
     /// </summary>
     public class SlidingPuzzleAction : Action
     {
+        public static readonly SlidingPuzzleAction NULL = new SlidingPuzzleAction("Null");
         public static readonly SlidingPuzzleAction UP = new SlidingPuzzleAction("Up");
         public static readonly SlidingPuzzleAction DOWN = new SlidingPuzzleAction("Down");
         public static readonly SlidingPuzzleAction LEFT = new SlidingPuzzleAction("Left");

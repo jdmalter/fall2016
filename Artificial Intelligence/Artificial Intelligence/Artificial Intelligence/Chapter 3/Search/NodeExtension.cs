@@ -9,7 +9,7 @@ namespace Artificial_Intelligence.Chapter_3.Search
     /// <summary>
     /// An extension of genereic INode.
     /// </summary>
-    public static class NodeExpander
+    public static class NodeExtension
     {
         /// <summary>
         /// Creates and returns node with state.
@@ -73,26 +73,6 @@ namespace Artificial_Intelligence.Chapter_3.Search
         }
 
         /// <summary>
-        /// Returns a list of nodes from the root node to the child node.
-        /// </summary>
-        /// <typeparam name="TState">Any state.</typeparam>
-        /// <typeparam name="TAction">Any action.</typeparam>
-        /// <param name="child">The node at the bottom of the search tree that generated this node.</param>
-        /// <returns>A list of nodes from the root node to the child node.</returns>
-        public static IList<INode<TState, TAction>> RootToChild<TState, TAction>(
-            this INode<TState, TAction> child)
-            where TState : IState
-            where TAction : IAction
-        {
-            IList<INode<TState, TAction>> path = IList.Empty<INode<TState, TAction>>();
-            for (INode<TState, TAction> current = child; child != null; child = child.Parent)
-            {
-                path = child.Cons(path);
-            }
-            return path;
-        }
-
-        /// <summary>
         /// Returns a list of actions taken from the root node which generate this node.
         /// </summary>
         /// <typeparam name="TState">Any state.</typeparam>
@@ -103,7 +83,14 @@ namespace Artificial_Intelligence.Chapter_3.Search
             where TState : IState
             where TAction : IAction
         {
-            return child.RootToChild().Select(node => node.Action).ToList();
+            IList<TAction> path = new List<TAction>();
+
+            for (INode<TState, TAction> current = child; child != null; child = child.Parent)
+            {
+                path = child.Action.Cons(path);
+            }
+
+            return path;
         }
     }
 }

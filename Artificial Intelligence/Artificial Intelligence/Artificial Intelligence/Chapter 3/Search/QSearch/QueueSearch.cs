@@ -6,7 +6,7 @@ using System.Collections.Generic;
 namespace Artificial_Intelligence.Chapter_3.Search.QSearch
 {
     /// <summary>
-    /// Queue based search interface.
+    /// A abstract search using a queue of all leaf nodes available for expansion at any given point.
     /// </summary>
     /// <typeparam name="TProblem">Any problem of TState and TAction.</typeparam>
     /// <typeparam name="TState">Any state.</typeparam>
@@ -17,14 +17,14 @@ namespace Artificial_Intelligence.Chapter_3.Search.QSearch
         where TAction : IAction
     {
         /// <summary>
-        /// 
+        /// Returns a sequence of actions that reaches the goal.
         /// </summary>
-        /// <param name="problem"></param>
-        /// <returns></returns>
-        public virtual IList<TAction> Search(TProblem problem)
+        /// <param name="problem">A problem.</param>
+        /// <param name="frontier">A queue of all leaf nodes available for expansion at any given point.</param>
+        /// <returns>A sequence of actions that reaches the goal.</returns>
+        public virtual IList<TAction> Search(TProblem problem, IQueue<INode<TState, TAction>> frontier)
         {
-            IList<INode<TState, TAction>> frontier =
-                problem.InitialState.RootNode<TState, TAction>().Cons(IList.Empty<INode<TState, TAction>>());
+            frontier.Clear().Push(problem.InitialState.RootNode<TState, TAction>());
 
             while (!frontier.IsEmpty())
             {
@@ -41,21 +41,21 @@ namespace Artificial_Intelligence.Chapter_3.Search.QSearch
                 }
             }
 
-            return IList.Empty<TAction>();
+            return new List<TAction>();
         }
 
         /// <summary>
-        /// 
+        /// Adds a new leaf node available for expansion to the frontier.
         /// </summary>
-        /// <param name="frontier"></param>
-        /// <param name="node"></param>
-        public abstract void Add(IList<INode<TState, TAction>> frontier, INode<TState, TAction> node);
+        /// <param name="frontier">A queue of all leaf nodes available for expansion at any given point.</param>
+        /// <param name="node">A new leaf node available for expansion.</param>
+        public abstract void Add(IQueue<INode<TState, TAction>> frontier, INode<TState, TAction> node);
 
         /// <summary>
-        /// 
+        /// Removes and returns a node for expansion.
         /// </summary>
-        /// <param name="frontier"></param>
-        /// <returns></returns>
-        public abstract INode<TState, TAction> Remove(IList<INode<TState, TAction>> frontier);
+        /// <param name="frontier">A queue of all leaf nodes available for expansion at any given point.</param>
+        /// <returns>A node for expansion.</returns>
+        public abstract INode<TState, TAction> Remove(IQueue<INode<TState, TAction>> frontier);
     }
 }

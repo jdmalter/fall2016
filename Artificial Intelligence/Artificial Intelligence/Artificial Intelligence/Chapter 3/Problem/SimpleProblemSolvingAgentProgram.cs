@@ -1,4 +1,5 @@
 ﻿using Artificial_Intelligence.Chapter_2.Agent;
+using Artificial_Intelligence.Guard;
 using Artificial_Intelligence.List;
 using System.Collections.Generic;
 
@@ -8,11 +9,10 @@ namespace Artificial_Intelligence.Chapter_3.Problem
     /// A problem solving agent program that implements the agent function.
     /// </summary>
     /// <typeparam name="TPercept">Any percept.</typeparam>
-    /// <typeparam name="TGoal">Any goal.</typeparam>
     /// <typeparam name="TProblem">Any problem of TAgentState and TAction.</typeparam>
     /// <typeparam name="TState">Any state.</typeparam>
     /// <typeparam name="TAction">Any action.</typeparam>
-    public abstract class SimpleProblemSolvingAgentProgram<TPercept, TGoal, TProblem, TState, TAction> : IAgentProgram<TPercept, TAction>
+    public abstract class SimpleProblemSolvingAgentProgram<TPercept, TProblem, TState, TAction> : IAgentProgram<TPercept, TAction>
         where TPercept : IPercept
         where TProblem : IProblem<TState, TAction>
         where TState : IState
@@ -21,12 +21,26 @@ namespace Artificial_Intelligence.Chapter_3.Problem
         /// <summary>
         /// An action sequence, initially empty.
         /// </summary>
-        private IList<TAction> _actions = IList.Empty<TAction>();
+        private IList<TAction> _actions = new List<TAction>();
 
         /// <summary>
         /// The agent's current conception of the world state.
         /// </summary>
         private TState _state;
+
+        /// <summary>
+        /// An alternative action if search yields no actions.
+        /// </summary>
+        private readonly TAction _action;
+
+        /// <summary>
+        /// Specifies an action.
+        /// </summary>
+        /// <param name="action">An alternative action if search yields no actions.</param>
+        public SimpleProblemSolvingAgentProgram(TAction action)
+        {
+            _action = action.NonNull();
+        }
 
         /// <summary>
         /// Maps percepts to actions.
@@ -38,12 +52,12 @@ namespace Artificial_Intelligence.Chapter_3.Problem
             _state = UpdateState(_state, percept);
             if (_actions.IsEmpty())
             {
-                TGoal goal = FormulateGoal(_state);
+                TState goal = FormulateGoal(_state);
                 TProblem problem = FormulateProblem(_state, goal);
                 _actions = Search(problem);
                 if (_actions.IsEmpty())
                 {
-                    return default(TAction);
+                    return _action;
                 }
             }
             TAction action = _actions.First();
@@ -55,16 +69,8 @@ namespace Artificial_Intelligence.Chapter_3.Problem
         /// 
         /// </summary>
         /// <param name="state"></param>
-        /// <param name="percept"></param>
         /// <returns></returns>
-        public abstract TState UpdateState(TState state, TPercept percept);
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="state"></param>
-        /// <returns></returns>
-        public abstract TGoal FormulateGoal(TState state);
+        public abstract TState FormulateGoal(TState state);
 
         /// <summary>
         /// 
@@ -72,13 +78,21 @@ namespace Artificial_Intelligence.Chapter_3.Problem
         /// <param name="state"></param>
         /// <param name="goal"></param>
         /// <returns></returns>
-        public abstract TProblem FormulateProblem(TState state, TGoal goal);
+        public abstract TProblem FormulateProblem(TState state, TState goal);
+
+        /// <summary>
+        /// Returns a sequence of actions that reaches the goal.
+        /// </summary>
+        /// <param name="problem">A problem.</param>
+        /// <returns>A sequence of actions that reaches the goal.</returns>
+        public abstract IList<TAction> Search(TProblem problem);
 
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="problem"></param>
+        /// <param name="state"></param>
+        /// <param name="percept"></param>
         /// <returns></returns>
-        public abstract IList<TAction> Search(TProblem problem);
+        public abstract TState UpdateState(TState state, TPercept percept);
     }
 }

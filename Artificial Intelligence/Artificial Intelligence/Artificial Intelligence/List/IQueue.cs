@@ -1,49 +1,29 @@
-﻿using System.Collections.Generic;
-
-namespace Artificial_Intelligence.List
+﻿namespace Artificial_Intelligence.List
 {
     /// <summary>
-    /// An extension of genereic IList.
+    /// A queue with clear, is empty, pop, and push operations.
     /// </summary>
-    public static class IQueue
+    /// <typeparam name="T">Any type.</typeparam>
+    public interface IQueue<T>
     {
         /// <summary>
-        /// Removes and returns the oldest element in the list.
+        /// Determines whether the current queue contains any elements.
         /// </summary>
-        /// <typeparam name="T">Any type.</typeparam>
-        /// <param name="list">A list consisting of all elements.</param>
-        /// <returns>The oldest element in the list.</returns>
-        public static T PopFirstIn<T>(this IList<T> list)
-        {
-            T first = list[0];
-            list.RemoveAt(0);
-            return first;
-        }
+        /// <returns>Whether the current queue contains any elements.</returns>
+        bool IsEmpty();
 
         /// <summary>
-        /// Removes and returns the newest element in the list.
+        /// Removes and returns an element from the queue.
         /// </summary>
-        /// <typeparam name="T">Any type.</typeparam>
         /// <param name="list">A list consisting of all elements.</param>
-        /// <returns>The newest element in the list.</returns>
-        public static T PopLastIn<T>(this IList<T> list)
-        {
-            T last = list[list.Count];
-            list.RemoveAt(list.Count);
-            return last;
-        }
+        /// <returns>An element from the queue.</returns>
+        T Pop();
 
         /// <summary>
-        /// Returns a list with the given item as its last element.
+        /// Returns a queue containing the given item.
         /// </summary>
-        /// <typeparam name="T">Any type.</typeparam>
-        /// <param name="list">A list.</param>
-        /// <param name="item">New last element.</param>
-        /// <returns>A list with the given item as its last element.</returns>
-        public static IList<T> Push<T>(this IList<T> list, T item)
-        {
-            list.Insert(list.Count, item);
-            return list;
-        }
+        /// <param name="item">New element.</param>
+        /// <returns>A queue containing the given item.</returns>
+        IQueue<T> Push(T item);
     }
 }

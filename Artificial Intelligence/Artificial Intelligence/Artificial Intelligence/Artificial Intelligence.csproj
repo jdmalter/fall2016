@@ -65,11 +65,18 @@
     <Compile Include="Chapter 3\Problem\ConstantStepCostFunction.cs" />
     <Compile Include="Chapter 3\Problem\GoalTestFunction.cs" />
     <Compile Include="Chapter 3\Search\INode.cs" />
+    <Compile Include="Chapter 3\Search\ISearch.cs" />
     <Compile Include="Chapter 3\Search\Node.cs" />
-    <Compile Include="Chapter 3\Search\NodeExpander.cs" />
+    <Compile Include="Chapter 3\Search\NodeExtension.cs" />
     <Compile Include="Chapter 3\Search\QSearch\GraphSearch.cs" />
     <Compile Include="Chapter 3\Search\QSearch\QueueSearch.cs" />
     <Compile Include="Chapter 3\Search\QSearch\TreeSearch.cs" />
+    <Compile Include="Chapter 3\Search\Uninformed\BreadthFirstSearch.cs" />
+    <Compile Include="Chapter 3\Search\Uninformed\DepthFirstSearch.cs" />
+    <Compile Include="Chapter 3\Search\Uninformed\DepthLimitedSearch.cs" />
+    <Compile Include="Chapter 3\Search\Uninformed\IterativeDeepeningSearch.cs" />
+    <Compile Include="Chapter 3\Search\Uninformed\UniformCostSearch.cs" />
+    <Compile Include="Chapter 3\Search\Uninformed\UninformedQueueSearch.cs" />
     <Compile Include="Environment\Queens\EightQueens\EightQueensGoalTestFunction.cs" />
     <Compile Include="Environment\Queens\EightQueens\EightQueensState.cs" />
     <Compile Include="Environment\Queens\OneHundredQueens\OneHundredQueensGoalTestFunction.cs" />
@@ -80,8 +87,9 @@
     <Compile Include="Environment\Queens\QueensProblem.cs" />
     <Compile Include="Environment\Queens\QueensResultFunction.cs" />
     <Compile Include="Environment\Queens\QueensState.cs" />
-    <Compile Include="Environment\SlidingPuzzle\NinetyNinePuzzle\NinetyNinePuzzleProblem.cs" />
     <Compile Include="Environment\SlidingPuzzle\NinetyNinePuzzle\NinetyNinePuzzleState.cs" />
+    <Compile Include="Environment\SlidingPuzzle\SlidingPuzzleAgent.cs" />
+    <Compile Include="Environment\SlidingPuzzle\SlidingPuzzleProblemSolvingAgentProgram.cs" />
     <Compile Include="Environment\VacuumWorld\Location.cs" />
     <Compile Include="Environment\VacuumWorld\ModelReflexVacuumAgentProgram.cs" />
     <Compile Include="Environment\VacuumWorld\RandomVacuumAgentProgram.cs" />
@@ -99,7 +107,6 @@
     <Compile Include="Environment\VacuumWorld\VacuumPercept.cs" />
     <Compile Include="Environment\VacuumWorld\VacuumConditionActionRule.cs" />
     <Compile Include="Environment\SlidingPuzzle\EightPuzzle\EightPuzzleState.cs" />
-    <Compile Include="Environment\SlidingPuzzle\EightPuzzle\EightPuzzleProblem.cs" />
     <Compile Include="Environment\SlidingPuzzle\SlidingPuzzleAction.cs" />
     <Compile Include="Chapter 3\Problem\IActionsFunction.cs" />
     <Compile Include="Chapter 3\Problem\IGoalTestFunction.cs" />
@@ -118,8 +125,12 @@
     <Compile Include="Environment\VacuumWorld\VacuumProblem.cs" />
     <Compile Include="Environment\VacuumWorld\VacuumResultFunction.cs" />
     <Compile Include="Guard\ParameterGuard.cs" />
-    <Compile Include="List\IList.cs" />
+    <Compile Include="List\IListExtension.cs" />
     <Compile Include="List\IQueue.cs" />
+    <Compile Include="List\FIFOQueue.cs" />
+    <Compile Include="List\IQueueExtension.cs" />
+    <Compile Include="List\LIFOQueue.cs" />
+    <Compile Include="List\PriorityQueue.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

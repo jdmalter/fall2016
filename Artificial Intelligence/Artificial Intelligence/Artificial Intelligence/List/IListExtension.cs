@@ -1,22 +1,13 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace Artificial_Intelligence.List
 {
     /// <summary>
     /// An extension of genereic IList.
     /// </summary>
-    public static class IList
+    public static class IListExtension
     {
-        /// <summary>
-        /// Creates an empty list.
-        /// </summary>
-        /// <typeparam name="T">Any type.</typeparam>
-        /// <returns>An empty list.</returns>
-        public static IList<T> Empty<T>()
-        {
-            return new List<T>();
-        }
-
         /// <summary>
         /// Determines whether the given list contains any elements.
         /// </summary>
@@ -64,6 +55,27 @@ namespace Artificial_Intelligence.List
         {
             list.Insert(0, item);
             return list;
+        }
+
+        /// <summary>
+        /// Swaps the given items.
+        /// </summary>
+        /// <typeparam name="T">Any type.</typeparam>
+        /// <param name="list">A list consisting of unswapped items.</param>
+        /// <param name="a">An item to swap.</param>
+        /// <param name="b">An item to swap.</param>
+        public static void Swap<T>(this IList<T> list, int a, int b)
+        {
+            if (a >= list.Count || b >= list.Count)
+            {
+                throw new IndexOutOfRangeException("indexes must be less than " + list.Count);
+            }
+            else
+            {
+                T temporary = list[a];
+                list[a] = list[b];
+                list[b] = temporary;
+            }
         }
     }
 }

@@ -16,12 +16,9 @@ namespace Artificial_Intelligence.Chapter_3.Search
         /// Specifies state.
         /// </summary>
         /// <param name="state">The state in the state space to which the node corresponds.</param>
-        public Node(TState state)
+        public Node(TState state) : this(state, default(INode<TState, TAction>), default(TAction), 0)
         {
-            State = state.NonNull();
-            Parent = default(INode<TState, TAction>);
-            Action = default(TAction);
-            PathCost = 0;
+
         }
 
         /// <summary>
@@ -31,8 +28,9 @@ namespace Artificial_Intelligence.Chapter_3.Search
         /// <param name="parent">The node in the search tree that generated this node.</param>
         /// <param name="action">The action that was applied to the parent to generate the node.</param>
         /// <param name="pathCost">The cost of the path from the initial state to the node.</param>
-        public Node(TState state, INode<TState, TAction> parent, TAction action, double pathCost) : this(state)
+        public Node(TState state, INode<TState, TAction> parent, TAction action, double pathCost)
         {
+            State = state.NonNull();
             Parent = parent;
             Action = action;
             PathCost = pathCost;
