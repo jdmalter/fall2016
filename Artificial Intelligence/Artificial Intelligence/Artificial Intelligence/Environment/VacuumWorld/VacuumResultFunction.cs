@@ -18,17 +18,17 @@ namespace Artificial_Intelligence.Environment.VacuumWorld
         {
             state.NonNull();
 
-            if (VacuumEnvironment.LEFT == action)
+            if (VacuumAction.LEFT == action)
             {
-                state.Location = VacuumEnvironment.A;
+                state.Location = Location.A;
             }
-            else if (VacuumEnvironment.RIGHT == action)
+            else if (VacuumAction.RIGHT == action)
             {
-                state.Location = VacuumEnvironment.B;
+                state.Location = Location.B;
             }
-            else if (VacuumEnvironment.SUCK == action)
+            else if (VacuumAction.SUCK == action)
             {
-                state.SetLocationStatus(state.Location, VacuumEnvironment.CLEAN);
+                state.SetLocationStatus(state.Location, Status.CLEAN);
             }
 
             return state;

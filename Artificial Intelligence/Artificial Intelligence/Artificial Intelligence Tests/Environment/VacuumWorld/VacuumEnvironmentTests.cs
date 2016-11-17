@@ -1,6 +1,7 @@
 ﻿using Artificial_Intelligence.Chapter_2.Agent;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using NSubstitute;
+using System;
 using System.Linq;
 
 namespace Artificial_Intelligence.Environment.VacuumWorld.Tests
@@ -50,28 +51,65 @@ namespace Artificial_Intelligence.Environment.VacuumWorld.Tests
         [TestMethod]
         public void InitialAgentsAny()
         {
-            // Act
-            bool any = _sut.Agents.Any();
-
             // Assert
-            Assert.IsFalse(any);
+            Assert.IsFalse(_sut.Agents.Any());
         }
 
         [TestMethod]
         public void InitialIsDone()
         {
-            // Act
-            bool isDone = _sut.IsDone;
-
             // Assert
-            Assert.IsFalse(isDone);
+            Assert.IsFalse(_sut.IsDone);
+        }
+
+        [TestMethod]
+        public void ActuateNullAgentParameter()
+        {
+            // Arrange
+            _agent = null;
+            _action = VacuumAction.NULL;
+
+            try
+            {
+                // Act
+                _sut.Actuate(_agent, _action);
+
+                // Assert
+                Assert.Fail("Exception should be thrown.");
+            }
+            catch (ArgumentNullException)
+            {
+                // Assert
+                Assert.IsFalse(_sut.IsDone);
+            }
+        }
+
+        [TestMethod]
+        public void ActuateNullActionParameter()
+        {
+            // Arrange
+            _action = null;
+
+            try
+            {
+                // Act
+                _sut.Actuate(_agent, _action);
+
+                // Assert
+                Assert.Fail("Exception should be thrown.");
+            }
+            catch (ArgumentNullException)
+            {
+                // Assert
+                Assert.IsFalse(_sut.IsDone);
+            }
         }
 
         [TestMethod]
         public void ActuateNullAction()
         {
             // Arrange
-            _action = VacuumEnvironment.NULL;
+            _action = VacuumAction.NULL;
 
             // Act
             _sut.Actuate(_agent, _action);
@@ -84,13 +122,13 @@ namespace Artificial_Intelligence.Environment.VacuumWorld.Tests
         public void ActuateLeftAction()
         {
             // Arrange
-            _action = VacuumEnvironment.LEFT;
+            _action = VacuumAction.LEFT;
 
             // Act
             _sut.Actuate(_agent, _action);
 
             // Assert
-            Assert.AreEqual(VacuumEnvironment.A, _environmentState.GetAgentLocation(_agent));
+            Assert.AreEqual(Location.A, _environmentState.GetAgentLocation(_agent));
             Assert.AreEqual(-1, _sut.GetPerformanceMeasure(_agent));
         }
 
@@ -98,13 +136,13 @@ namespace Artificial_Intelligence.Environment.VacuumWorld.Tests
         public void ActuateRightAction()
         {
             // Arrange
-            _action = VacuumEnvironment.RIGHT;
+            _action = VacuumAction.RIGHT;
 
             // Act
             _sut.Actuate(_agent, _action);
 
             // Assert
-            Assert.AreEqual(VacuumEnvironment.B, _environmentState.GetAgentLocation(_agent));
+            Assert.AreEqual(Location.B, _environmentState.GetAgentLocation(_agent));
             Assert.AreEqual(-1, _sut.GetPerformanceMeasure(_agent));
         }
 
@@ -112,16 +150,16 @@ namespace Artificial_Intelligence.Environment.VacuumWorld.Tests
         public void ActuateSuckCleanAction()
         {
             // Arrange
-            _location = VacuumEnvironment.A;
+            _location = Location.A;
             _environmentState.SetAgentLocation(_agent, _location);
-            _environmentState.SetLocationStatus(_location, VacuumEnvironment.CLEAN);
-            _action = VacuumEnvironment.SUCK;
+            _environmentState.SetLocationStatus(_location, Status.CLEAN);
+            _action = VacuumAction.SUCK;
 
             // Act
             _sut.Actuate(_agent, _action);
 
             // Assert
-            Assert.AreEqual(VacuumEnvironment.CLEAN, _environmentState.GetLocationStatus(_location));
+            Assert.AreEqual(Status.CLEAN, _environmentState.GetLocationStatus(_location));
             Assert.AreEqual(0, _sut.GetPerformanceMeasure(_agent));
         }
 
@@ -129,17 +167,38 @@ namespace Artificial_Intelligence.Environment.VacuumWorld.Tests
         public void ActuateSuckDirtyAction()
         {
             // Arrange
-            _location = VacuumEnvironment.B;
+            _location = Location.B;
             _environmentState.SetAgentLocation(_agent, _location);
-            _environmentState.SetLocationStatus(_location, VacuumEnvironment.DIRTY);
-            _action = VacuumEnvironment.SUCK;
+            _environmentState.SetLocationStatus(_location, Status.DIRTY);
+            _action = VacuumAction.SUCK;
 
             // Act
             _sut.Actuate(_agent, _action);
 
             // Assert
-            Assert.AreEqual(VacuumEnvironment.CLEAN, _environmentState.GetLocationStatus(_location));
+            Assert.AreEqual(Status.CLEAN, _environmentState.GetLocationStatus(_location));
             Assert.AreEqual(10, _sut.GetPerformanceMeasure(_agent));
+        }
+
+        [TestMethod]
+        public void AddNullAgentParameter()
+        {
+            // Arrange
+            _agent = null;
+
+            try
+            {
+                // Act
+                _sut.Add(_agent);
+
+                // Assert
+                Assert.Fail("Exception should be thrown.");
+            }
+            catch (ArgumentNullException)
+            {
+                // Assert
+                Assert.IsFalse(_sut.Agents.Any());
+            }
         }
 
         [TestMethod]
@@ -154,19 +213,41 @@ namespace Artificial_Intelligence.Environment.VacuumWorld.Tests
         }
 
         [TestMethod]
+        public void SenseNullAgentParameter()
+        {
+            // Arrange
+            _agent = null;
+            VacuumPercept percept = null;
+
+            try
+            {
+                // Act
+                percept = _sut.Sense(_agent);
+
+                // Assert
+                Assert.Fail("Exception should be thrown.");
+            }
+            catch (ArgumentNullException)
+            {
+                // Assert
+                Assert.IsNull(percept);
+            }
+        }
+
+        [TestMethod]
         public void SenseAgent()
         {
             // Arrange
-            _location = VacuumEnvironment.A;
+            _location = Location.A;
             _environmentState.SetAgentLocation(_agent, _location);
-            _environmentState.SetLocationStatus(_location, VacuumEnvironment.CLEAN);
+            _environmentState.SetLocationStatus(_location, Status.CLEAN);
 
             // Act
             VacuumPercept percept = _sut.Sense(_agent);
 
             // Assert
             Assert.AreEqual(_location, percept.Location);
-            Assert.AreEqual(VacuumEnvironment.CLEAN, percept.Status);
+            Assert.AreEqual(Status.CLEAN, percept.Status);
         }
     }
 }

@@ -9,15 +9,6 @@ namespace Artificial_Intelligence.Environment.VacuumWorld
     /// </summary>
     public class VacuumEnvironment : Environment<VacuumAgent, VacuumPercept, VacuumAction>
     {
-        public static readonly VacuumAction NULL = new VacuumAction("Null");
-        public static readonly VacuumAction LEFT = new VacuumAction("Left");
-        public static readonly VacuumAction RIGHT = new VacuumAction("Right");
-        public static readonly VacuumAction SUCK = new VacuumAction("Suck");
-        public static readonly Location A = new Location("A");
-        public static readonly Location B = new Location("B");
-        public static readonly Status CLEAN = new Status("Clean");
-        public static readonly Status DIRTY = new Status("Dirty");
-
         /// <summary>
         /// A pseudo-random number generator.
         /// </summary>
@@ -38,8 +29,8 @@ namespace Artificial_Intelligence.Environment.VacuumWorld
         /// </summary>
         public VacuumEnvironment() : this(new VacuumEnvironmentState())
         {
-            _environmentState.SetLocationStatus(A, _random.Next(2) == 0 ? CLEAN : DIRTY);
-            _environmentState.SetLocationStatus(B, _random.Next(2) == 0 ? CLEAN : DIRTY);
+            _environmentState.SetLocationStatus(Location.A, _random.Next(2) == 0 ? Status.CLEAN : Status.DIRTY);
+            _environmentState.SetLocationStatus(Location.B, _random.Next(2) == 0 ? Status.CLEAN : Status.DIRTY);
         }
 
         /// <summary>
@@ -65,27 +56,28 @@ namespace Artificial_Intelligence.Environment.VacuumWorld
         {
             agent.NonNull();
             action.NonNull();
-            if (NULL == action)
+
+            if (VacuumAction.NULL == action)
             {
                 _isDone = true;
             }
-            else if (LEFT == action)
+            else if (VacuumAction.LEFT == action)
             {
-                _environmentState.SetAgentLocation(agent, A);
+                _environmentState.SetAgentLocation(agent, Location.A);
                 ChangePerformanceMeasure(agent, -1);
             }
-            else if (RIGHT == action)
+            else if (VacuumAction.RIGHT == action)
             {
-                _environmentState.SetAgentLocation(agent, B);
+                _environmentState.SetAgentLocation(agent, Location.B);
                 ChangePerformanceMeasure(agent, -1);
             }
-            else if (SUCK == action)
+            else if (VacuumAction.SUCK == action)
             {
                 Location agentLocation = _environmentState.GetAgentLocation(agent);
                 Status locationStatus = _environmentState.GetLocationStatus(agentLocation);
-                if (DIRTY == locationStatus)
+                if (Status.DIRTY == locationStatus)
                 {
-                    _environmentState.SetLocationStatus(agentLocation, CLEAN);
+                    _environmentState.SetLocationStatus(agentLocation, Status.CLEAN);
                     ChangePerformanceMeasure(agent, 10);
                 }
             }
@@ -97,7 +89,7 @@ namespace Artificial_Intelligence.Environment.VacuumWorld
         /// <param name="agent">New agent.</param>
         public override void Add(VacuumAgent agent)
         {
-            Location location = _random.Next(2) == 0 ? A : B;
+            Location location = _random.Next(2) == 0 ? Location.A : Location.B;
             _environmentState.SetAgentLocation(agent.NonNull(), location);
             base.Add(agent);
         }
@@ -122,7 +114,7 @@ namespace Artificial_Intelligence.Environment.VacuumWorld
             base.Step();
             foreach (Location location in _environmentState.Locations)
             {
-                if (CLEAN == _environmentState.GetLocationStatus(location))
+                if (Status.CLEAN == _environmentState.GetLocationStatus(location))
                 {
                     foreach (VacuumAgent agent in Agents)
                     {

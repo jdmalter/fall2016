@@ -19,15 +19,15 @@ namespace Artificial_Intelligence.Environment.VacuumWorld
             state = state ?? new VacuumState(percept.Location);
             state.SetLocationStatus(percept.Location, percept.Status);
 
-            if (VacuumEnvironment.LEFT == action)
+            if (VacuumAction.LEFT == action)
             {
-                state.Location = VacuumEnvironment.A;
+                state.Location = Location.A;
             }
-            else if (VacuumEnvironment.RIGHT == action)
+            else if (VacuumAction.RIGHT == action)
             {
-                state.Location = VacuumEnvironment.B;
+                state.Location = Location.B;
             }
-            else if (VacuumEnvironment.SUCK == action)
+            else if (VacuumAction.SUCK == action)
             {
                 state.SetLocationStatus(percept.Location, percept.Status);
             }

@@ -46,18 +46,18 @@ namespace Artificial_Intelligence.Environment.VacuumWorld.Tests
                 {
                     Location location = state.Location;
                     Status status = state.GetLocationStatus(location);
-                    return status == VacuumEnvironment.DIRTY;
-                }, VacuumEnvironment.SUCK),
+                    return status == Status.DIRTY;
+                }, VacuumAction.SUCK),
                 new VacuumConditionActionRule(state =>
                 {
-                    return state.Location == VacuumEnvironment.B;
-                }, VacuumEnvironment.LEFT),
+                    return state.Location == Location.B;
+                }, VacuumAction.LEFT),
                 new VacuumConditionActionRule(state =>
                 {
-                    return state.Location == VacuumEnvironment.A;
-                }, VacuumEnvironment.RIGHT),
+                    return state.Location == Location.A;
+                }, VacuumAction.RIGHT),
             };
-            VacuumConditionActionRule rule = new VacuumConditionActionRule(state => true, VacuumEnvironment.NULL);
+            VacuumConditionActionRule rule = new VacuumConditionActionRule(state => true, VacuumAction.NULL);
             _agent = new VacuumAgent(new ModelReflexVacuumAgentProgram(new VacuumModel(), rules, rule));
 
             // Act
@@ -81,10 +81,10 @@ namespace Artificial_Intelligence.Environment.VacuumWorld.Tests
             // Arrange
             ISet<VacuumAction> actions = new HashSet<VacuumAction>()
             {
-                VacuumEnvironment.LEFT,
-                VacuumEnvironment.RIGHT,
-                VacuumEnvironment.SUCK,
-                VacuumEnvironment.NULL,
+                VacuumAction.LEFT,
+                VacuumAction.RIGHT,
+                VacuumAction.SUCK,
+                VacuumAction.NULL,
             };
             _agent = new VacuumAgent(new RandomVacuumAgentProgram(actions));
 
@@ -107,18 +107,18 @@ namespace Artificial_Intelligence.Environment.VacuumWorld.Tests
                 {
                     Location location = state.Location;
                     Status status = state.GetLocationStatus(location);
-                    return status == VacuumEnvironment.DIRTY;
-                }, VacuumEnvironment.SUCK),
+                    return status == Status.DIRTY;
+                }, VacuumAction.SUCK),
                 new VacuumConditionActionRule(state =>
                 {
-                    return state.Location == VacuumEnvironment.B;
-                }, VacuumEnvironment.LEFT),
+                    return state.Location == Location.B;
+                }, VacuumAction.LEFT),
                 new VacuumConditionActionRule(state =>
                 {
-                    return state.Location == VacuumEnvironment.A;
-                }, VacuumEnvironment.RIGHT),
+                    return state.Location == Location.A;
+                }, VacuumAction.RIGHT),
             };
-            VacuumConditionActionRule rule = new VacuumConditionActionRule(state => true, VacuumEnvironment.NULL);
+            VacuumConditionActionRule rule = new VacuumConditionActionRule(state => true, VacuumAction.NULL);
             _agent = new VacuumAgent(new SimpleReflexVacuumAgentProgram(rules, rule));
 
             // Act
@@ -189,488 +189,488 @@ namespace Artificial_Intelligence.Environment.VacuumWorld.Tests
                 // one percept
                 [new List<VacuumPercept>()
                 {
-                    new VacuumPercept(VacuumEnvironment.A, VacuumEnvironment.CLEAN),
-                }] = VacuumEnvironment.RIGHT,
+                    new VacuumPercept(Location.A, Status.CLEAN),
+                }] = VacuumAction.RIGHT,
                 [new List<VacuumPercept>()
                 {
-                    new VacuumPercept(VacuumEnvironment.A, VacuumEnvironment.DIRTY),
-                }] = VacuumEnvironment.SUCK,
+                    new VacuumPercept(Location.A, Status.DIRTY),
+                }] = VacuumAction.SUCK,
                 [new List<VacuumPercept>()
                 {
-                    new VacuumPercept(VacuumEnvironment.B, VacuumEnvironment.CLEAN),
-                }] = VacuumEnvironment.LEFT,
+                    new VacuumPercept(Location.B, Status.CLEAN),
+                }] = VacuumAction.LEFT,
                 [new List<VacuumPercept>()
                 {
-                    new VacuumPercept(VacuumEnvironment.B, VacuumEnvironment.DIRTY),
-                }] = VacuumEnvironment.SUCK,
+                    new VacuumPercept(Location.B, Status.DIRTY),
+                }] = VacuumAction.SUCK,
                 // two percepts                            
                 [new List<VacuumPercept>()
                 {
-                    new VacuumPercept(VacuumEnvironment.A, VacuumEnvironment.CLEAN),
-                    new VacuumPercept(VacuumEnvironment.A, VacuumEnvironment.CLEAN),
-                }] = VacuumEnvironment.RIGHT,
+                    new VacuumPercept(Location.A, Status.CLEAN),
+                    new VacuumPercept(Location.A, Status.CLEAN),
+                }] = VacuumAction.RIGHT,
                 [new List<VacuumPercept>()
                 {
-                    new VacuumPercept(VacuumEnvironment.A, VacuumEnvironment.DIRTY),
-                    new VacuumPercept(VacuumEnvironment.A, VacuumEnvironment.CLEAN),
-                }] = VacuumEnvironment.RIGHT,
+                    new VacuumPercept(Location.A, Status.DIRTY),
+                    new VacuumPercept(Location.A, Status.CLEAN),
+                }] = VacuumAction.RIGHT,
                 [new List<VacuumPercept>()
                 {
-                    new VacuumPercept(VacuumEnvironment.B, VacuumEnvironment.CLEAN),
-                    new VacuumPercept(VacuumEnvironment.A, VacuumEnvironment.CLEAN),
-                }] = VacuumEnvironment.RIGHT,
+                    new VacuumPercept(Location.B, Status.CLEAN),
+                    new VacuumPercept(Location.A, Status.CLEAN),
+                }] = VacuumAction.RIGHT,
                 [new List<VacuumPercept>()
                 {
-                    new VacuumPercept(VacuumEnvironment.B, VacuumEnvironment.DIRTY),
-                    new VacuumPercept(VacuumEnvironment.A, VacuumEnvironment.CLEAN),
-                }] = VacuumEnvironment.RIGHT,
+                    new VacuumPercept(Location.B, Status.DIRTY),
+                    new VacuumPercept(Location.A, Status.CLEAN),
+                }] = VacuumAction.RIGHT,
                 [new List<VacuumPercept>()
                 {
-                    new VacuumPercept(VacuumEnvironment.A, VacuumEnvironment.CLEAN),
-                    new VacuumPercept(VacuumEnvironment.A, VacuumEnvironment.DIRTY),
-                }] = VacuumEnvironment.SUCK,
+                    new VacuumPercept(Location.A, Status.CLEAN),
+                    new VacuumPercept(Location.A, Status.DIRTY),
+                }] = VacuumAction.SUCK,
                 [new List<VacuumPercept>()
                 {
-                    new VacuumPercept(VacuumEnvironment.A, VacuumEnvironment.DIRTY),
-                    new VacuumPercept(VacuumEnvironment.A, VacuumEnvironment.DIRTY),
-                }] = VacuumEnvironment.SUCK,
+                    new VacuumPercept(Location.A, Status.DIRTY),
+                    new VacuumPercept(Location.A, Status.DIRTY),
+                }] = VacuumAction.SUCK,
                 [new List<VacuumPercept>()
                 {
-                    new VacuumPercept(VacuumEnvironment.B, VacuumEnvironment.CLEAN),
-                    new VacuumPercept(VacuumEnvironment.A, VacuumEnvironment.DIRTY),
-                }] = VacuumEnvironment.SUCK,
+                    new VacuumPercept(Location.B, Status.CLEAN),
+                    new VacuumPercept(Location.A, Status.DIRTY),
+                }] = VacuumAction.SUCK,
                 [new List<VacuumPercept>()
                 {
-                    new VacuumPercept(VacuumEnvironment.B, VacuumEnvironment.DIRTY),
-                    new VacuumPercept(VacuumEnvironment.A, VacuumEnvironment.DIRTY),
-                }] = VacuumEnvironment.SUCK,
+                    new VacuumPercept(Location.B, Status.DIRTY),
+                    new VacuumPercept(Location.A, Status.DIRTY),
+                }] = VacuumAction.SUCK,
                 [new List<VacuumPercept>()
                 {
-                    new VacuumPercept(VacuumEnvironment.A, VacuumEnvironment.CLEAN),
-                    new VacuumPercept(VacuumEnvironment.B, VacuumEnvironment.CLEAN),
-                }] = VacuumEnvironment.LEFT,
+                    new VacuumPercept(Location.A, Status.CLEAN),
+                    new VacuumPercept(Location.B, Status.CLEAN),
+                }] = VacuumAction.LEFT,
                 [new List<VacuumPercept>()
                 {
-                    new VacuumPercept(VacuumEnvironment.A, VacuumEnvironment.DIRTY),
-                    new VacuumPercept(VacuumEnvironment.B, VacuumEnvironment.CLEAN),
-                }] = VacuumEnvironment.LEFT,
+                    new VacuumPercept(Location.A, Status.DIRTY),
+                    new VacuumPercept(Location.B, Status.CLEAN),
+                }] = VacuumAction.LEFT,
                 [new List<VacuumPercept>()
                 {
-                    new VacuumPercept(VacuumEnvironment.B, VacuumEnvironment.CLEAN),
-                    new VacuumPercept(VacuumEnvironment.B, VacuumEnvironment.CLEAN),
-                }] = VacuumEnvironment.LEFT,
+                    new VacuumPercept(Location.B, Status.CLEAN),
+                    new VacuumPercept(Location.B, Status.CLEAN),
+                }] = VacuumAction.LEFT,
                 [new List<VacuumPercept>()
                 {
-                    new VacuumPercept(VacuumEnvironment.B, VacuumEnvironment.DIRTY),
-                    new VacuumPercept(VacuumEnvironment.B, VacuumEnvironment.CLEAN),
-                }] = VacuumEnvironment.LEFT,
+                    new VacuumPercept(Location.B, Status.DIRTY),
+                    new VacuumPercept(Location.B, Status.CLEAN),
+                }] = VacuumAction.LEFT,
                 [new List<VacuumPercept>()
                 {
-                    new VacuumPercept(VacuumEnvironment.A, VacuumEnvironment.CLEAN),
-                    new VacuumPercept(VacuumEnvironment.B, VacuumEnvironment.DIRTY),
-                }] = VacuumEnvironment.SUCK,
+                    new VacuumPercept(Location.A, Status.CLEAN),
+                    new VacuumPercept(Location.B, Status.DIRTY),
+                }] = VacuumAction.SUCK,
                 [new List<VacuumPercept>()
                 {
-                    new VacuumPercept(VacuumEnvironment.A, VacuumEnvironment.DIRTY),
-                    new VacuumPercept(VacuumEnvironment.B, VacuumEnvironment.DIRTY),
-                }] = VacuumEnvironment.SUCK,
+                    new VacuumPercept(Location.A, Status.DIRTY),
+                    new VacuumPercept(Location.B, Status.DIRTY),
+                }] = VacuumAction.SUCK,
                 [new List<VacuumPercept>()
                 {
-                    new VacuumPercept(VacuumEnvironment.B, VacuumEnvironment.CLEAN),
-                    new VacuumPercept(VacuumEnvironment.B, VacuumEnvironment.DIRTY),
-                }] = VacuumEnvironment.SUCK,
+                    new VacuumPercept(Location.B, Status.CLEAN),
+                    new VacuumPercept(Location.B, Status.DIRTY),
+                }] = VacuumAction.SUCK,
                 [new List<VacuumPercept>()
                 {
-                    new VacuumPercept(VacuumEnvironment.B, VacuumEnvironment.DIRTY),
-                    new VacuumPercept(VacuumEnvironment.B, VacuumEnvironment.DIRTY),
-                }] = VacuumEnvironment.SUCK,
+                    new VacuumPercept(Location.B, Status.DIRTY),
+                    new VacuumPercept(Location.B, Status.DIRTY),
+                }] = VacuumAction.SUCK,
                 // three percepts                          
                 [new List<VacuumPercept>()
                 {
-                    new VacuumPercept(VacuumEnvironment.A, VacuumEnvironment.CLEAN),
-                    new VacuumPercept(VacuumEnvironment.A, VacuumEnvironment.CLEAN),
-                    new VacuumPercept(VacuumEnvironment.A, VacuumEnvironment.CLEAN),
-                }] = VacuumEnvironment.RIGHT,
+                    new VacuumPercept(Location.A, Status.CLEAN),
+                    new VacuumPercept(Location.A, Status.CLEAN),
+                    new VacuumPercept(Location.A, Status.CLEAN),
+                }] = VacuumAction.RIGHT,
                 [new List<VacuumPercept>()
                 {
-                    new VacuumPercept(VacuumEnvironment.A, VacuumEnvironment.DIRTY),
-                    new VacuumPercept(VacuumEnvironment.A, VacuumEnvironment.CLEAN),
-                    new VacuumPercept(VacuumEnvironment.A, VacuumEnvironment.CLEAN),
-                }] = VacuumEnvironment.RIGHT,
+                    new VacuumPercept(Location.A, Status.DIRTY),
+                    new VacuumPercept(Location.A, Status.CLEAN),
+                    new VacuumPercept(Location.A, Status.CLEAN),
+                }] = VacuumAction.RIGHT,
                 [new List<VacuumPercept>()
                 {
-                    new VacuumPercept(VacuumEnvironment.B, VacuumEnvironment.CLEAN),
-                    new VacuumPercept(VacuumEnvironment.A, VacuumEnvironment.CLEAN),
-                    new VacuumPercept(VacuumEnvironment.A, VacuumEnvironment.CLEAN),
-                }] = VacuumEnvironment.RIGHT,
+                    new VacuumPercept(Location.B, Status.CLEAN),
+                    new VacuumPercept(Location.A, Status.CLEAN),
+                    new VacuumPercept(Location.A, Status.CLEAN),
+                }] = VacuumAction.RIGHT,
                 [new List<VacuumPercept>()
                 {
-                    new VacuumPercept(VacuumEnvironment.B, VacuumEnvironment.DIRTY),
-                    new VacuumPercept(VacuumEnvironment.A, VacuumEnvironment.CLEAN),
-                    new VacuumPercept(VacuumEnvironment.A, VacuumEnvironment.CLEAN),
-                }] = VacuumEnvironment.RIGHT,
+                    new VacuumPercept(Location.B, Status.DIRTY),
+                    new VacuumPercept(Location.A, Status.CLEAN),
+                    new VacuumPercept(Location.A, Status.CLEAN),
+                }] = VacuumAction.RIGHT,
                 [new List<VacuumPercept>()
                 {
-                    new VacuumPercept(VacuumEnvironment.A, VacuumEnvironment.CLEAN),
-                    new VacuumPercept(VacuumEnvironment.A, VacuumEnvironment.DIRTY),
-                    new VacuumPercept(VacuumEnvironment.A, VacuumEnvironment.CLEAN),
-                }] = VacuumEnvironment.RIGHT,
+                    new VacuumPercept(Location.A, Status.CLEAN),
+                    new VacuumPercept(Location.A, Status.DIRTY),
+                    new VacuumPercept(Location.A, Status.CLEAN),
+                }] = VacuumAction.RIGHT,
                 [new List<VacuumPercept>()
                 {
-                    new VacuumPercept(VacuumEnvironment.A, VacuumEnvironment.DIRTY),
-                    new VacuumPercept(VacuumEnvironment.A, VacuumEnvironment.DIRTY),
-                    new VacuumPercept(VacuumEnvironment.A, VacuumEnvironment.CLEAN),
-                }] = VacuumEnvironment.RIGHT,
+                    new VacuumPercept(Location.A, Status.DIRTY),
+                    new VacuumPercept(Location.A, Status.DIRTY),
+                    new VacuumPercept(Location.A, Status.CLEAN),
+                }] = VacuumAction.RIGHT,
                 [new List<VacuumPercept>()
                 {
-                    new VacuumPercept(VacuumEnvironment.B, VacuumEnvironment.CLEAN),
-                    new VacuumPercept(VacuumEnvironment.A, VacuumEnvironment.DIRTY),
-                    new VacuumPercept(VacuumEnvironment.A, VacuumEnvironment.CLEAN),
-                }] = VacuumEnvironment.RIGHT,
+                    new VacuumPercept(Location.B, Status.CLEAN),
+                    new VacuumPercept(Location.A, Status.DIRTY),
+                    new VacuumPercept(Location.A, Status.CLEAN),
+                }] = VacuumAction.RIGHT,
                 [new List<VacuumPercept>()
                 {
-                    new VacuumPercept(VacuumEnvironment.B, VacuumEnvironment.DIRTY),
-                    new VacuumPercept(VacuumEnvironment.A, VacuumEnvironment.DIRTY),
-                    new VacuumPercept(VacuumEnvironment.A, VacuumEnvironment.CLEAN),
-                }] = VacuumEnvironment.RIGHT,
+                    new VacuumPercept(Location.B, Status.DIRTY),
+                    new VacuumPercept(Location.A, Status.DIRTY),
+                    new VacuumPercept(Location.A, Status.CLEAN),
+                }] = VacuumAction.RIGHT,
                 [new List<VacuumPercept>()
                 {
-                    new VacuumPercept(VacuumEnvironment.A, VacuumEnvironment.CLEAN),
-                    new VacuumPercept(VacuumEnvironment.B, VacuumEnvironment.CLEAN),
-                    new VacuumPercept(VacuumEnvironment.A, VacuumEnvironment.CLEAN),
-                }] = VacuumEnvironment.RIGHT,
+                    new VacuumPercept(Location.A, Status.CLEAN),
+                    new VacuumPercept(Location.B, Status.CLEAN),
+                    new VacuumPercept(Location.A, Status.CLEAN),
+                }] = VacuumAction.RIGHT,
                 [new List<VacuumPercept>()
                 {
-                    new VacuumPercept(VacuumEnvironment.A, VacuumEnvironment.DIRTY),
-                    new VacuumPercept(VacuumEnvironment.B, VacuumEnvironment.CLEAN),
-                    new VacuumPercept(VacuumEnvironment.A, VacuumEnvironment.CLEAN),
-                }] = VacuumEnvironment.RIGHT,
+                    new VacuumPercept(Location.A, Status.DIRTY),
+                    new VacuumPercept(Location.B, Status.CLEAN),
+                    new VacuumPercept(Location.A, Status.CLEAN),
+                }] = VacuumAction.RIGHT,
                 [new List<VacuumPercept>()
                 {
-                    new VacuumPercept(VacuumEnvironment.B, VacuumEnvironment.CLEAN),
-                    new VacuumPercept(VacuumEnvironment.B, VacuumEnvironment.CLEAN),
-                    new VacuumPercept(VacuumEnvironment.A, VacuumEnvironment.CLEAN),
-                }] = VacuumEnvironment.RIGHT,
+                    new VacuumPercept(Location.B, Status.CLEAN),
+                    new VacuumPercept(Location.B, Status.CLEAN),
+                    new VacuumPercept(Location.A, Status.CLEAN),
+                }] = VacuumAction.RIGHT,
                 [new List<VacuumPercept>()
                 {
-                    new VacuumPercept(VacuumEnvironment.B, VacuumEnvironment.DIRTY),
-                    new VacuumPercept(VacuumEnvironment.B, VacuumEnvironment.CLEAN),
-                    new VacuumPercept(VacuumEnvironment.A, VacuumEnvironment.CLEAN),
-                }] = VacuumEnvironment.RIGHT,
+                    new VacuumPercept(Location.B, Status.DIRTY),
+                    new VacuumPercept(Location.B, Status.CLEAN),
+                    new VacuumPercept(Location.A, Status.CLEAN),
+                }] = VacuumAction.RIGHT,
                 [new List<VacuumPercept>()
                 {
-                    new VacuumPercept(VacuumEnvironment.A, VacuumEnvironment.CLEAN),
-                    new VacuumPercept(VacuumEnvironment.B, VacuumEnvironment.DIRTY),
-                    new VacuumPercept(VacuumEnvironment.A, VacuumEnvironment.CLEAN),
-                }] = VacuumEnvironment.RIGHT,
+                    new VacuumPercept(Location.A, Status.CLEAN),
+                    new VacuumPercept(Location.B, Status.DIRTY),
+                    new VacuumPercept(Location.A, Status.CLEAN),
+                }] = VacuumAction.RIGHT,
                 [new List<VacuumPercept>()
                 {
-                    new VacuumPercept(VacuumEnvironment.A, VacuumEnvironment.DIRTY),
-                    new VacuumPercept(VacuumEnvironment.B, VacuumEnvironment.DIRTY),
-                    new VacuumPercept(VacuumEnvironment.A, VacuumEnvironment.CLEAN),
-                }] = VacuumEnvironment.RIGHT,
+                    new VacuumPercept(Location.A, Status.DIRTY),
+                    new VacuumPercept(Location.B, Status.DIRTY),
+                    new VacuumPercept(Location.A, Status.CLEAN),
+                }] = VacuumAction.RIGHT,
                 [new List<VacuumPercept>()
                 {
-                    new VacuumPercept(VacuumEnvironment.B, VacuumEnvironment.CLEAN),
-                    new VacuumPercept(VacuumEnvironment.B, VacuumEnvironment.DIRTY),
-                    new VacuumPercept(VacuumEnvironment.A, VacuumEnvironment.CLEAN),
-                }] = VacuumEnvironment.RIGHT,
+                    new VacuumPercept(Location.B, Status.CLEAN),
+                    new VacuumPercept(Location.B, Status.DIRTY),
+                    new VacuumPercept(Location.A, Status.CLEAN),
+                }] = VacuumAction.RIGHT,
                 [new List<VacuumPercept>()
                 {
-                    new VacuumPercept(VacuumEnvironment.B, VacuumEnvironment.DIRTY),
-                    new VacuumPercept(VacuumEnvironment.B, VacuumEnvironment.DIRTY),
-                    new VacuumPercept(VacuumEnvironment.A, VacuumEnvironment.CLEAN),
-                }] = VacuumEnvironment.RIGHT,
+                    new VacuumPercept(Location.B, Status.DIRTY),
+                    new VacuumPercept(Location.B, Status.DIRTY),
+                    new VacuumPercept(Location.A, Status.CLEAN),
+                }] = VacuumAction.RIGHT,
                 [new List<VacuumPercept>()
                 {
-                    new VacuumPercept(VacuumEnvironment.A, VacuumEnvironment.CLEAN),
-                    new VacuumPercept(VacuumEnvironment.A, VacuumEnvironment.CLEAN),
-                    new VacuumPercept(VacuumEnvironment.A, VacuumEnvironment.DIRTY),
-                }] = VacuumEnvironment.SUCK,
+                    new VacuumPercept(Location.A, Status.CLEAN),
+                    new VacuumPercept(Location.A, Status.CLEAN),
+                    new VacuumPercept(Location.A, Status.DIRTY),
+                }] = VacuumAction.SUCK,
                 [new List<VacuumPercept>()
                 {
-                    new VacuumPercept(VacuumEnvironment.A, VacuumEnvironment.DIRTY),
-                    new VacuumPercept(VacuumEnvironment.A, VacuumEnvironment.CLEAN),
-                    new VacuumPercept(VacuumEnvironment.A, VacuumEnvironment.DIRTY),
-                }] = VacuumEnvironment.SUCK,
+                    new VacuumPercept(Location.A, Status.DIRTY),
+                    new VacuumPercept(Location.A, Status.CLEAN),
+                    new VacuumPercept(Location.A, Status.DIRTY),
+                }] = VacuumAction.SUCK,
                 [new List<VacuumPercept>()
                 {
-                    new VacuumPercept(VacuumEnvironment.B, VacuumEnvironment.CLEAN),
-                    new VacuumPercept(VacuumEnvironment.A, VacuumEnvironment.CLEAN),
-                    new VacuumPercept(VacuumEnvironment.A, VacuumEnvironment.DIRTY),
-                }] = VacuumEnvironment.SUCK,
+                    new VacuumPercept(Location.B, Status.CLEAN),
+                    new VacuumPercept(Location.A, Status.CLEAN),
+                    new VacuumPercept(Location.A, Status.DIRTY),
+                }] = VacuumAction.SUCK,
                 [new List<VacuumPercept>()
                 {
-                    new VacuumPercept(VacuumEnvironment.B, VacuumEnvironment.DIRTY),
-                    new VacuumPercept(VacuumEnvironment.A, VacuumEnvironment.CLEAN),
-                    new VacuumPercept(VacuumEnvironment.A, VacuumEnvironment.DIRTY),
-                }] = VacuumEnvironment.SUCK,
+                    new VacuumPercept(Location.B, Status.DIRTY),
+                    new VacuumPercept(Location.A, Status.CLEAN),
+                    new VacuumPercept(Location.A, Status.DIRTY),
+                }] = VacuumAction.SUCK,
                 [new List<VacuumPercept>()
                 {
-                    new VacuumPercept(VacuumEnvironment.A, VacuumEnvironment.CLEAN),
-                    new VacuumPercept(VacuumEnvironment.A, VacuumEnvironment.DIRTY),
-                    new VacuumPercept(VacuumEnvironment.A, VacuumEnvironment.DIRTY),
-                }] = VacuumEnvironment.SUCK,
+                    new VacuumPercept(Location.A, Status.CLEAN),
+                    new VacuumPercept(Location.A, Status.DIRTY),
+                    new VacuumPercept(Location.A, Status.DIRTY),
+                }] = VacuumAction.SUCK,
                 [new List<VacuumPercept>()
                 {
-                    new VacuumPercept(VacuumEnvironment.A, VacuumEnvironment.DIRTY),
-                    new VacuumPercept(VacuumEnvironment.A, VacuumEnvironment.DIRTY),
-                    new VacuumPercept(VacuumEnvironment.A, VacuumEnvironment.DIRTY),
-                }] = VacuumEnvironment.SUCK,
+                    new VacuumPercept(Location.A, Status.DIRTY),
+                    new VacuumPercept(Location.A, Status.DIRTY),
+                    new VacuumPercept(Location.A, Status.DIRTY),
+                }] = VacuumAction.SUCK,
                 [new List<VacuumPercept>()
                 {
-                    new VacuumPercept(VacuumEnvironment.B, VacuumEnvironment.CLEAN),
-                    new VacuumPercept(VacuumEnvironment.A, VacuumEnvironment.DIRTY),
-                    new VacuumPercept(VacuumEnvironment.A, VacuumEnvironment.DIRTY),
-                }] = VacuumEnvironment.SUCK,
+                    new VacuumPercept(Location.B, Status.CLEAN),
+                    new VacuumPercept(Location.A, Status.DIRTY),
+                    new VacuumPercept(Location.A, Status.DIRTY),
+                }] = VacuumAction.SUCK,
                 [new List<VacuumPercept>()
                 {
-                    new VacuumPercept(VacuumEnvironment.B, VacuumEnvironment.DIRTY),
-                    new VacuumPercept(VacuumEnvironment.A, VacuumEnvironment.DIRTY),
-                    new VacuumPercept(VacuumEnvironment.A, VacuumEnvironment.DIRTY),
-                }] = VacuumEnvironment.SUCK,
+                    new VacuumPercept(Location.B, Status.DIRTY),
+                    new VacuumPercept(Location.A, Status.DIRTY),
+                    new VacuumPercept(Location.A, Status.DIRTY),
+                }] = VacuumAction.SUCK,
                 [new List<VacuumPercept>()
                 {
-                    new VacuumPercept(VacuumEnvironment.A, VacuumEnvironment.CLEAN),
-                    new VacuumPercept(VacuumEnvironment.B, VacuumEnvironment.CLEAN),
-                    new VacuumPercept(VacuumEnvironment.A, VacuumEnvironment.DIRTY),
-                }] = VacuumEnvironment.SUCK,
+                    new VacuumPercept(Location.A, Status.CLEAN),
+                    new VacuumPercept(Location.B, Status.CLEAN),
+                    new VacuumPercept(Location.A, Status.DIRTY),
+                }] = VacuumAction.SUCK,
                 [new List<VacuumPercept>()
                 {
-                    new VacuumPercept(VacuumEnvironment.A, VacuumEnvironment.DIRTY),
-                    new VacuumPercept(VacuumEnvironment.B, VacuumEnvironment.CLEAN),
-                    new VacuumPercept(VacuumEnvironment.A, VacuumEnvironment.DIRTY),
-                }] = VacuumEnvironment.SUCK,
+                    new VacuumPercept(Location.A, Status.DIRTY),
+                    new VacuumPercept(Location.B, Status.CLEAN),
+                    new VacuumPercept(Location.A, Status.DIRTY),
+                }] = VacuumAction.SUCK,
                 [new List<VacuumPercept>()
                 {
-                    new VacuumPercept(VacuumEnvironment.B, VacuumEnvironment.CLEAN),
-                    new VacuumPercept(VacuumEnvironment.B, VacuumEnvironment.CLEAN),
-                    new VacuumPercept(VacuumEnvironment.A, VacuumEnvironment.DIRTY),
-                }] = VacuumEnvironment.SUCK,
+                    new VacuumPercept(Location.B, Status.CLEAN),
+                    new VacuumPercept(Location.B, Status.CLEAN),
+                    new VacuumPercept(Location.A, Status.DIRTY),
+                }] = VacuumAction.SUCK,
                 [new List<VacuumPercept>()
                 {
-                    new VacuumPercept(VacuumEnvironment.B, VacuumEnvironment.DIRTY),
-                    new VacuumPercept(VacuumEnvironment.B, VacuumEnvironment.CLEAN),
-                    new VacuumPercept(VacuumEnvironment.A, VacuumEnvironment.DIRTY),
-                }] = VacuumEnvironment.SUCK,
+                    new VacuumPercept(Location.B, Status.DIRTY),
+                    new VacuumPercept(Location.B, Status.CLEAN),
+                    new VacuumPercept(Location.A, Status.DIRTY),
+                }] = VacuumAction.SUCK,
                 [new List<VacuumPercept>()
                 {
-                    new VacuumPercept(VacuumEnvironment.A, VacuumEnvironment.CLEAN),
-                    new VacuumPercept(VacuumEnvironment.B, VacuumEnvironment.DIRTY),
-                    new VacuumPercept(VacuumEnvironment.A, VacuumEnvironment.DIRTY),
-                }] = VacuumEnvironment.SUCK,
+                    new VacuumPercept(Location.A, Status.CLEAN),
+                    new VacuumPercept(Location.B, Status.DIRTY),
+                    new VacuumPercept(Location.A, Status.DIRTY),
+                }] = VacuumAction.SUCK,
                 [new List<VacuumPercept>()
                 {
-                    new VacuumPercept(VacuumEnvironment.A, VacuumEnvironment.DIRTY),
-                    new VacuumPercept(VacuumEnvironment.B, VacuumEnvironment.DIRTY),
-                    new VacuumPercept(VacuumEnvironment.A, VacuumEnvironment.DIRTY),
-                }] = VacuumEnvironment.SUCK,
+                    new VacuumPercept(Location.A, Status.DIRTY),
+                    new VacuumPercept(Location.B, Status.DIRTY),
+                    new VacuumPercept(Location.A, Status.DIRTY),
+                }] = VacuumAction.SUCK,
                 [new List<VacuumPercept>()
                 {
-                    new VacuumPercept(VacuumEnvironment.B, VacuumEnvironment.CLEAN),
-                    new VacuumPercept(VacuumEnvironment.B, VacuumEnvironment.DIRTY),
-                    new VacuumPercept(VacuumEnvironment.A, VacuumEnvironment.DIRTY),
-                }] = VacuumEnvironment.SUCK,
+                    new VacuumPercept(Location.B, Status.CLEAN),
+                    new VacuumPercept(Location.B, Status.DIRTY),
+                    new VacuumPercept(Location.A, Status.DIRTY),
+                }] = VacuumAction.SUCK,
                 [new List<VacuumPercept>()
                 {
-                    new VacuumPercept(VacuumEnvironment.B, VacuumEnvironment.DIRTY),
-                    new VacuumPercept(VacuumEnvironment.B, VacuumEnvironment.DIRTY),
-                    new VacuumPercept(VacuumEnvironment.A, VacuumEnvironment.DIRTY),
-                }] = VacuumEnvironment.SUCK,
+                    new VacuumPercept(Location.B, Status.DIRTY),
+                    new VacuumPercept(Location.B, Status.DIRTY),
+                    new VacuumPercept(Location.A, Status.DIRTY),
+                }] = VacuumAction.SUCK,
                 [new List<VacuumPercept>()
                 {
-                    new VacuumPercept(VacuumEnvironment.A, VacuumEnvironment.CLEAN),
-                    new VacuumPercept(VacuumEnvironment.A, VacuumEnvironment.CLEAN),
-                    new VacuumPercept(VacuumEnvironment.B, VacuumEnvironment.CLEAN),
-                }] = VacuumEnvironment.LEFT,
+                    new VacuumPercept(Location.A, Status.CLEAN),
+                    new VacuumPercept(Location.A, Status.CLEAN),
+                    new VacuumPercept(Location.B, Status.CLEAN),
+                }] = VacuumAction.LEFT,
                 [new List<VacuumPercept>()
                 {
-                    new VacuumPercept(VacuumEnvironment.A, VacuumEnvironment.DIRTY),
-                    new VacuumPercept(VacuumEnvironment.A, VacuumEnvironment.CLEAN),
-                    new VacuumPercept(VacuumEnvironment.B, VacuumEnvironment.CLEAN),
-                }] = VacuumEnvironment.LEFT,
+                    new VacuumPercept(Location.A, Status.DIRTY),
+                    new VacuumPercept(Location.A, Status.CLEAN),
+                    new VacuumPercept(Location.B, Status.CLEAN),
+                }] = VacuumAction.LEFT,
                 [new List<VacuumPercept>()
                 {
-                    new VacuumPercept(VacuumEnvironment.B, VacuumEnvironment.CLEAN),
-                    new VacuumPercept(VacuumEnvironment.A, VacuumEnvironment.CLEAN),
-                    new VacuumPercept(VacuumEnvironment.B, VacuumEnvironment.CLEAN),
-                }] = VacuumEnvironment.LEFT,
+                    new VacuumPercept(Location.B, Status.CLEAN),
+                    new VacuumPercept(Location.A, Status.CLEAN),
+                    new VacuumPercept(Location.B, Status.CLEAN),
+                }] = VacuumAction.LEFT,
                 [new List<VacuumPercept>()
                 {
-                    new VacuumPercept(VacuumEnvironment.B, VacuumEnvironment.DIRTY),
-                    new VacuumPercept(VacuumEnvironment.A, VacuumEnvironment.CLEAN),
-                    new VacuumPercept(VacuumEnvironment.B, VacuumEnvironment.CLEAN),
-                }] = VacuumEnvironment.LEFT,
+                    new VacuumPercept(Location.B, Status.DIRTY),
+                    new VacuumPercept(Location.A, Status.CLEAN),
+                    new VacuumPercept(Location.B, Status.CLEAN),
+                }] = VacuumAction.LEFT,
                 [new List<VacuumPercept>()
                 {
-                    new VacuumPercept(VacuumEnvironment.A, VacuumEnvironment.CLEAN),
-                    new VacuumPercept(VacuumEnvironment.A, VacuumEnvironment.DIRTY),
-                    new VacuumPercept(VacuumEnvironment.B, VacuumEnvironment.CLEAN),
-                }] = VacuumEnvironment.LEFT,
+                    new VacuumPercept(Location.A, Status.CLEAN),
+                    new VacuumPercept(Location.A, Status.DIRTY),
+                    new VacuumPercept(Location.B, Status.CLEAN),
+                }] = VacuumAction.LEFT,
                 [new List<VacuumPercept>()
                 {
-                    new VacuumPercept(VacuumEnvironment.A, VacuumEnvironment.DIRTY),
-                    new VacuumPercept(VacuumEnvironment.A, VacuumEnvironment.DIRTY),
-                    new VacuumPercept(VacuumEnvironment.B, VacuumEnvironment.CLEAN),
-                }] = VacuumEnvironment.LEFT,
+                    new VacuumPercept(Location.A, Status.DIRTY),
+                    new VacuumPercept(Location.A, Status.DIRTY),
+                    new VacuumPercept(Location.B, Status.CLEAN),
+                }] = VacuumAction.LEFT,
                 [new List<VacuumPercept>()
                 {
-                    new VacuumPercept(VacuumEnvironment.B, VacuumEnvironment.CLEAN),
-                    new VacuumPercept(VacuumEnvironment.A, VacuumEnvironment.DIRTY),
-                    new VacuumPercept(VacuumEnvironment.B, VacuumEnvironment.CLEAN),
-                }] = VacuumEnvironment.LEFT,
+                    new VacuumPercept(Location.B, Status.CLEAN),
+                    new VacuumPercept(Location.A, Status.DIRTY),
+                    new VacuumPercept(Location.B, Status.CLEAN),
+                }] = VacuumAction.LEFT,
                 [new List<VacuumPercept>()
                 {
-                    new VacuumPercept(VacuumEnvironment.B, VacuumEnvironment.DIRTY),
-                    new VacuumPercept(VacuumEnvironment.A, VacuumEnvironment.DIRTY),
-                    new VacuumPercept(VacuumEnvironment.B, VacuumEnvironment.CLEAN),
-                }] = VacuumEnvironment.LEFT,
+                    new VacuumPercept(Location.B, Status.DIRTY),
+                    new VacuumPercept(Location.A, Status.DIRTY),
+                    new VacuumPercept(Location.B, Status.CLEAN),
+                }] = VacuumAction.LEFT,
                 [new List<VacuumPercept>()
                 {
-                    new VacuumPercept(VacuumEnvironment.A, VacuumEnvironment.CLEAN),
-                    new VacuumPercept(VacuumEnvironment.B, VacuumEnvironment.CLEAN),
-                    new VacuumPercept(VacuumEnvironment.B, VacuumEnvironment.CLEAN),
-                }] = VacuumEnvironment.LEFT,
+                    new VacuumPercept(Location.A, Status.CLEAN),
+                    new VacuumPercept(Location.B, Status.CLEAN),
+                    new VacuumPercept(Location.B, Status.CLEAN),
+                }] = VacuumAction.LEFT,
                 [new List<VacuumPercept>()
                 {
-                    new VacuumPercept(VacuumEnvironment.A, VacuumEnvironment.DIRTY),
-                    new VacuumPercept(VacuumEnvironment.B, VacuumEnvironment.CLEAN),
-                    new VacuumPercept(VacuumEnvironment.B, VacuumEnvironment.CLEAN),
-                }] = VacuumEnvironment.LEFT,
+                    new VacuumPercept(Location.A, Status.DIRTY),
+                    new VacuumPercept(Location.B, Status.CLEAN),
+                    new VacuumPercept(Location.B, Status.CLEAN),
+                }] = VacuumAction.LEFT,
                 [new List<VacuumPercept>()
                 {
-                    new VacuumPercept(VacuumEnvironment.B, VacuumEnvironment.CLEAN),
-                    new VacuumPercept(VacuumEnvironment.B, VacuumEnvironment.CLEAN),
-                    new VacuumPercept(VacuumEnvironment.B, VacuumEnvironment.CLEAN),
-                }] = VacuumEnvironment.LEFT,
+                    new VacuumPercept(Location.B, Status.CLEAN),
+                    new VacuumPercept(Location.B, Status.CLEAN),
+                    new VacuumPercept(Location.B, Status.CLEAN),
+                }] = VacuumAction.LEFT,
                 [new List<VacuumPercept>()
                 {
-                    new VacuumPercept(VacuumEnvironment.B, VacuumEnvironment.DIRTY),
-                    new VacuumPercept(VacuumEnvironment.B, VacuumEnvironment.CLEAN),
-                    new VacuumPercept(VacuumEnvironment.B, VacuumEnvironment.CLEAN),
-                }] = VacuumEnvironment.LEFT,
+                    new VacuumPercept(Location.B, Status.DIRTY),
+                    new VacuumPercept(Location.B, Status.CLEAN),
+                    new VacuumPercept(Location.B, Status.CLEAN),
+                }] = VacuumAction.LEFT,
                 [new List<VacuumPercept>()
                 {
-                    new VacuumPercept(VacuumEnvironment.A, VacuumEnvironment.CLEAN),
-                    new VacuumPercept(VacuumEnvironment.B, VacuumEnvironment.DIRTY),
-                    new VacuumPercept(VacuumEnvironment.B, VacuumEnvironment.CLEAN),
-                }] = VacuumEnvironment.LEFT,
+                    new VacuumPercept(Location.A, Status.CLEAN),
+                    new VacuumPercept(Location.B, Status.DIRTY),
+                    new VacuumPercept(Location.B, Status.CLEAN),
+                }] = VacuumAction.LEFT,
                 [new List<VacuumPercept>()
                 {
-                    new VacuumPercept(VacuumEnvironment.A, VacuumEnvironment.DIRTY),
-                    new VacuumPercept(VacuumEnvironment.B, VacuumEnvironment.DIRTY),
-                    new VacuumPercept(VacuumEnvironment.B, VacuumEnvironment.CLEAN),
-                }] = VacuumEnvironment.LEFT,
+                    new VacuumPercept(Location.A, Status.DIRTY),
+                    new VacuumPercept(Location.B, Status.DIRTY),
+                    new VacuumPercept(Location.B, Status.CLEAN),
+                }] = VacuumAction.LEFT,
                 [new List<VacuumPercept>()
                 {
-                    new VacuumPercept(VacuumEnvironment.B, VacuumEnvironment.CLEAN),
-                    new VacuumPercept(VacuumEnvironment.B, VacuumEnvironment.DIRTY),
-                    new VacuumPercept(VacuumEnvironment.B, VacuumEnvironment.CLEAN),
-                }] = VacuumEnvironment.LEFT,
+                    new VacuumPercept(Location.B, Status.CLEAN),
+                    new VacuumPercept(Location.B, Status.DIRTY),
+                    new VacuumPercept(Location.B, Status.CLEAN),
+                }] = VacuumAction.LEFT,
                 [new List<VacuumPercept>()
                 {
-                    new VacuumPercept(VacuumEnvironment.B, VacuumEnvironment.DIRTY),
-                    new VacuumPercept(VacuumEnvironment.B, VacuumEnvironment.DIRTY),
-                    new VacuumPercept(VacuumEnvironment.B, VacuumEnvironment.CLEAN),
-                }] = VacuumEnvironment.LEFT,
+                    new VacuumPercept(Location.B, Status.DIRTY),
+                    new VacuumPercept(Location.B, Status.DIRTY),
+                    new VacuumPercept(Location.B, Status.CLEAN),
+                }] = VacuumAction.LEFT,
                 [new List<VacuumPercept>()
                 {
-                    new VacuumPercept(VacuumEnvironment.A, VacuumEnvironment.CLEAN),
-                    new VacuumPercept(VacuumEnvironment.A, VacuumEnvironment.CLEAN),
-                    new VacuumPercept(VacuumEnvironment.B, VacuumEnvironment.DIRTY),
-                }] = VacuumEnvironment.SUCK,
+                    new VacuumPercept(Location.A, Status.CLEAN),
+                    new VacuumPercept(Location.A, Status.CLEAN),
+                    new VacuumPercept(Location.B, Status.DIRTY),
+                }] = VacuumAction.SUCK,
                 [new List<VacuumPercept>()
                 {
-                    new VacuumPercept(VacuumEnvironment.A, VacuumEnvironment.DIRTY),
-                    new VacuumPercept(VacuumEnvironment.A, VacuumEnvironment.CLEAN),
-                    new VacuumPercept(VacuumEnvironment.B, VacuumEnvironment.DIRTY),
-                }] = VacuumEnvironment.SUCK,
+                    new VacuumPercept(Location.A, Status.DIRTY),
+                    new VacuumPercept(Location.A, Status.CLEAN),
+                    new VacuumPercept(Location.B, Status.DIRTY),
+                }] = VacuumAction.SUCK,
                 [new List<VacuumPercept>()
                 {
-                    new VacuumPercept(VacuumEnvironment.B, VacuumEnvironment.CLEAN),
-                    new VacuumPercept(VacuumEnvironment.A, VacuumEnvironment.CLEAN),
-                    new VacuumPercept(VacuumEnvironment.B, VacuumEnvironment.DIRTY),
-                }] = VacuumEnvironment.SUCK,
+                    new VacuumPercept(Location.B, Status.CLEAN),
+                    new VacuumPercept(Location.A, Status.CLEAN),
+                    new VacuumPercept(Location.B, Status.DIRTY),
+                }] = VacuumAction.SUCK,
                 [new List<VacuumPercept>()
                 {
-                    new VacuumPercept(VacuumEnvironment.B, VacuumEnvironment.DIRTY),
-                    new VacuumPercept(VacuumEnvironment.A, VacuumEnvironment.CLEAN),
-                    new VacuumPercept(VacuumEnvironment.B, VacuumEnvironment.DIRTY),
-                }] = VacuumEnvironment.SUCK,
+                    new VacuumPercept(Location.B, Status.DIRTY),
+                    new VacuumPercept(Location.A, Status.CLEAN),
+                    new VacuumPercept(Location.B, Status.DIRTY),
+                }] = VacuumAction.SUCK,
                 [new List<VacuumPercept>()
                 {
-                    new VacuumPercept(VacuumEnvironment.A, VacuumEnvironment.CLEAN),
-                    new VacuumPercept(VacuumEnvironment.A, VacuumEnvironment.DIRTY),
-                    new VacuumPercept(VacuumEnvironment.B, VacuumEnvironment.DIRTY),
-                }] = VacuumEnvironment.SUCK,
+                    new VacuumPercept(Location.A, Status.CLEAN),
+                    new VacuumPercept(Location.A, Status.DIRTY),
+                    new VacuumPercept(Location.B, Status.DIRTY),
+                }] = VacuumAction.SUCK,
                 [new List<VacuumPercept>()
                 {
-                    new VacuumPercept(VacuumEnvironment.A, VacuumEnvironment.DIRTY),
-                    new VacuumPercept(VacuumEnvironment.A, VacuumEnvironment.DIRTY),
-                    new VacuumPercept(VacuumEnvironment.B, VacuumEnvironment.DIRTY),
-                }] = VacuumEnvironment.SUCK,
+                    new VacuumPercept(Location.A, Status.DIRTY),
+                    new VacuumPercept(Location.A, Status.DIRTY),
+                    new VacuumPercept(Location.B, Status.DIRTY),
+                }] = VacuumAction.SUCK,
                 [new List<VacuumPercept>()
                 {
-                    new VacuumPercept(VacuumEnvironment.B, VacuumEnvironment.CLEAN),
-                    new VacuumPercept(VacuumEnvironment.A, VacuumEnvironment.DIRTY),
-                    new VacuumPercept(VacuumEnvironment.B, VacuumEnvironment.DIRTY),
-                }] = VacuumEnvironment.SUCK,
+                    new VacuumPercept(Location.B, Status.CLEAN),
+                    new VacuumPercept(Location.A, Status.DIRTY),
+                    new VacuumPercept(Location.B, Status.DIRTY),
+                }] = VacuumAction.SUCK,
                 [new List<VacuumPercept>()
                 {
-                    new VacuumPercept(VacuumEnvironment.B, VacuumEnvironment.DIRTY),
-                    new VacuumPercept(VacuumEnvironment.A, VacuumEnvironment.DIRTY),
-                    new VacuumPercept(VacuumEnvironment.B, VacuumEnvironment.DIRTY),
-                }] = VacuumEnvironment.SUCK,
+                    new VacuumPercept(Location.B, Status.DIRTY),
+                    new VacuumPercept(Location.A, Status.DIRTY),
+                    new VacuumPercept(Location.B, Status.DIRTY),
+                }] = VacuumAction.SUCK,
                 [new List<VacuumPercept>()
                 {
-                    new VacuumPercept(VacuumEnvironment.A, VacuumEnvironment.CLEAN),
-                    new VacuumPercept(VacuumEnvironment.B, VacuumEnvironment.CLEAN),
-                    new VacuumPercept(VacuumEnvironment.B, VacuumEnvironment.DIRTY),
-                }] = VacuumEnvironment.SUCK,
+                    new VacuumPercept(Location.A, Status.CLEAN),
+                    new VacuumPercept(Location.B, Status.CLEAN),
+                    new VacuumPercept(Location.B, Status.DIRTY),
+                }] = VacuumAction.SUCK,
                 [new List<VacuumPercept>()
                 {
-                    new VacuumPercept(VacuumEnvironment.A, VacuumEnvironment.DIRTY),
-                    new VacuumPercept(VacuumEnvironment.B, VacuumEnvironment.CLEAN),
-                    new VacuumPercept(VacuumEnvironment.B, VacuumEnvironment.DIRTY),
-                }] = VacuumEnvironment.SUCK,
+                    new VacuumPercept(Location.A, Status.DIRTY),
+                    new VacuumPercept(Location.B, Status.CLEAN),
+                    new VacuumPercept(Location.B, Status.DIRTY),
+                }] = VacuumAction.SUCK,
                 [new List<VacuumPercept>()
                 {
-                    new VacuumPercept(VacuumEnvironment.B, VacuumEnvironment.CLEAN),
-                    new VacuumPercept(VacuumEnvironment.B, VacuumEnvironment.CLEAN),
-                    new VacuumPercept(VacuumEnvironment.B, VacuumEnvironment.DIRTY),
-                }] = VacuumEnvironment.SUCK,
+                    new VacuumPercept(Location.B, Status.CLEAN),
+                    new VacuumPercept(Location.B, Status.CLEAN),
+                    new VacuumPercept(Location.B, Status.DIRTY),
+                }] = VacuumAction.SUCK,
                 [new List<VacuumPercept>()
                 {
-                    new VacuumPercept(VacuumEnvironment.B, VacuumEnvironment.DIRTY),
-                    new VacuumPercept(VacuumEnvironment.B, VacuumEnvironment.CLEAN),
-                    new VacuumPercept(VacuumEnvironment.B, VacuumEnvironment.DIRTY),
-                }] = VacuumEnvironment.SUCK,
+                    new VacuumPercept(Location.B, Status.DIRTY),
+                    new VacuumPercept(Location.B, Status.CLEAN),
+                    new VacuumPercept(Location.B, Status.DIRTY),
+                }] = VacuumAction.SUCK,
                 [new List<VacuumPercept>()
                 {
-                    new VacuumPercept(VacuumEnvironment.A, VacuumEnvironment.CLEAN),
-                    new VacuumPercept(VacuumEnvironment.B, VacuumEnvironment.DIRTY),
-                    new VacuumPercept(VacuumEnvironment.B, VacuumEnvironment.DIRTY),
-                }] = VacuumEnvironment.SUCK,
+                    new VacuumPercept(Location.A, Status.CLEAN),
+                    new VacuumPercept(Location.B, Status.DIRTY),
+                    new VacuumPercept(Location.B, Status.DIRTY),
+                }] = VacuumAction.SUCK,
                 [new List<VacuumPercept>()
                 {
-                    new VacuumPercept(VacuumEnvironment.A, VacuumEnvironment.DIRTY),
-                    new VacuumPercept(VacuumEnvironment.B, VacuumEnvironment.DIRTY),
-                    new VacuumPercept(VacuumEnvironment.B, VacuumEnvironment.DIRTY),
-                }] = VacuumEnvironment.SUCK,
+                    new VacuumPercept(Location.A, Status.DIRTY),
+                    new VacuumPercept(Location.B, Status.DIRTY),
+                    new VacuumPercept(Location.B, Status.DIRTY),
+                }] = VacuumAction.SUCK,
                 [new List<VacuumPercept>()
                 {
-                    new VacuumPercept(VacuumEnvironment.B, VacuumEnvironment.CLEAN),
-                    new VacuumPercept(VacuumEnvironment.B, VacuumEnvironment.DIRTY),
-                    new VacuumPercept(VacuumEnvironment.B, VacuumEnvironment.DIRTY),
-                }] = VacuumEnvironment.SUCK,
+                    new VacuumPercept(Location.B, Status.CLEAN),
+                    new VacuumPercept(Location.B, Status.DIRTY),
+                    new VacuumPercept(Location.B, Status.DIRTY),
+                }] = VacuumAction.SUCK,
                 [new List<VacuumPercept>()
                 {
-                    new VacuumPercept(VacuumEnvironment.B, VacuumEnvironment.DIRTY),
-                    new VacuumPercept(VacuumEnvironment.B, VacuumEnvironment.DIRTY),
-                    new VacuumPercept(VacuumEnvironment.B, VacuumEnvironment.DIRTY),
-                }] = VacuumEnvironment.SUCK,
+                    new VacuumPercept(Location.B, Status.DIRTY),
+                    new VacuumPercept(Location.B, Status.DIRTY),
+                    new VacuumPercept(Location.B, Status.DIRTY),
+                }] = VacuumAction.SUCK,
             };
-            _agent = new VacuumAgent(new TableDrivenVacuumAgentProgram(table, VacuumEnvironment.NULL));
+            _agent = new VacuumAgent(new TableDrivenVacuumAgentProgram(table, VacuumAction.NULL));
 
             // Act
             Simulate();

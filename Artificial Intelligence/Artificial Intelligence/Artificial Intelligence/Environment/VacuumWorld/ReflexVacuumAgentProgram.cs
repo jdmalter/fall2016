@@ -14,21 +14,21 @@ namespace Artificial_Intelligence.Environment.VacuumWorld
         /// <returns>An action.</returns>
         public VacuumAction Invoke(VacuumPercept percept)
         {
-            if (percept.Status == VacuumEnvironment.DIRTY)
+            if (percept.Status == Status.DIRTY)
             {
-                return VacuumEnvironment.SUCK;
+                return VacuumAction.SUCK;
             }
-            else if (percept.Location == VacuumEnvironment.A)
+            else if (percept.Location == Location.A)
             {
-                return VacuumEnvironment.RIGHT;
+                return VacuumAction.RIGHT;
             }
-            else if (percept.Location == VacuumEnvironment.B)
+            else if (percept.Location == Location.B)
             {
-                return VacuumEnvironment.LEFT;
+                return VacuumAction.LEFT;
             }
             else
             {
-                return VacuumEnvironment.NULL;
+                return VacuumAction.NULL;
             }
         }
     }

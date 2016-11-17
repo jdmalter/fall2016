@@ -8,7 +8,7 @@ namespace Artificial_Intelligence.Chapter_2.Agent
     /// </summary>
     /// <typeparam name="TState">Any state.</typeparam>
     /// <typeparam name="TAction">Any action.</typeparam>
-    public class ConditionActionRule<TState, TAction>
+    public abstract class ConditionActionRule<TState, TAction>
         where TState : IState
         where TAction : IAction
     {

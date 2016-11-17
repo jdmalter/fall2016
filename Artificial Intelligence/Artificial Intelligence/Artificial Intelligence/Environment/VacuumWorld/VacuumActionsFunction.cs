@@ -17,10 +17,10 @@ namespace Artificial_Intelligence.Environment.VacuumWorld
         {
             return new HashSet<VacuumAction>()
             {
-                VacuumEnvironment.NULL,
-                VacuumEnvironment.LEFT,
-                VacuumEnvironment.RIGHT,
-                VacuumEnvironment.SUCK,
+                VacuumAction.NULL,
+                VacuumAction.LEFT,
+                VacuumAction.RIGHT,
+                VacuumAction.SUCK,
             };
         }
     }

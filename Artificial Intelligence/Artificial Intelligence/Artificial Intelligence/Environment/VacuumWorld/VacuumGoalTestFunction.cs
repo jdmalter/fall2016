@@ -14,8 +14,8 @@ namespace Artificial_Intelligence.Environment.VacuumWorld
         /// <returns>Whether the given state is a goal state.</returns>
         public bool GoalTest(VacuumState state)
         {
-            return state.GetLocationStatus(VacuumEnvironment.A) == VacuumEnvironment.CLEAN
-                 && state.GetLocationStatus(VacuumEnvironment.B) == VacuumEnvironment.CLEAN;
+            return state.GetLocationStatus(Location.A) == Status.CLEAN
+                 && state.GetLocationStatus(Location.B) == Status.CLEAN;
         }
     }
 }
