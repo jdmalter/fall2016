@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace Artificial_Intelligence.List
 {
@@ -12,7 +11,7 @@ namespace Artificial_Intelligence.List
         /// <summary>
         /// Backing data structure.
         /// </summary>
-        private readonly IList<T> _list = new List<T>();
+        private readonly Queue<T> _queue = new Queue<T>();
 
         /// <summary>
         /// Determines whether the current queue contains any items.
@@ -20,7 +19,7 @@ namespace Artificial_Intelligence.List
         /// <returns>Whether the current queue contains any items.</returns>
         public bool IsEmpty()
         {
-            return _list.IsEmpty();
+            return _queue.Count == 0;
         }
 
         /// <summary>
@@ -29,14 +28,7 @@ namespace Artificial_Intelligence.List
         /// <returns>An item from the queue.</returns>
         public T Peek()
         {
-            if (IsEmpty())
-            {
-                throw new InvalidOperationException("queue is empty");
-            }
-            else
-            {
-                return _list[0];
-            }
+            return _queue.Peek();
         }
 
         /// <summary>
@@ -45,16 +37,7 @@ namespace Artificial_Intelligence.List
         /// <returns>An item from the queue.</returns>
         public T Pop()
         {
-            if (IsEmpty())
-            {
-                throw new InvalidOperationException("queue is empty");
-            }
-            else
-            {
-                T first = _list[0];
-                _list.RemoveAt(0);
-                return first;
-            }
+            return _queue.Dequeue();
         }
 
         /// <summary>
@@ -64,7 +47,7 @@ namespace Artificial_Intelligence.List
         /// <returns>Whether the given item was pushed onto the queue.</returns>
         public bool Push(T item)
         {
-            _list.Insert(_list.Count, item);
+            _queue.Enqueue(item);
             return true;
         }
     }

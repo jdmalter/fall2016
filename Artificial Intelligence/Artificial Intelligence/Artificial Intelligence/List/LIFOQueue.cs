@@ -12,7 +12,7 @@ namespace Artificial_Intelligence.List
         /// <summary>
         /// Backing data structure.
         /// </summary>
-        private readonly IList<T> _list = new List<T>();
+        private readonly Stack<T> _stack = new Stack<T>();
 
         /// <summary>
         /// Determines whether the current queue contains any items.
@@ -20,7 +20,7 @@ namespace Artificial_Intelligence.List
         /// <returns>Whether the current queue contains any items.</returns>
         public bool IsEmpty()
         {
-            return _list.IsEmpty();
+            return _stack.Count == 0;
         }
 
         /// <summary>
@@ -29,14 +29,7 @@ namespace Artificial_Intelligence.List
         /// <returns>An item from the queue.</returns>
         public T Peek()
         {
-            if (IsEmpty())
-            {
-                throw new InvalidOperationException("queue is empty");
-            }
-            else
-            {
-                return _list[_list.Count - 1];
-            }
+            return _stack.Peek();
         }
 
         /// <summary>
@@ -45,16 +38,7 @@ namespace Artificial_Intelligence.List
         /// <returns>An item from the queue.</returns>
         public T Pop()
         {
-            if (IsEmpty())
-            {
-                throw new InvalidOperationException("queue is empty");
-            }
-            else
-            {
-                T first = _list[_list.Count - 1];
-                _list.RemoveAt(_list.Count - 1);
-                return first;
-            }
+            return _stack.Pop();
         }
 
         /// <summary>
@@ -64,7 +48,7 @@ namespace Artificial_Intelligence.List
         /// <returns>Whether the given item was pushed onto the queue.</returns>
         public bool Push(T item)
         {
-            _list.Insert(_list.Count, item);
+            _stack.Push(item);
             return true;
         }
     }

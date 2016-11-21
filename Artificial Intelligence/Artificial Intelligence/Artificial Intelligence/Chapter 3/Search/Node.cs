@@ -92,8 +92,8 @@ namespace Artificial_Intelligence.Chapter_3.Search
         public override string ToString()
         {
             return
-                "State : " + State.ToString() +
-                "Parent : " + Parent?.ToString() +
+                "State : \n" + State.ToString() +
+                "Parent : \n" + Parent?.ToString() +
                 "Action : " + Action?.ToString() +
                 "PathCost : " + PathCost.ToString();
         }
