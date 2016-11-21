@@ -211,5 +211,21 @@ namespace Artificial_IntelligenceTests.Environment.SlidingPuzzle
             ISlidingPuzzleState state = Solve(_problem.InitialState, _actions);
             Assert.AreEqual(EightPuzzleState.DefaultGoalState, state);
         }
+
+        [TestMethod]
+        public void DijkstraSearch()
+        {
+            // Arrange
+            var queueSearch = new UpdatePrioritySearch<SlidingPuzzleProblem, ISlidingPuzzleState, SlidingPuzzleAction>();
+            _sut = new DijkstraSearch<SlidingPuzzleProblem, ISlidingPuzzleState, SlidingPuzzleAction>(queueSearch);
+            _problem = CreateProblem();
+
+            // Act
+            _actions = _sut.Search(_problem);
+
+            // Assert
+            ISlidingPuzzleState state = Solve(_problem.InitialState, _actions);
+            Assert.AreEqual(EightPuzzleState.DefaultGoalState, state);
+        }
     }
 }
