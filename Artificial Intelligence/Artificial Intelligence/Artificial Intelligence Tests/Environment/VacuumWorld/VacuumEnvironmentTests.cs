@@ -1,6 +1,6 @@
 ﻿using Artificial_Intelligence.Chapter_2.Agent;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using NSubstitute;
+using Moq;
 using System;
 using System.Linq;
 
@@ -12,7 +12,7 @@ namespace Artificial_Intelligence.Environment.VacuumWorld.Tests
         /// <summary>
         /// Dependency of parameter to subject under test.
         /// </summary>
-        private IAgentProgram<VacuumPercept, VacuumAction> _agentProgram;
+        private Mock<IAgentProgram<VacuumPercept, VacuumAction>> _agentProgram;
 
         /// <summary>
         /// Parameter to subject under test.
@@ -42,9 +42,9 @@ namespace Artificial_Intelligence.Environment.VacuumWorld.Tests
         [TestInitialize]
         public void Initialize()
         {
-            _agentProgram = Substitute.For<IAgentProgram<VacuumPercept, VacuumAction>>();
-            _agent = Substitute.For<VacuumAgent>(_agentProgram);
-            _environmentState = Substitute.For<VacuumEnvironmentState>();
+            _agentProgram = new Mock<IAgentProgram<VacuumPercept, VacuumAction>>();
+            _agent = new VacuumAgent(_agentProgram.Object);
+            _environmentState = new VacuumEnvironmentState();
             _sut = new VacuumEnvironment(_environmentState);
         }
 

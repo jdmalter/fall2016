@@ -1,33 +1,44 @@
-﻿using System.Collections.Generic;
-using Artificial_Intelligence.Chapter_2.Agent;
+﻿using Artificial_Intelligence.Chapter_2.Agent;
 using Artificial_Intelligence.Chapter_3.Problem;
 using Artificial_Intelligence.List;
+using System.Collections.Generic;
+using System;
+using System.Diagnostics;
 
-namespace Artificial_Intelligence.Chapter_3.Search.Uninformed
+namespace Artificial_Intelligence.Chapter_3.Search.Uninformed.DepthLimitedSearch
 {
     /// <summary>
-    /// An uninformed depth limited last in first out queue search.
+    /// An uninformed depth limited last in first out queue search that stores explored nodes.
     /// </summary>
     /// <typeparam name="TProblem">Any problem of TState and TAction.</typeparam>
     /// <typeparam name="TState">Any state.</typeparam>
     /// <typeparam name="TAction">Any action.</typeparam>
-    public class DepthLimitedSearch<TProblem, TState, TAction> : ISearch<TProblem, TState, TAction>
+    public class DepthLimitedGraphSearch<TProblem, TState, TAction> : DepthLimitedSearch<TProblem, TState, TAction>
             where TProblem : IProblem<TState, TAction>
             where TState : IState
             where TAction : IAction
     {
         /// <summary>
-        /// A depth at which node have no successors.
+        /// A data structure which remembers every expanded node.
         /// </summary>
-        private readonly int _limit;
+        private readonly ISet<TState> _explored = new HashSet<TState>();
 
         /// <summary>
         /// Specifies a depth at which node have no successors.
         /// </summary>
         /// <param name="limit">A depth at which node have no successors.</param>
-        public DepthLimitedSearch(int limit)
+        public DepthLimitedGraphSearch(int limit) : base(limit)
         {
-            _limit = limit;
+
+        }
+
+        /// <summary>
+        /// Returns a new instance of depth limited search whose deep limit is increased by one.
+        /// </summary>
+        /// <returns>A new instance of depth limited search whose deep limit is increased by one.</returns>
+        public override DepthLimitedSearch<TProblem, TState, TAction> Deepen()
+        {
+            return new DepthLimitedGraphSearch<TProblem, TState, TAction>(Limit + 1);
         }
 
         /// <summary>
@@ -35,9 +46,10 @@ namespace Artificial_Intelligence.Chapter_3.Search.Uninformed
         /// </summary>
         /// <param name="problem">A problem.</param>
         /// <returns>A sequence of actions that reaches the goal or an empty sequence.</returns>
-        public IList<TAction> Search(TProblem problem)
+        public override IList<TAction> Search(TProblem problem)
         {
-            return RecursiveDLS(problem.InitialState.RootNode<TState, TAction>(), problem, _limit);
+            _explored.Clear();
+            return base.Search(problem);
         }
 
         /// <summary>
@@ -47,27 +59,16 @@ namespace Artificial_Intelligence.Chapter_3.Search.Uninformed
         /// <param name="problem">A problem.</param>
         /// <param name="limit">A depth at which node have no successors.</param>
         /// <returns>A sequence of actions that reaches the goal  or an empty sequence.</returns>
-        public static IList<TAction> RecursiveDLS(INode<TState, TAction> node, TProblem problem, int limit)
+        public override IList<TAction> RecursiveDLS(INode<TState, TAction> node, TProblem problem, int limit)
         {
-            if (problem.GoalTestFunction.GoalTest(node.State))
-            {
-                return node.Solution();
-            }
-            else if (limit == 0)
+            if (_explored.Contains(node.State))
             {
                 return new List<TAction>();
             }
             else
             {
-                foreach (INode<TState, TAction> child in node.Expand(problem))
-                {
-                    IList<TAction> result = RecursiveDLS(child, problem, limit - 1);
-                    if (!result.IsEmpty())
-                    {
-                        return result;
-                    }
-                }
-                return new List<TAction>();
+                _explored.Add(node.State);
+                return base.RecursiveDLS(node, problem, limit);
             }
         }
     }

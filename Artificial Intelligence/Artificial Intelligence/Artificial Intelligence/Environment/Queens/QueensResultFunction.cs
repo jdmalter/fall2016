@@ -6,7 +6,7 @@ namespace Artificial_Intelligence.Environment.Queens
     /// <summary>
     /// A queens result function that returns ADD.
     /// </summary>
-    public class QueensResultFunction : IResultFunction<QueensState, QueensAction>
+    public class QueensResultFunction : IResultFunction<IQueensState, QueensAction>
     {
         /// <summary>
         /// Returns the state that results from doing the given action in the given state.
@@ -14,21 +14,19 @@ namespace Artificial_Intelligence.Environment.Queens
         /// <param name="state">A particular state.</param>
         /// <param name="action">An action being executed in a particular state.</param>
         /// <returns>The state that results from doing the given action in the given state.</returns>
-        public QueensState Result(QueensState state, QueensAction action)
+        public IQueensState Result(IQueensState state, QueensAction action)
         {
             state.NonNull();
             action.NonNull();
 
-            if (QueensAction.ADD == action.Name)
+            if (QueensAction.Add(action.X, action.Y).Equals(action))
             {
-                state[action.X, action.Y] = true;
+                return state.AddQueen(action.X, action.Y);
             }
-            else if (QueensAction.REMOVE == action.Name)
+            else
             {
-                state[action.X, action.Y] = false;
+                return state;
             }
-
-            return state;
         }
     }
 }

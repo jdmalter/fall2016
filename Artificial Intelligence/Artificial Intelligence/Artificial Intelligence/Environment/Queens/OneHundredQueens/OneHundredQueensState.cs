@@ -8,12 +8,21 @@
         /// <summary>
         /// The number of elements in any dimension.
         /// </summary>
-        private static readonly uint _length = 100;
+        public static readonly uint DefaultLength = 100;
 
         /// <summary>
         /// Default constructor.
         /// </summary>
-        public OneHundredQueensState() : base(_length)
+        public OneHundredQueensState() : base(DefaultLength)
+        {
+
+        }
+
+        /// <summary>
+        /// Specifies a square two dimensional array of bool.
+        /// </summary>
+        /// <param name="locations">A square two dimensional array of bool.</param>
+        public OneHundredQueensState(bool[,] locations) : base(DefaultLength, locations)
         {
 
         }
@@ -25,6 +34,19 @@
         public OneHundredQueensState(OneHundredQueensState copy) : base(copy)
         {
 
+        }
+
+        /// <summary>
+        ///  Any implementation could add restrictions on top of this method.
+        /// Specifies the number of elements in any dimension and a square two dimensional array of bool.
+        /// Returns a new instance of state.
+        /// </summary>
+        /// <param name="length">The number of elements in any dimension.</param>
+        /// <param name="locations">A square two dimensional array of bool.</param>
+        /// <returns>A new instance of state.</returns>
+        public override IQueensState Create(uint length, bool[,] locations)
+        {
+            return new OneHundredQueensState(locations);
         }
     }
 }

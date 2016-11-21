@@ -6,9 +6,7 @@ namespace Artificial_Intelligence.Environment.SlidingPuzzle
     /// <summary>
     /// A functional interface for Result.
     /// </summary>
-    /// <typeparam name="TSlidingPuzzleState">Any state of SlidingPuzzleState.</typeparam>
-    public class SlidingPuzzleResultFunction<TSlidingPuzzleState> : IResultFunction<TSlidingPuzzleState, SlidingPuzzleAction>
-        where TSlidingPuzzleState : SlidingPuzzleState
+    public class SlidingPuzzleResultFunction : IResultFunction<ISlidingPuzzleState, SlidingPuzzleAction>
     {
         /// <summary>
         /// Returns the state that results from doing the given action in the given state.
@@ -16,28 +14,31 @@ namespace Artificial_Intelligence.Environment.SlidingPuzzle
         /// <param name="state">A particular state.</param>
         /// <param name="action">An action being executed in a particular state.</param>
         /// <returns>The state that results from doing the given action in the given state.</returns>
-        public TSlidingPuzzleState Result(TSlidingPuzzleState state, SlidingPuzzleAction action)
+        public ISlidingPuzzleState Result(ISlidingPuzzleState state, SlidingPuzzleAction action)
         {
             state.NonNull();
+            action.NonNull();
 
             if (SlidingPuzzleAction.UP == action && state.CanMoveBlankSpaceUp())
             {
-                state.MoveBlankSpaceUp();
+                return state.MoveBlankSpaceUp();
             }
             else if (SlidingPuzzleAction.DOWN == action && state.CanMoveBlankSpaceDown())
             {
-                state.MoveBlankSpaceDown();
+                return state.MoveBlankSpaceDown();
             }
             else if (SlidingPuzzleAction.LEFT == action && state.CanMoveBlankSpaceLeft())
             {
-                state.MoveBlankSpaceLeft();
+                return state.MoveBlankSpaceLeft();
             }
             else if (SlidingPuzzleAction.RIGHT == action && state.CanMoveBlankSpaceRight())
             {
-                state.MoveBlankSpaceRight();
+                return state.MoveBlankSpaceRight();
             }
-
-            return state;
+            else
+            {
+                return state;
+            }
         }
     }
 }

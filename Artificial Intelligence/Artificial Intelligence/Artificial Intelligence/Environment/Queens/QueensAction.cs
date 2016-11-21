@@ -7,8 +7,9 @@ namespace Artificial_Intelligence.Environment.Queens
     /// </summary>
     public class QueensAction : Action
     {
-        public static readonly string ADD = "Add";
-        public static readonly string REMOVE = "Remove";
+        //"Add"   public static readonly string ADD = "Add";
+
+        public static readonly QueensAction NULL = new QueensAction("Null", 0, 0);
 
         /// <summary>
         /// Specifies the string representation, the x dimension coordinate, and the x dimension coordinate.
@@ -33,14 +34,38 @@ namespace Artificial_Intelligence.Environment.Queens
         public uint Y { get; }
 
         /// <summary>
-        /// Specifies the x dimension coordinate and the x dimension coordinate.
+        /// Determines whether the given object is equal to the current object.
         /// </summary>
-        /// <param name="x">The x dimension coordinate.</param>
-        /// <param name="y">The y dimension coordinate.</param>
-        /// <returns>New ADD action.</returns>
-        public static QueensAction Add(uint x, uint y)
+        /// <param name="obj">Any object.</param>
+        /// <returns>Whether the given object is equal to the current object.</returns>
+        public override bool Equals(object obj)
         {
-            return new QueensAction(ADD, x, y);
+            QueensAction action = obj as QueensAction;
+
+            return base.Equals(action) && X == action.X && Y == action.Y;
+        }
+
+        /// <summary>
+        /// Uses hash function of the string representation. 
+        /// </summary>
+        /// <returns>A hash code for the string representation.</returns>
+        public override int GetHashCode()
+        {
+            int hashCode = base.GetHashCode();
+
+            hashCode = (75936 * hashCode) + (int)X;
+            hashCode = (75936 * hashCode) + (int)Y;
+
+            return hashCode;
+        }
+
+        /// <summary>
+        /// Returns a string that represents the current object.
+        /// </summary>
+        /// <returns>A string that represents the current object.</returns>
+        public override string ToString()
+        {
+            return base.ToString() + "( " + X + ", " + Y + " )";
         }
 
         /// <summary>
@@ -48,10 +73,10 @@ namespace Artificial_Intelligence.Environment.Queens
         /// </summary>
         /// <param name="x">The x dimension coordinate.</param>
         /// <param name="y">The y dimension coordinate.</param>
-        /// <returns>New REMOVE action.</returns>
-        public static QueensAction Remove(uint x, uint y)
+        /// <returns>New ADD action.</returns>
+        public static QueensAction Add(uint x, uint y)
         {
-            return new QueensAction(REMOVE, x, y);
+            return new QueensAction("Add", x, y);
         }
     }
 }

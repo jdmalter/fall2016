@@ -3,24 +3,35 @@ using Artificial_Intelligence.Chapter_3.Problem;
 using Artificial_Intelligence.Chapter_3.Search.QSearch;
 using Artificial_Intelligence.List;
 using System.Collections.Generic;
+using Artificial_Intelligence.Guard;
 
 namespace Artificial_Intelligence.Chapter_3.Search.Uninformed
 {
     /// <summary>
-    /// An uninformed first in first out queue search.
+    /// An uninformed priority queue search.
     /// </summary>
     /// <typeparam name="TProblem">Any problem of TState and TAction.</typeparam>
     /// <typeparam name="TState">Any state.</typeparam>
     /// <typeparam name="TAction">Any action.</typeparam>
-    public class UniformCostSearch<TProblem, TState, TAction> : UninformedQueueSearch<TProblem, TState, TAction>
+    public class UniformCostSearch<TProblem, TState, TAction> : ISearch<TProblem, TState, TAction>
           where TProblem : IProblem<TState, TAction>
           where TState : IState
           where TAction : IAction
     {
         /// <summary>
+        /// An update priority queue search that stores explored nodes.
+        /// </summary>
+        private readonly UpdatePrioritySearch<TProblem, TState, TAction> _updatePrioritySearch;
+
+        /// <summary>
+        /// A queue of all leaf nodes available for expansion at any given point.
+        /// </summary>
+        private readonly IUpdatePriorityQueue<INode<TState, TAction>> _frontier;
+
+        /// <summary>
         /// Defines a method that a type implements to compare two nodes.
         /// </summary>
-        private class INodeComparer : IComparer<INode<TState, TAction>>
+        private class PathCostComparer : IComparer<INode<TState, TAction>>
         {
             /// <summary>
             /// Compares two objects and returns a value indicating whether one is less than,
@@ -38,13 +49,23 @@ namespace Artificial_Intelligence.Chapter_3.Search.Uninformed
         }
 
         /// <summary>
-        /// Specifies a queue search.
+        /// Specifies an update priority queue search.
         /// </summary>
-        /// <param name="queueSearch">A search using a queue of all leaf nodes available for expansion at any given point.</param>
-        public UniformCostSearch(QueueSearch<TProblem, TState, TAction> queueSearch)
-            : base(queueSearch, new PriorityQueue<INode<TState, TAction>>(new INodeComparer()))
+        /// <param name="_updatePrioritySearch">An update priority queue search that stores explored nodes.</param>
+        public UniformCostSearch(UpdatePrioritySearch<TProblem, TState, TAction> updatePrioritySearch)
         {
+            _updatePrioritySearch = updatePrioritySearch.NonNull();
+            _frontier = new UpdatePriorityQueue<INode<TState, TAction>>(new PathCostComparer());
+        }
 
+        /// <summary>
+        /// Returns a sequence of actions that reaches the goal.
+        /// </summary>
+        /// <param name="problem">A problem.</param>
+        /// <returns>A sequence of actions that reaches the goal.</returns>
+        public IList<TAction> Search(TProblem problem)
+        {
+            return _updatePrioritySearch.Search(problem, _frontier);
         }
     }
 }

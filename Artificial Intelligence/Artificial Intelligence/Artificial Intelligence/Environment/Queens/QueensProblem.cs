@@ -6,7 +6,7 @@ namespace Artificial_Intelligence.Environment.Queens
     /// A queens problem can be defined by five components:
     /// initial state, actions, transition model, goal test, and path cost.
     /// </summary>
-    public class QueensProblem : Problem<QueensState, QueensAction>
+    public class QueensProblem : Problem<IQueensState, QueensAction>
     {
         /// <summary>
         /// Specifies initial state, actions, transition model, and goal test.
@@ -15,15 +15,15 @@ namespace Artificial_Intelligence.Environment.Queens
         /// <param name="actionsFunction">A functional interface for Actions.</param>
         /// <param name="resultFunction">A functional interface for Result.</param>
         /// <param name="goalTestFunction">A functional interface for GoalTest.</param>
-        public QueensProblem(QueensState initialState,
-            IActionsFunction<QueensState, QueensAction> actionsFunction,
-            IResultFunction<QueensState, QueensAction> resultFunction,
-            IGoalTestFunction<QueensState> goalTestFunction)
+        public QueensProblem(IQueensState initialState,
+            IActionsFunction<IQueensState, QueensAction> actionsFunction,
+            IResultFunction<IQueensState, QueensAction> resultFunction,
+            IGoalTestFunction<IQueensState> goalTestFunction)
             : base(initialState,
                   actionsFunction,
                   resultFunction,
                   goalTestFunction,
-                  ConstantStepCostFunction<QueensState, QueensAction>.ZERO)
+                  ConstantStepCostFunction<IQueensState, QueensAction>.ZERO)
         {
 
         }

@@ -12,7 +12,8 @@ namespace Artificial_Intelligence.Chapter_3.Problem
     /// <typeparam name="TProblem">Any problem of TAgentState and TAction.</typeparam>
     /// <typeparam name="TState">Any state.</typeparam>
     /// <typeparam name="TAction">Any action.</typeparam>
-    public abstract class SimpleProblemSolvingAgentProgram<TPercept, TProblem, TState, TAction> : IAgentProgram<TPercept, TAction>
+    public abstract class SimpleProblemSolvingAgentProgram<TPercept, TProblem, TState, TAction>
+        : IAgentProgram<TPercept, TAction>
         where TPercept : IPercept
         where TProblem : IProblem<TState, TAction>
         where TState : IState
@@ -34,11 +35,13 @@ namespace Artificial_Intelligence.Chapter_3.Problem
         private readonly TAction _action;
 
         /// <summary>
-        /// Specifies an action.
+        /// Specifies a state and an action.
         /// </summary>
+        /// <param name="state">The agent's current conception of the world state.</param>
         /// <param name="action">An alternative action if search yields no actions.</param>
-        public SimpleProblemSolvingAgentProgram(TAction action)
+        public SimpleProblemSolvingAgentProgram(TState state, TAction action)
         {
+            _state = state.NonNull();
             _action = action.NonNull();
         }
 
@@ -66,18 +69,18 @@ namespace Artificial_Intelligence.Chapter_3.Problem
         }
 
         /// <summary>
-        /// 
+        /// Returns a possible goal state.
         /// </summary>
-        /// <param name="state"></param>
-        /// <returns></returns>
+        /// <param name="state">The agent's current conception of the world state.</param>
+        /// <returns>A possible goal state.</returns>
         public abstract TState FormulateGoal(TState state);
 
         /// <summary>
-        /// 
+        /// Specifies an initial state and a goal state. Returns a new problem.
         /// </summary>
-        /// <param name="state"></param>
-        /// <param name="goal"></param>
-        /// <returns></returns>
+        /// <param name="state">The agent's current conception of the world state.</param>
+        /// <param name="goal">A possible goal state.</param>
+        /// <returns>A new problem.</returns>
         public abstract TProblem FormulateProblem(TState state, TState goal);
 
         /// <summary>
@@ -88,11 +91,12 @@ namespace Artificial_Intelligence.Chapter_3.Problem
         public abstract IList<TAction> Search(TProblem problem);
 
         /// <summary>
-        /// 
+        /// Some implementations ignore any percepts.
+        /// Returns the agent's updated conception of the world state.
         /// </summary>
-        /// <param name="state"></param>
-        /// <param name="percept"></param>
-        /// <returns></returns>
+        /// <param name="state">The agent's current conception of the world state.</param>
+        /// <param name="percept">An agent's input at any given instant.</param>
+        /// <returns>The agent's updated conception of the world state.</returns>
         public abstract TState UpdateState(TState state, TPercept percept);
     }
 }

@@ -4,6 +4,7 @@ using Artificial_Intelligence.Chapter_2.Agent;
 using Artificial_Intelligence.Chapter_3.Problem;
 using Artificial_Intelligence.Chapter_3.Search.QSearch;
 using Artificial_Intelligence.List;
+using Artificial_Intelligence.Guard;
 
 namespace Artificial_Intelligence.Chapter_3.Search.Uninformed
 {
@@ -13,19 +14,38 @@ namespace Artificial_Intelligence.Chapter_3.Search.Uninformed
     /// <typeparam name="TProblem">Any problem of TState and TAction.</typeparam>
     /// <typeparam name="TState">Any state.</typeparam>
     /// <typeparam name="TAction">Any action.</typeparam>
-    public class DepthFirstSearch<TProblem, TState, TAction> : UninformedQueueSearch<TProblem, TState, TAction>
+    public class DepthFirstSearch<TProblem, TState, TAction> : ISearch<TProblem, TState, TAction>
           where TProblem : IProblem<TState, TAction>
           where TState : IState
           where TAction : IAction
     {
         /// <summary>
+        /// A search using a queue of all leaf nodes available for expansion at any given point.
+        /// </summary>
+        private readonly QueueSearch<ILIFOQueue<INode<TState, TAction>>, TProblem, TState, TAction> _queueSearch;
+
+        /// <summary>
+        /// A queue of all leaf nodes available for expansion at any given point.
+        /// </summary>
+        private readonly ILIFOQueue<INode<TState, TAction>> _frontier = new LIFOQueue<INode<TState, TAction>>();
+
+        /// <summary>
         /// Specifies a queue search.
         /// </summary>
         /// <param name="queueSearch">A search using a queue of all leaf nodes available for expansion at any given point.</param>
-        public DepthFirstSearch(QueueSearch<TProblem, TState, TAction> queueSearch)
-            : base(queueSearch, new LIFOQueue<INode<TState, TAction>>())
+        public DepthFirstSearch(QueueSearch<ILIFOQueue<INode<TState, TAction>>, TProblem, TState, TAction> queueSearch)
         {
+            _queueSearch = queueSearch.NonNull();
+        }
 
+        /// <summary>
+        /// Returns a sequence of actions that reaches the goal.
+        /// </summary>
+        /// <param name="problem">A problem.</param>
+        /// <returns>A sequence of actions that reaches the goal.</returns>
+        public IList<TAction> Search(TProblem problem)
+        {
+            return _queueSearch.Search(problem, _frontier);
         }
     }
 }

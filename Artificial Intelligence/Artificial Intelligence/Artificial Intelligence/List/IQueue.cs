@@ -1,29 +1,34 @@
 ﻿namespace Artificial_Intelligence.List
 {
     /// <summary>
-    /// A queue with clear, is empty, pop, and push operations.
+    /// A queue with is empty, peek, pop, and push operations.
     /// </summary>
     /// <typeparam name="T">Any type.</typeparam>
     public interface IQueue<T>
     {
         /// <summary>
-        /// Determines whether the current queue contains any elements.
+        /// Determines whether the current queue contains any items.
         /// </summary>
-        /// <returns>Whether the current queue contains any elements.</returns>
+        /// <returns>Whether the current queue contains any items.</returns>
         bool IsEmpty();
 
         /// <summary>
-        /// Removes and returns an element from the queue.
+        /// Returns an item from the queue.
         /// </summary>
-        /// <param name="list">A list consisting of all elements.</param>
-        /// <returns>An element from the queue.</returns>
+        /// <returns>An item from the queue.</returns>
+        T Peek();
+
+        /// <summary>
+        /// Removes and returns an item from the queue.
+        /// </summary>
+        /// <returns>An item from the queue.</returns>
         T Pop();
 
         /// <summary>
-        /// Returns a queue containing the given item.
+        /// Returns whether the given item was pushed onto the queue.
         /// </summary>
-        /// <param name="item">New element.</param>
-        /// <returns>A queue containing the given item.</returns>
-        IQueue<T> Push(T item);
+        /// <param name="item">Pushed item.</param>
+        /// <returns>Whether the given item was pushed onto the queue.</returns>
+        bool Push(T item);
     }
 }

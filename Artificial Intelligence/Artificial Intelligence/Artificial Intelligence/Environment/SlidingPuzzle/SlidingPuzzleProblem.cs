@@ -6,9 +6,7 @@ namespace Artificial_Intelligence.Environment.SlidingPuzzle
     /// An sliding puzzle problem can be defined by five components:
     /// initial state, actions, transition model, goal test, and path cost.
     /// </summary>
-    /// <typeparam name="TSlidingPuzzleState">Any state of SlidingPuzzleState.</typeparam>
-    public class SlidingPuzzleProblem<TSlidingPuzzleState> : Problem<TSlidingPuzzleState, SlidingPuzzleAction>
-        where TSlidingPuzzleState : SlidingPuzzleState
+    public class SlidingPuzzleProblem : Problem<ISlidingPuzzleState, SlidingPuzzleAction>
     {
         /// <summary>
         /// Specifies initial state, actions, transition model, and goal test.
@@ -17,15 +15,15 @@ namespace Artificial_Intelligence.Environment.SlidingPuzzle
         /// <param name="actionsFunction">A functional interface for Actions.</param>
         /// <param name="resultFunction">A functional interface for Result.</param>
         /// <param name="goalTestFunction">A functional interface for GoalTest.</param>
-        public SlidingPuzzleProblem(TSlidingPuzzleState initialState,
-            IActionsFunction<TSlidingPuzzleState, SlidingPuzzleAction> actionsFunction,
-            IResultFunction<TSlidingPuzzleState, SlidingPuzzleAction> resultFunction,
-            IGoalTestFunction<TSlidingPuzzleState> goalTestFunction)
+        public SlidingPuzzleProblem(ISlidingPuzzleState initialState,
+            IActionsFunction<ISlidingPuzzleState, SlidingPuzzleAction> actionsFunction,
+            IResultFunction<ISlidingPuzzleState, SlidingPuzzleAction> resultFunction,
+            IGoalTestFunction<ISlidingPuzzleState> goalTestFunction)
             : base(initialState,
                   actionsFunction,
                   resultFunction,
                   goalTestFunction,
-                  ConstantStepCostFunction<TSlidingPuzzleState, SlidingPuzzleAction>.ONE)
+                  ConstantStepCostFunction<ISlidingPuzzleState, SlidingPuzzleAction>.ONE)
         {
 
         }

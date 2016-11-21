@@ -1,18 +1,18 @@
-﻿using Artificial_Intelligence.Chapter_2.Agent;
-using Artificial_Intelligence.Guard;
+﻿using Artificial_Intelligence.Guard;
 using System;
+using System.Text;
 
 namespace Artificial_Intelligence.Environment.Queens
 {
     /// <summary>
     /// An agent's memory of its environment.
     /// </summary>
-    public abstract class QueensState : IState
+    public abstract class QueensState : IQueensState
     {
         /// <summary>
         /// A square two dimensional array of bool.
         /// </summary>
-        private bool[,] _locations;
+        private readonly bool[,] _locations;
 
         /// <summary>
         /// Specifies the number of elements in any dimension and creates an empty board.
@@ -25,12 +25,31 @@ namespace Artificial_Intelligence.Environment.Queens
         }
 
         /// <summary>
+        /// Specifies the number of elements in any dimension and a square two dimensional array of bool.
+        /// </summary>
+        /// <param name="length">The number of elements in any dimension.</param>
+        /// <param name="locations">A square two dimensional array of bool.</param>
+        public QueensState(uint length, bool[,] locations)
+        {
+            locations.NonNull();
+            Length = length;
+
+            if (Length != locations.GetLength(0) || Length != locations.GetLength(1))
+            {
+                throw new ArgumentException("The number of elements in any dimension must be " + length);
+            }
+
+            _locations = new bool[Length, Length];
+            Array.Copy(locations, _locations, Length * Length);
+        }
+
+        /// <summary>
         /// Copy constructor.
         /// </summary>
         /// <param name="copy">A QueensState being copied.</param>
-        public QueensState(QueensState copy) : this(copy.NonNull().Length)
+        public QueensState(QueensState copy) : this(copy.NonNull().Length, copy._locations)
         {
-            Array.Copy(copy._locations, _locations, Length * Length);
+
         }
 
         /// <summary>
@@ -47,7 +66,27 @@ namespace Artificial_Intelligence.Environment.Queens
         public bool this[uint x, uint y]
         {
             get { return _locations[x, y]; }
-            set { _locations[x, y] = value; }
+        }
+
+        /// <summary>
+        /// If there is no queen at the given coordiantes, adds queen at the given coordinates and
+        /// returns either the same instance of the unchanged state or a new instance of the updated state.
+        /// </summary>
+        /// <param name="x">A x dimension coordinate.</param>
+        /// <param name="y">A y dimension coordinate.</param>
+        /// <returns>Either the same instance of the unchanged state or
+        /// a new instance of the updated state.</returns>
+        public IQueensState AddQueen(uint x, uint y)
+        {
+            if (!this[x, y])
+            {
+                bool[,] locations = new bool[Length, Length];
+                Array.Copy(_locations, locations, Length * Length);
+                locations[x, y] = true;
+                return Create(Length, locations);
+            }
+
+            return this;
         }
 
         /// <summary>
@@ -106,6 +145,16 @@ namespace Artificial_Intelligence.Environment.Queens
         }
 
         /// <summary>
+        ///  Any implementation could add restrictions on top of this method.
+        /// Specifies the number of elements in any dimension and a square two dimensional array of bool.
+        /// Returns a new instance of state.
+        /// </summary>
+        /// <param name="length">The number of elements in any dimension.</param>
+        /// <param name="locations">A square two dimensional array of bool.</param>
+        /// <returns>A new instance of state.</returns>
+        public abstract IQueensState Create(uint length, bool[,] locations);
+
+        /// <summary>
         /// Determines whether the given object is equal to the current object.
         /// </summary>
         /// <param name="obj">Any object.</param>
@@ -139,7 +188,51 @@ namespace Artificial_Intelligence.Environment.Queens
         /// <returns>A hash code for a square two dimensional array of bool.</returns>
         public override int GetHashCode()
         {
-            return _locations.GetHashCode();
+            int hashCode = 0;
+
+            for (uint x = 0; x < Length; x++)
+            {
+                for (uint y = 0; y < Length; y++)
+                {
+                    hashCode = (912935 * hashCode) + (this[x, y] ? 23 : 34);
+                }
+            }
+
+            return hashCode;
+        }
+
+        /// <summary>
+        /// The string represenation of this objects looks similar to an array initializer for uint[,].
+        /// For each row, there are curly brackets on each end like "{...}".
+        /// For each column, there is either a " Q " or " - " for whether or not there is a queen.
+        /// For a 8 by 8 queens state, an example output would be
+        /// { Q  -  -  -  -  -  -  - }
+        /// { -  -  -  -  Q  -  -  - }
+        /// { -  Q  -  -  -  -  -  - }
+        /// { -  -  -  -  -  Q  -  - }
+        /// { -  -  Q  -  -  -  -  - }
+        /// { -  -  -  -  -  -  -  - }
+        /// { -  -  -  Q  -  -  -  - }
+        /// { -  -  -  -  -  -  -  Q }
+        /// 
+        /// Returns a string that represents the current object.
+        /// </summary>
+        /// <returns>A string that represents the current object.</returns>
+        public override string ToString()
+        {
+            StringBuilder builder = new StringBuilder();
+
+            for (uint x = 0; x < Length; x++)
+            {
+                builder.Append("{");
+                for (uint y = 0; y < Length; y++)
+                {
+                    builder.Append(this[x, y] ? " Q " : " - ");
+                }
+                builder.AppendLine("}");
+            }
+
+            return builder.ToString();
         }
     }
 }

@@ -7,30 +7,14 @@ namespace Artificial_Intelligence.Environment.Queens
     /// A queens goal test function that returns whether
     /// there are a particular number of queens on the board and none are attacked.
     /// </summary>
-    /// <typeparam name="TSlidingPuzzleState">Any state of SlidingPuzzleState.</typeparam>
-    public abstract class QueensGoalTestFunction<TQueenState> : IGoalTestFunction<TQueenState>
-        where TQueenState : QueensState
+    public class QueensGoalTestFunction : IGoalTestFunction<IQueensState>
     {
-        /// <summary>
-        /// The number of queens on the board.
-        /// </summary>
-        private readonly uint _queens;
-
-        /// <summary>
-        /// Specifies the number of queens on the board.
-        /// </summary>
-        /// <param name="queens">The number of queens on the board.</param>
-        public QueensGoalTestFunction(uint queens)
-        {
-            _queens = queens;
-        }
-
         /// <summary>
         /// Returns whether there are a particular number of queens on the board and none are attacked.
         /// </summary>
         /// <param name="state">Any state.</param>
         /// <returns>Whether there are a particular number of queens on the board and none are attacked.</returns>
-        public bool GoalTest(TQueenState state)
+        public bool GoalTest(IQueensState state)
         {
             state.NonNull();
             uint queens = 0;
@@ -46,7 +30,7 @@ namespace Artificial_Intelligence.Environment.Queens
                 }
             }
 
-            return _queens == queens;
+            return state.Length == queens;
         }
     }
 }
