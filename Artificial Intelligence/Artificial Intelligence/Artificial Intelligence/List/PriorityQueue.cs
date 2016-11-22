@@ -84,7 +84,7 @@ namespace Artificial_Intelligence.List
                     2 * index + 1 < _list.Count;
                     index = smaller, left = 2 * index + 1, smaller = left)
                 {
-                    smaller += left + 1 < _list.Count && Comparer.Compare(_list[left], _list[left + 1]) >= 0 ? 1 : 0;
+                    smaller += left + 1 < _list.Count && Comparer.Compare(_list[left], _list[left + 1]) > 0 ? 1 : 0;
                     Swap(index, smaller);
                 }
 
@@ -104,7 +104,7 @@ namespace Artificial_Intelligence.List
 
             // Bubble up
             for (int index = _list.Count - 1, parent = (index - 1) / 2;
-                index > 0 && Comparer.Compare(_list[index], _list[parent]) >= 0;
+                index > 0 && Comparer.Compare(_list[index], _list[parent]) > 0;
                 index = parent, parent = (index - 1) / 2)
             {
                 Swap(index, parent);

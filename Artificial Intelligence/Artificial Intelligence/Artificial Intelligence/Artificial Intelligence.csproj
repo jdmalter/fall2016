@@ -76,8 +76,8 @@
     <Compile Include="Chapter 3\Search\INode.cs" />
     <Compile Include="Chapter 3\Search\ISearch.cs" />
     <Compile Include="Chapter 3\Search\Node.cs" />
+    <Compile Include="Chapter 3\Search\PrioritySearch.cs" />
     <Compile Include="Chapter 3\Search\QSearch\GraphSearch.cs" />
-    <Compile Include="Chapter 3\Search\QSearch\UpdatePrioritySearch.cs" />
     <Compile Include="Chapter 3\Search\QSearch\QueueSearch.cs" />
     <Compile Include="Chapter 3\Search\QSearch\TreeSearch.cs" />
     <Compile Include="Chapter 3\Search\Uninformed\BreadthFirstSearch.cs" />
@@ -86,7 +86,6 @@
     <Compile Include="Chapter 3\Search\Uninformed\DepthLimitedSearch\DepthLimitedSearch.cs" />
     <Compile Include="Chapter 3\Search\Uninformed\DepthLimitedSearch\DepthLimitedTreeSearch.cs" />
     <Compile Include="Chapter 3\Search\Uninformed\IterativeDeepeningSearch.cs" />
-    <Compile Include="Chapter 3\Search\Uninformed\UniformCostSearch.cs" />
     <Compile Include="Environment\Queens\EightQueens\EightQueensState.cs" />
     <Compile Include="Environment\Queens\IQueensState.cs" />
     <Compile Include="Environment\Queens\OneHundredQueens\OneHundredQueensState.cs" />
@@ -146,10 +145,8 @@
     <Compile Include="List\IQueue.cs" />
     <Compile Include="List\FIFOQueue.cs" />
     <Compile Include="List\IQueueExtension.cs" />
-    <Compile Include="List\IUpdatePriorityQueue.cs" />
     <Compile Include="List\LIFOQueue.cs" />
     <Compile Include="List\PriorityQueue.cs" />
-    <Compile Include="List\UpdatePriorityQueue.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

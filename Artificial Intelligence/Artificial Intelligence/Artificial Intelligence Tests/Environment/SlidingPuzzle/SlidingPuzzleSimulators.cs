@@ -163,26 +163,10 @@ namespace Artificial_IntelligenceTests.Environment.SlidingPuzzle
         }
 
         [TestMethod]
-        public void UniformCostSearch()
-        {
-            // Arrange
-            var queueSearch = new UpdatePrioritySearch<SlidingPuzzleProblem, ISlidingPuzzleState, SlidingPuzzleAction>();
-            _sut = new UniformCostSearch<SlidingPuzzleProblem, ISlidingPuzzleState, SlidingPuzzleAction>(queueSearch);
-            _problem = CreateProblem();
-
-            // Act
-            _actions = _sut.Search(_problem);
-
-            // Assert
-            ISlidingPuzzleState state = Solve(_problem.InitialState, _actions);
-            Assert.AreEqual(EightPuzzleState.DefaultGoalState, state);
-        }
-
-        [TestMethod]
         public void MisplacedTilesAStarSearch()
         {
             // Arrange
-            var queueSearch = new UpdatePrioritySearch<SlidingPuzzleProblem, ISlidingPuzzleState, SlidingPuzzleAction>();
+            var queueSearch = new GraphSearch<IPriorityQueue<INode<ISlidingPuzzleState, SlidingPuzzleAction>>, SlidingPuzzleProblem, ISlidingPuzzleState, SlidingPuzzleAction>();
             _heuristicFunction = new SlidingPuzzleMisplacedTilesHeuristicFunction();
             _sut = new AStarSearch<SlidingPuzzleProblem, ISlidingPuzzleState, SlidingPuzzleAction>(queueSearch, _heuristicFunction);
             _problem = CreateProblem();
@@ -199,7 +183,7 @@ namespace Artificial_IntelligenceTests.Environment.SlidingPuzzle
         public void ManhattanAStarSearch()
         {
             // Arrange
-            var queueSearch = new UpdatePrioritySearch<SlidingPuzzleProblem, ISlidingPuzzleState, SlidingPuzzleAction>();
+            var queueSearch = new GraphSearch<IPriorityQueue<INode<ISlidingPuzzleState, SlidingPuzzleAction>>, SlidingPuzzleProblem, ISlidingPuzzleState, SlidingPuzzleAction>();
             _heuristicFunction = new SlidingPuzzleManhattanHeuristicFunction();
             _sut = new AStarSearch<SlidingPuzzleProblem, ISlidingPuzzleState, SlidingPuzzleAction>(queueSearch, _heuristicFunction);
             _problem = CreateProblem();
@@ -216,8 +200,42 @@ namespace Artificial_IntelligenceTests.Environment.SlidingPuzzle
         public void DijkstraSearch()
         {
             // Arrange
-            var queueSearch = new UpdatePrioritySearch<SlidingPuzzleProblem, ISlidingPuzzleState, SlidingPuzzleAction>();
+            var queueSearch = new GraphSearch<IPriorityQueue<INode<ISlidingPuzzleState, SlidingPuzzleAction>>, SlidingPuzzleProblem, ISlidingPuzzleState, SlidingPuzzleAction>();
             _sut = new DijkstraSearch<SlidingPuzzleProblem, ISlidingPuzzleState, SlidingPuzzleAction>(queueSearch);
+            _problem = CreateProblem();
+
+            // Act
+            _actions = _sut.Search(_problem);
+
+            // Assert
+            ISlidingPuzzleState state = Solve(_problem.InitialState, _actions);
+            Assert.AreEqual(EightPuzzleState.DefaultGoalState, state);
+        }
+
+        [TestMethod]
+        public void MisplacedTilesGreedyBestFirstSearch()
+        {
+            // Arrange
+            var queueSearch = new GraphSearch<IPriorityQueue<INode<ISlidingPuzzleState, SlidingPuzzleAction>>, SlidingPuzzleProblem, ISlidingPuzzleState, SlidingPuzzleAction>();
+            _heuristicFunction = new SlidingPuzzleMisplacedTilesHeuristicFunction();
+            _sut = new GreedyBestFirstSearch<SlidingPuzzleProblem, ISlidingPuzzleState, SlidingPuzzleAction>(queueSearch, _heuristicFunction);
+            _problem = CreateProblem();
+
+            // Act
+            _actions = _sut.Search(_problem);
+
+            // Assert
+            ISlidingPuzzleState state = Solve(_problem.InitialState, _actions);
+            Assert.AreEqual(EightPuzzleState.DefaultGoalState, state);
+        }
+
+        [TestMethod]
+        public void ManhattanGreedyBestFirstSearch()
+        {
+            // Arrange
+            var queueSearch = new GraphSearch<IPriorityQueue<INode<ISlidingPuzzleState, SlidingPuzzleAction>>, SlidingPuzzleProblem, ISlidingPuzzleState, SlidingPuzzleAction>();
+            _heuristicFunction = new SlidingPuzzleManhattanHeuristicFunction();
+            _sut = new GreedyBestFirstSearch<SlidingPuzzleProblem, ISlidingPuzzleState, SlidingPuzzleAction>(queueSearch, _heuristicFunction);
             _problem = CreateProblem();
 
             // Act
