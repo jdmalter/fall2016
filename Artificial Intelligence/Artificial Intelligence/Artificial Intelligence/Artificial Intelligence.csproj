@@ -86,6 +86,7 @@
     <Compile Include="Chapter 3\Search\Uninformed\DepthLimitedSearch\DepthLimitedSearch.cs" />
     <Compile Include="Chapter 3\Search\Uninformed\DepthLimitedSearch\DepthLimitedTreeSearch.cs" />
     <Compile Include="Chapter 3\Search\Uninformed\IterativeDeepeningSearch.cs" />
+    <Compile Include="Chapter 3\Search\Uninformed\UniformCostSearch.cs" />
     <Compile Include="Environment\Queens\EightQueens\EightQueensState.cs" />
     <Compile Include="Environment\Queens\IQueensState.cs" />
     <Compile Include="Environment\Queens\OneHundredQueens\OneHundredQueensState.cs" />
