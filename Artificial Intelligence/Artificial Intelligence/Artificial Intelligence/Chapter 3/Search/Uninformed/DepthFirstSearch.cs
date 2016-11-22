@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Artificial_Intelligence.Chapter_2.Agent;
 using Artificial_Intelligence.Chapter_3.Problem;
 using Artificial_Intelligence.Chapter_3.Search.QSearch;
@@ -25,11 +24,6 @@ namespace Artificial_Intelligence.Chapter_3.Search.Uninformed
         private readonly QueueSearch<ILIFOQueue<INode<TState, TAction>>, TProblem, TState, TAction> _queueSearch;
 
         /// <summary>
-        /// A queue of all leaf nodes available for expansion at any given point.
-        /// </summary>
-        private readonly ILIFOQueue<INode<TState, TAction>> _frontier = new LIFOQueue<INode<TState, TAction>>();
-
-        /// <summary>
         /// Specifies a queue search.
         /// </summary>
         /// <param name="queueSearch">A search using a queue of all leaf nodes available for expansion at any given point.</param>
@@ -45,7 +39,8 @@ namespace Artificial_Intelligence.Chapter_3.Search.Uninformed
         /// <returns>A sequence of actions that reaches the goal.</returns>
         public IList<TAction> Search(TProblem problem)
         {
-            return _queueSearch.Search(problem, _frontier);
+            ILIFOQueue<INode<TState, TAction>> frontier = new LIFOQueue<INode<TState, TAction>>();
+            return _queueSearch.Search(problem, frontier);
         }
     }
 }

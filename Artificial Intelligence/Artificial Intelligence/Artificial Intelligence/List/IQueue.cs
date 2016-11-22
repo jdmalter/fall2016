@@ -30,5 +30,13 @@
         /// <param name="item">Pushed item.</param>
         /// <returns>Whether the given item was pushed onto the queue.</returns>
         bool Push(T item);
+
+        /// <summary>
+        /// Unfortunately, this method needs to exist otherwise priority search would not work.
+        /// Removes and returns whether the given item was removed from the queue.
+        /// </summary>
+        /// <param name="item">Removed item.</param>
+        /// <returns>Whether the given item was removed from the queue.</returns>
+        bool Remove(T item);
     }
 }

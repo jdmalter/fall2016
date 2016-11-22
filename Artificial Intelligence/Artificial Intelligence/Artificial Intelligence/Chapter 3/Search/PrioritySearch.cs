@@ -19,9 +19,9 @@ namespace Artificial_Intelligence.Chapter_3.Search
         where TAction : IAction
     {
         /// <summary>
-        /// A search using a queue of all leaf nodes available for expansion at any given point.
+        /// A priority queue search that stores explored nodes.
         /// </summary>
-        private readonly QueueSearch<IPriorityQueue<INode<TState, TAction>>, TProblem, TState, TAction> _queueSearch;
+        private readonly PriorityQueueSearch<IPriorityQueue<INode<TState, TAction>>, TProblem, TState, TAction> _priorityQueueSearch;
 
         /// <summary>
         /// Defines a method that compares two nodes.
@@ -31,12 +31,12 @@ namespace Artificial_Intelligence.Chapter_3.Search
         /// <summary>
         /// Specifies a queue search and a comparer.
         /// </summary>
-        /// <param name="queueSearch">A search using a queue of all leaf nodes available for expansion at any given point.</param>
+        /// <param name="priorityQueueSearch">A priority queue search that stores explored nodes.</param>
         /// <param name="comparer">Defines a method that compares two nodes.</param>
-        public PrioritySearch(QueueSearch<IPriorityQueue<INode<TState, TAction>>, TProblem, TState, TAction> queueSearch,
+        public PrioritySearch(PriorityQueueSearch<IPriorityQueue<INode<TState, TAction>>, TProblem, TState, TAction> priorityQueueSearch,
             IComparer<INode<TState, TAction>> comparer)
         {
-            _queueSearch = queueSearch.NonNull();
+            _priorityQueueSearch = priorityQueueSearch.NonNull();
             _comparer = comparer.NonNull();
         }
 
@@ -48,7 +48,7 @@ namespace Artificial_Intelligence.Chapter_3.Search
         public IList<TAction> Search(TProblem problem)
         {
             IPriorityQueue<INode<TState, TAction>> frontier = new PriorityQueue<INode<TState, TAction>>(_comparer);
-            return _queueSearch.Search(problem, frontier);
+            return _priorityQueueSearch.Search(problem, frontier);
         }
     }
 }

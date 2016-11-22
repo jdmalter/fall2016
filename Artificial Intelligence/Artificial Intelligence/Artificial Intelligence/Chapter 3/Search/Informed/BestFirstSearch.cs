@@ -20,13 +20,13 @@ namespace Artificial_Intelligence.Chapter_3.Search.Informed
         where TAction : IAction
     {
         /// <summary>
-        /// Specifies a queue search and an evaluation function.
+        /// Specifies a priority queue search and an evaluation function.
         /// </summary>
-        /// <param name="queueSearch">A search using a queue of all leaf nodes available for expansion at any given point.</param>
+        /// <param name="priorityQueueSearch">A priority queue search that stores explored nodes.</param>
         /// <param name="evaluationFunction">A functional interface for Evaluate.</param>
-        public BestFirstSearch(QueueSearch<IPriorityQueue<INode<TState, TAction>>, TProblem, TState, TAction> queueSearch,
-          IEvaluationFunction<TState, TAction> evaluationFunction)
-            : base(queueSearch, new EvaluationFunctionComparer(evaluationFunction))
+        public BestFirstSearch(PriorityQueueSearch<IPriorityQueue<INode<TState, TAction>>, TProblem, TState, TAction> priorityQueueSearch,
+           IEvaluationFunction<TState, TAction> evaluationFunction)
+            : base(priorityQueueSearch, new EvaluationFunctionComparer(evaluationFunction))
         {
 
         }

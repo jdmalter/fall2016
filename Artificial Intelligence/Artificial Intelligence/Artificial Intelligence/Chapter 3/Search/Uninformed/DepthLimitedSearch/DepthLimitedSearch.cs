@@ -69,11 +69,13 @@ namespace Artificial_Intelligence.Chapter_3.Search.Uninformed.DepthLimitedSearch
                 foreach (INode<TState, TAction> child in node.Expand(problem))
                 {
                     IList<TAction> result = RecursiveDLS(child, problem, limit - 1);
+
                     if (!result.IsEmpty())
                     {
                         return result;
                     }
                 }
+
                 return new List<TAction>();
             }
         }

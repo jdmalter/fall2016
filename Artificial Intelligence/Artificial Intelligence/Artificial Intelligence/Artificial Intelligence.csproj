@@ -78,6 +78,7 @@
     <Compile Include="Chapter 3\Search\Node.cs" />
     <Compile Include="Chapter 3\Search\PrioritySearch.cs" />
     <Compile Include="Chapter 3\Search\QSearch\GraphSearch.cs" />
+    <Compile Include="Chapter 3\Search\QSearch\PriorityQueueSearch.cs" />
     <Compile Include="Chapter 3\Search\QSearch\QueueSearch.cs" />
     <Compile Include="Chapter 3\Search\QSearch\TreeSearch.cs" />
     <Compile Include="Chapter 3\Search\Uninformed\BreadthFirstSearch.cs" />

@@ -18,11 +18,11 @@ namespace Artificial_Intelligence.Chapter_3.Search.Uninformed
           where TAction : IAction
     {
         /// <summary>
-        /// Specifies a queue search.
+        /// Specifies a priority queue search.
         /// </summary>
-        /// <param name="queueSearch">A search using a queue of all leaf nodes available for expansion at any given point.</param>
-        public UniformCostSearch(QueueSearch<IPriorityQueue<INode<TState, TAction>>, TProblem, TState, TAction> queueSearch)
-            : base(queueSearch, new PathCostComparer())
+        /// <param name="priorityQueueSearch">A priority queue search that stores explored nodes.</param>
+        public UniformCostSearch(PriorityQueueSearch<IPriorityQueue<INode<TState, TAction>>, TProblem, TState, TAction> priorityQueueSearch)
+            : base(priorityQueueSearch, new PathCostComparer())
         {
 
         }

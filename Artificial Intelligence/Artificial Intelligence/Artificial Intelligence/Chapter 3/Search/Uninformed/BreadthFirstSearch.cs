@@ -24,11 +24,6 @@ namespace Artificial_Intelligence.Chapter_3.Search.Uninformed
         private readonly QueueSearch<IFIFOQueue<INode<TState, TAction>>, TProblem, TState, TAction> _queueSearch;
 
         /// <summary>
-        /// A queue of all leaf nodes available for expansion at any given point.
-        /// </summary>
-        private readonly IFIFOQueue<INode<TState, TAction>> _frontier = new FIFOQueue<INode<TState, TAction>>();
-
-        /// <summary>
         /// Specifies a queue search.
         /// </summary>
         /// <param name="queueSearch">A search using a queue of all leaf nodes available for expansion at any given point.</param>
@@ -44,7 +39,8 @@ namespace Artificial_Intelligence.Chapter_3.Search.Uninformed
         /// <returns>A sequence of actions that reaches the goal.</returns>
         public IList<TAction> Search(TProblem problem)
         {
-            return _queueSearch.Search(problem, _frontier);
+            IFIFOQueue<INode<TState, TAction>> frontier = new FIFOQueue<INode<TState, TAction>>();
+            return _queueSearch.Search(problem, frontier);
         }
     }
 }

@@ -18,13 +18,13 @@ namespace Artificial_Intelligence.Chapter_3.Search.Informed
               where TAction : IAction
     {
         /// <summary>
-        /// Specifies a queue search and a heuristic function.
+        /// Specifies a priority queue search and a heuristic function.
         /// </summary>
-        /// <param name="queueSearch">A search using a queue of all leaf nodes available for expansion at any given point.</param>
+        /// <param name="priorityQueueSearch">A priority queue search that stores explored nodes.</param>
         /// <param name="heuristicFunction">A functional interface for Heuristic.</param>
-        public GreedyBestFirstSearch(QueueSearch<IPriorityQueue<INode<TState, TAction>>, TProblem, TState, TAction> queueSearch,
+        public GreedyBestFirstSearch(PriorityQueueSearch<IPriorityQueue<INode<TState, TAction>>, TProblem, TState, TAction> priorityQueueSearch,
               IHeuristicFunction<TState> heuristicFunction)
-            : base(queueSearch, new GreedyBestFirstEvaluationFunction<TState, TAction>(heuristicFunction))
+            : base(priorityQueueSearch, new GreedyBestFirstEvaluationFunction<TState, TAction>(heuristicFunction))
         {
 
         }

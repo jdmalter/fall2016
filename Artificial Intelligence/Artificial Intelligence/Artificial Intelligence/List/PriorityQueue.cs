@@ -122,5 +122,36 @@ namespace Artificial_Intelligence.List
         {
             _list.Swap(a, b);
         }
+
+        /// <summary>
+        /// Unfortunately, this method needs to exist otherwise priority search would not work.
+        /// Removes and returns whether the given item was removed from the queue.
+        /// </summary>
+        /// <param name="item">Removed item.</param>
+        /// <returns>Whether the given item was removed from the queue.</returns>
+        public bool Remove(T item)
+        {
+            int index = _list.IndexOf(item);
+            if (index < 0)
+            {
+                return false;
+            }
+            else
+            {
+                Swap(index, _list.Count - 1);
+
+                // Bubble down
+                for (int left = 2 * index + 1, smaller = left;
+                    2 * index + 1 < _list.Count;
+                    index = smaller, left = 2 * index + 1, smaller = left)
+                {
+                    smaller += left + 1 < _list.Count && Comparer.Compare(_list[left], _list[left + 1]) > 0 ? 1 : 0;
+                    Swap(index, smaller);
+                }
+
+                _list.RemoveAt(_list.Count - 1);
+                return true;
+            }
+        }
     }
 }
