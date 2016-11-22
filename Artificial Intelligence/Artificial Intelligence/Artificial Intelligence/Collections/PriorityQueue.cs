@@ -2,7 +2,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace Artificial_Intelligence.List
+namespace Artificial_Intelligence.Collections
 {
     /// <summary>
     /// A priority queue which supports duplicate items.
@@ -28,16 +28,6 @@ namespace Artificial_Intelligence.List
         /// A method that compares two objects.
         /// </summary>
         public IComparer<T> Comparer { get; }
-
-        /// <summary>
-        /// Inserts the given item into list at the given index.
-        /// </summary>
-        /// <param name="index">An index at which the given item is inserted.</param>
-        /// <param name="item">Inserted item.</param>
-        private void Insert(int index, T item)
-        {
-            _list.Insert(index, item);
-        }
 
         /// <summary>
         /// Determines whether the current queue contains any items.
@@ -77,15 +67,15 @@ namespace Artificial_Intelligence.List
             else
             {
                 T first = _list[0];
-                Swap(0, _list.Count - 1);
+                _list.Swap(0, _list.Count - 1);
 
                 // Bubble down
                 for (int index = 0, left = 2 * index + 1, smaller = left;
-                    2 * index + 1 < _list.Count;
+                    left < _list.Count;
                     index = smaller, left = 2 * index + 1, smaller = left)
                 {
                     smaller += left + 1 < _list.Count && Comparer.Compare(_list[left], _list[left + 1]) > 0 ? 1 : 0;
-                    Swap(index, smaller);
+                    _list.Swap(index, smaller);
                 }
 
                 _list.RemoveAt(_list.Count - 1);
@@ -100,27 +90,17 @@ namespace Artificial_Intelligence.List
         /// <returns>Whether the given item was pushed onto the queue.</returns>
         public bool Push(T item)
         {
-            Insert(_list.Count, item);
+            _list.Insert(_list.Count, item);
 
             // Bubble up
             for (int index = _list.Count - 1, parent = (index - 1) / 2;
-                index > 0 && Comparer.Compare(_list[index], _list[parent]) > 0;
+                index > 0 && Comparer.Compare(_list[index], _list[parent]) >= 0;
                 index = parent, parent = (index - 1) / 2)
             {
-                Swap(index, parent);
+                _list.Swap(index, parent);
             }
 
             return true;
-        }
-
-        /// <summary>
-        /// Swaps the given items.
-        /// </summary>
-        /// <param name="a">An item to swap.</param>
-        /// <param name="b">An item to swap.</param>
-        private void Swap(int a, int b)
-        {
-            _list.Swap(a, b);
         }
 
         /// <summary>
@@ -138,15 +118,15 @@ namespace Artificial_Intelligence.List
             }
             else
             {
-                Swap(index, _list.Count - 1);
+                _list.Swap(index, _list.Count - 1);
 
                 // Bubble down
                 for (int left = 2 * index + 1, smaller = left;
-                    2 * index + 1 < _list.Count;
+                    left < _list.Count;
                     index = smaller, left = 2 * index + 1, smaller = left)
                 {
                     smaller += left + 1 < _list.Count && Comparer.Compare(_list[left], _list[left + 1]) > 0 ? 1 : 0;
-                    Swap(index, smaller);
+                    _list.Swap(index, smaller);
                 }
 
                 _list.RemoveAt(_list.Count - 1);

@@ -9,7 +9,7 @@ using Artificial_Intelligence.Environment.SlidingPuzzle.EightPuzzle;
 using Artificial_Intelligence.Chapter_3.Search.Uninformed.DepthLimitedSearch;
 using Artificial_Intelligence.Chapter_3.Search.Informed;
 using Artificial_Intelligence.Chapter_3.Search.Informed.Function;
-using Artificial_Intelligence.List;
+using Artificial_Intelligence.Collections;
 
 namespace Artificial_IntelligenceTests.Environment.SlidingPuzzle
 {
@@ -171,7 +171,7 @@ namespace Artificial_IntelligenceTests.Environment.SlidingPuzzle
             _problem = CreateProblem();
 
             // Act
-            _actions = _sut.Search(_problem);
+            _actions = _sut.Search(_problem); // Equivalent to Dijkstra
 
             // Assert
             ISlidingPuzzleState state = Solve(_problem.InitialState, _actions);
@@ -221,7 +221,7 @@ namespace Artificial_IntelligenceTests.Environment.SlidingPuzzle
             _problem = CreateProblem();
 
             // Act
-            _actions = _sut.Search(_problem);
+            _actions = _sut.Search(_problem); // Equivalent to Uniform Cost
 
             // Assert
             ISlidingPuzzleState state = Solve(_problem.InitialState, _actions);

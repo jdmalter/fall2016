@@ -1,6 +1,6 @@
 ﻿using Artificial_Intelligence.Chapter_2.Agent;
 using Artificial_Intelligence.Guard;
-using Artificial_Intelligence.List;
+using Artificial_Intelligence.Collections;
 using System.Collections.Generic;
 
 namespace Artificial_Intelligence.Chapter_3.Problem

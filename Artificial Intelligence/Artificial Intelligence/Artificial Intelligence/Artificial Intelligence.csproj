@@ -140,15 +140,15 @@
     <Compile Include="Environment\VacuumWorld\VacuumProblem.cs" />
     <Compile Include="Environment\VacuumWorld\VacuumResultFunction.cs" />
     <Compile Include="Guard\ParameterGuard.cs" />
-    <Compile Include="List\IFIFOQueue.cs" />
-    <Compile Include="List\ILIFOQueue.cs" />
-    <Compile Include="List\IListExtension.cs" />
-    <Compile Include="List\IPriorityQueue.cs" />
-    <Compile Include="List\IQueue.cs" />
-    <Compile Include="List\FIFOQueue.cs" />
-    <Compile Include="List\IQueueExtension.cs" />
-    <Compile Include="List\LIFOQueue.cs" />
-    <Compile Include="List\PriorityQueue.cs" />
+    <Compile Include="Collections\IFIFOQueue.cs" />
+    <Compile Include="Collections\ILIFOQueue.cs" />
+    <Compile Include="Collections\IListExtension.cs" />
+    <Compile Include="Collections\IPriorityQueue.cs" />
+    <Compile Include="Collections\IQueue.cs" />
+    <Compile Include="Collections\FIFOQueue.cs" />
+    <Compile Include="Collections\IQueueExtension.cs" />
+    <Compile Include="Collections\LIFOQueue.cs" />
+    <Compile Include="Collections\PriorityQueue.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

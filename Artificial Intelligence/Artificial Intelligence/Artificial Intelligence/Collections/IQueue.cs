@@ -1,4 +1,4 @@
-﻿namespace Artificial_Intelligence.List
+﻿namespace Artificial_Intelligence.Collections
 {
     /// <summary>
     /// A queue with is empty, peek, pop, and push operations.

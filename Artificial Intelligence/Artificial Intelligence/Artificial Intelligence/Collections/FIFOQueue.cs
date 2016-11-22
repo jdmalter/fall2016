@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Artificial_Intelligence.List
+namespace Artificial_Intelligence.Collections
 {
     /// <summary>
     /// A first in first out queue.

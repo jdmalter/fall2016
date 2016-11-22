@@ -4,7 +4,7 @@ using Artificial_Intelligence.Chapter_3.Search.QSearch;
 using Artificial_Intelligence.Chapter_3.Search.Uninformed;
 using Artificial_Intelligence.Environment.Queens;
 using Artificial_Intelligence.Environment.Queens.EightQueens;
-using Artificial_Intelligence.List;
+using Artificial_Intelligence.Collections;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Collections.Generic;
 

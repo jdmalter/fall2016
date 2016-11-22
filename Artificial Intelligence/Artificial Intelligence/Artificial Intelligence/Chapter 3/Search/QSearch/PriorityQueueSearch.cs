@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using Artificial_Intelligence.Chapter_2.Agent;
 using Artificial_Intelligence.Chapter_3.Problem;
-using Artificial_Intelligence.List;
+using Artificial_Intelligence.Collections;
 
 namespace Artificial_Intelligence.Chapter_3.Search.QSearch
 {
@@ -37,6 +37,7 @@ namespace Artificial_Intelligence.Chapter_3.Search.QSearch
         public override IList<TAction> Search(TProblem problem, TQueue frontier)
         {
             _explored.Clear();
+            _frontierNodes.Clear();
             return base.Search(problem, frontier);
         }
 
@@ -57,10 +58,7 @@ namespace Artificial_Intelligence.Chapter_3.Search.QSearch
                 }
                 else if (frontier.Comparer != null && frontier.Comparer.Compare(node, frontierNode) < 0)
                 {
-                    if (frontier.Remove(frontierNode))
-                    {
-                        _frontierNodes.Remove(frontierNode.State);
-                    }
+                    frontier.Remove(frontierNode);                
                     frontier.Push(node);
                     _frontierNodes[node.State] = node;
                 }

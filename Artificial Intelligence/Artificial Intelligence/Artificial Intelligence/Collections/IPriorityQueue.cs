@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Artificial_Intelligence.List
+namespace Artificial_Intelligence.Collections
 {
     /// <summary>
     /// A priority queue which may or may not support duplicate item.

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Artificial_Intelligence.List
+namespace Artificial_Intelligence.Collections
 {
     /// <summary>
     /// An extension of genereic IQueue.
