@@ -52,7 +52,7 @@ namespace Artificial_Intelligence.Chapter_3.Search.Uninformed
         /// <returns>A sequence of actions that reaches the goal or an empty sequence.</returns>
         public IList<TAction> Search(TProblem problem)
         {
-            for (int limit = 0; limit < Limit; limit++, _depthLimitedSearch = _depthLimitedSearch.Deepen())
+            for (int limit = 0; limit <= Limit; limit++, _depthLimitedSearch = _depthLimitedSearch.Deepen())
             {
                 IList<TAction> actions = _depthLimitedSearch.Search(problem);
                 if (!actions.IsEmpty())

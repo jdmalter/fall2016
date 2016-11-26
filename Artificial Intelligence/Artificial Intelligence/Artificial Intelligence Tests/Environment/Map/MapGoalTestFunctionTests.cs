@@ -2,32 +2,32 @@
 using Moq;
 using System;
 
-namespace Artificial_Intelligence.Environment.SlidingPuzzle.Tests
+namespace Artificial_Intelligence.Environment.Map.Tests
 {
     [TestClass]
-    public class SlidingPuzzleGoalTestFunctionTests
+    public class MapGoalTestFunctionTests
     {
         /// <summary>
         /// Subject under test.
         /// </summary>
-        private SlidingPuzzleGoalTestFunction _sut;
+        private MapGoalTestFunction<IMapState> _sut;
 
         /// <summary>
         /// Dependency of subject under test.
         /// </summary>
-        private Mock<ISlidingPuzzleState> _goal;
+        private Mock<IMapState> _goal;
 
         /// <summary>
         /// Parameter to subject under test.
         /// </summary>
-        private Mock<ISlidingPuzzleState> _state;
+        private Mock<IMapState> _state;
 
         [TestInitialize]
         public void TestInitialize()
         {
-            _goal = new Mock<ISlidingPuzzleState>();
-            _state = new Mock<ISlidingPuzzleState>();
-            _sut = new SlidingPuzzleGoalTestFunction(_goal.Object);
+            _goal = new Mock<IMapState>();
+            _state = new Mock<IMapState>();
+            _sut = new MapGoalTestFunction<IMapState>(_goal.Object);
         }
 
         [TestMethod]
@@ -39,7 +39,7 @@ namespace Artificial_Intelligence.Environment.SlidingPuzzle.Tests
             try
             {
                 // Act
-                _sut = new SlidingPuzzleGoalTestFunction(null);
+                _sut = new MapGoalTestFunction<IMapState>(null);
 
                 // Assert
                 Assert.Fail("ArgumentNullException not thrown");

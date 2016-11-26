@@ -1,23 +1,23 @@
 ﻿using Artificial_Intelligence.Guard;
 
-namespace Artificial_Intelligence.Chapter_2.Agent
+namespace Artificial_Intelligence.Environment.Map
 {
     /// <summary>
-    /// An agents's actions through actuators on an environment. 
+    /// An agent's memory of its environment.
     /// </summary>
-    public abstract class Action : IAction
+    public abstract class MapState : IMapState
     {
         /// <summary>
         /// Specifies the string representation.
         /// </summary>
         /// <param name="name">The string representation.</param>
-        public Action(string name)
+        public MapState(string name)
         {
             Name = name.NonNull();
         }
 
         /// <summary>
-        /// The string representation. 
+        /// The string representation.
         /// </summary>
         public string Name { get; }
 
@@ -28,13 +28,13 @@ namespace Artificial_Intelligence.Chapter_2.Agent
         /// <returns>Whether the given object is equal to the current object.</returns>
         public override bool Equals(object obj)
         {
-            Action action = obj as Action;
+            MapState state = obj as MapState;
 
-            return action != null && Name.Equals(action.Name);
+            return state != null && Name.Equals(state.Name);
         }
 
         /// <summary>
-        /// Uses hash function of the string representation. 
+        /// Uses hash function of the string representation.
         /// </summary>
         /// <returns>A hash code for the string representation.</returns>
         public override int GetHashCode()
@@ -48,7 +48,7 @@ namespace Artificial_Intelligence.Chapter_2.Agent
         /// <returns>A string that represents the current object.</returns>
         public override string ToString()
         {
-            return Name.ToString();
+            return Name;
         }
     }
 }

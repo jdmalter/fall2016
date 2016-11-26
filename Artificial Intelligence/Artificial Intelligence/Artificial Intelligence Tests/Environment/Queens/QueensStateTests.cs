@@ -24,18 +24,7 @@ namespace Artificial_Intelligence.Environment.Queens.Tests
         [TestInitialize]
         public void TestInitialize()
         {
-            _locations = new bool[,]
-            {
-                { false, false, false, false, false, false, false, false, },
-                { false, false, false, false, false, false, false, false, },
-                { false, false, false, false, false, false, false, false, },
-                { false, false, false, false, false, false, false, false, },
-                { false, false, false, false, false, false, false, false, },
-                { false, false, false, false, false, false, false, false, },
-                { false, false, false, false, false, false, false, false, },
-                { false, false, false, false, false, false, false, false, },
-            };
-            _sut = new EightQueensState(_locations);
+            _sut = new EightQueensState();
         }
 
         [TestMethod]

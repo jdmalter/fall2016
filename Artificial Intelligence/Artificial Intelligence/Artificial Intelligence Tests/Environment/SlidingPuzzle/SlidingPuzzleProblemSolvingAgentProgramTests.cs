@@ -44,25 +44,7 @@ namespace Artificial_Intelligence.Environment.SlidingPuzzle.Tests
             try
             {
                 // Act
-                _sut = new SlidingPuzzleProblemSolvingAgentProgram(null, _goal.Object, _search.Object);
-
-                // Assert
-                Assert.Fail("ArgumentNullException not thrown");
-            }
-            catch (ArgumentNullException)
-            {
-                // Assert
-                Assert.IsNull(_sut);
-            }
-        }
-
-        [TestMethod]
-        public void NullGoalParameter()
-        {
-            try
-            {
-                // Act
-                _sut = new SlidingPuzzleProblemSolvingAgentProgram(_state.Object, null, _search.Object);
+                _sut = new SlidingPuzzleProblemSolvingAgentProgram(null, _search.Object, _goal.Object);
 
                 // Assert
                 Assert.Fail("ArgumentNullException not thrown");
@@ -80,7 +62,25 @@ namespace Artificial_Intelligence.Environment.SlidingPuzzle.Tests
             try
             {
                 // Act
-                _sut = new SlidingPuzzleProblemSolvingAgentProgram(_state.Object, _goal.Object, null);
+                _sut = new SlidingPuzzleProblemSolvingAgentProgram(_state.Object, null, _goal.Object);
+
+                // Assert
+                Assert.Fail("ArgumentNullException not thrown");
+            }
+            catch (ArgumentNullException)
+            {
+                // Assert
+                Assert.IsNull(_sut);
+            }
+        }
+
+        [TestMethod]
+        public void NullGoalParameter()
+        {
+            try
+            {
+                // Act
+                _sut = new SlidingPuzzleProblemSolvingAgentProgram(_state.Object, _search.Object, null);
 
                 // Assert
                 Assert.Fail("ArgumentNullException not thrown");
@@ -98,7 +98,7 @@ namespace Artificial_Intelligence.Environment.SlidingPuzzle.Tests
             // Arrange
             IList<SlidingPuzzleAction> actions = new List<SlidingPuzzleAction>();
             _search.Setup(search => search.Search(It.IsAny<SlidingPuzzleProblem>())).Returns(actions);
-            _sut = new SlidingPuzzleProblemSolvingAgentProgram(_state.Object, _goal.Object, _search.Object);
+            _sut = new SlidingPuzzleProblemSolvingAgentProgram(_state.Object, _search.Object, _goal.Object);
 
             // Act
             SlidingPuzzleAction actual = _sut.Invoke(null);
@@ -119,7 +119,7 @@ namespace Artificial_Intelligence.Environment.SlidingPuzzle.Tests
                 SlidingPuzzleAction.RIGHT,
             };
             _search.Setup(search => search.Search(It.IsAny<SlidingPuzzleProblem>())).Returns(actions);
-            _sut = new SlidingPuzzleProblemSolvingAgentProgram(_state.Object, _goal.Object, _search.Object);
+            _sut = new SlidingPuzzleProblemSolvingAgentProgram(_state.Object, _search.Object, _goal.Object);
 
             // Act
             SlidingPuzzleAction actual = _sut.Invoke(null);

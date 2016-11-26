@@ -58,7 +58,7 @@ namespace Artificial_Intelligence.Chapter_3.Search.QSearch
                 }
                 else if (frontier.Comparer != null && frontier.Comparer.Compare(node, frontierNode) < 0)
                 {
-                    frontier.Remove(frontierNode);                
+                    frontier.Remove(frontierNode);
                     frontier.Push(node);
                     _frontierNodes[node.State] = node;
                 }
@@ -66,12 +66,14 @@ namespace Artificial_Intelligence.Chapter_3.Search.QSearch
         }
 
         /// <summary>
+        /// Removes every node from the frontier while the frontier is not empty and the next node has been explored.
         /// Determines whether the frontier contains any nodes available for expansion.
         /// </summary>
         /// <param name="frontier">A queue of all leaf nodes available for expansion at any given point.</param>
         /// <returns>Whether the frontier contains any nodes available for expansion.</returns>
         public override bool IsEmpty(TQueue frontier)
         {
+            frontier.PopWhile(node => _explored.Contains(node.State));
             return frontier.IsEmpty();
         }
 

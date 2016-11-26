@@ -26,7 +26,8 @@ namespace Artificial_Intelligence.Chapter_3.Search.QSearch
         /// <returns>A sequence of actions that reaches the goal.</returns>
         public virtual IList<TAction> Search(TProblem problem, TQueue frontier)
         {
-            frontier.Clear().Push(problem.InitialState.RootNode<TState, TAction>());
+            INode<TState, TAction> root = problem.InitialState.RootNode<TState, TAction>();
+            frontier.Clear().Push(root);
 
             while (!IsEmpty(frontier))
             {

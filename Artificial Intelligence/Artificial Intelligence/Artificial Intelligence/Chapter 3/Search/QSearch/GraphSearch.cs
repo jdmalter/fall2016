@@ -49,6 +49,7 @@ namespace Artificial_Intelligence.Chapter_3.Search.QSearch
         }
 
         /// <summary>
+        /// Removes every node from the frontier while the frontier is not empty and the next node has been explored.
         /// Determines whether the frontier contains any nodes available for expansion.
         /// </summary>
         /// <param name="frontier">A queue of all leaf nodes available for expansion at any given point.</param>

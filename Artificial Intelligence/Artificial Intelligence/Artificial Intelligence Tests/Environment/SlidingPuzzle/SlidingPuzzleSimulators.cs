@@ -42,14 +42,14 @@ namespace Artificial_IntelligenceTests.Environment.SlidingPuzzle
         /// <returns>A new instance of sliding puzzle problem.</returns>
         private SlidingPuzzleProblem CreateProblem()
         {
-            uint[,] locations = new uint[,]
+            uint[,] eightPuzzle = new uint[,]
             {
-                { 8, 7, 6, },
-                { 4, 0, 1, },
-                { 3, 2, 5, },
+                { 8, 0, 6, },
+                { 5, 4, 7, },
+                { 2, 3, 1, },
             };
             ISlidingPuzzleState initialState =
-                new EightPuzzleState(locations);
+                new EightPuzzleState(eightPuzzle);
             ISlidingPuzzleState goal =
                 EightPuzzleState.DefaultGoalState;
             IActionsFunction<ISlidingPuzzleState, SlidingPuzzleAction> actionsFunction =
@@ -58,8 +58,7 @@ namespace Artificial_IntelligenceTests.Environment.SlidingPuzzle
                 new SlidingPuzzleResultFunction();
             IGoalTestFunction<ISlidingPuzzleState> goalTestFunction =
                 new SlidingPuzzleGoalTestFunction(goal);
-            return new SlidingPuzzleProblem(
-                 initialState,
+            return new SlidingPuzzleProblem(initialState,
                  actionsFunction,
                  resultFunction,
                  goalTestFunction);
@@ -132,7 +131,7 @@ namespace Artificial_IntelligenceTests.Environment.SlidingPuzzle
         public void DepthLimitedSearch()
         {
             // Arrange
-            int limit = 40;
+            int limit = 35; // Maximum number of moves for optimal eight puzzle
             _sut = new DepthLimitedGraphSearch<SlidingPuzzleProblem, ISlidingPuzzleState, SlidingPuzzleAction>(limit);
             _problem = CreateProblem();
 
@@ -148,7 +147,7 @@ namespace Artificial_IntelligenceTests.Environment.SlidingPuzzle
         public void IterativeDeepeningSearch()
         {
             // Arrange
-            int limit = 40;
+            int limit = 35;
             DepthLimitedSearch<SlidingPuzzleProblem, ISlidingPuzzleState, SlidingPuzzleAction> depthLimitedSearch =
                 new DepthLimitedGraphSearch<SlidingPuzzleProblem, ISlidingPuzzleState, SlidingPuzzleAction>(0);
             _sut = new IterativeDeepeningSearch<SlidingPuzzleProblem, ISlidingPuzzleState, SlidingPuzzleAction>(depthLimitedSearch, limit);
@@ -171,7 +170,7 @@ namespace Artificial_IntelligenceTests.Environment.SlidingPuzzle
             _problem = CreateProblem();
 
             // Act
-            _actions = _sut.Search(_problem); // Equivalent to Dijkstra
+            _actions = _sut.Search(_problem);
 
             // Assert
             ISlidingPuzzleState state = Solve(_problem.InitialState, _actions);
@@ -206,22 +205,6 @@ namespace Artificial_IntelligenceTests.Environment.SlidingPuzzle
 
             // Act
             _actions = _sut.Search(_problem);
-
-            // Assert
-            ISlidingPuzzleState state = Solve(_problem.InitialState, _actions);
-            Assert.AreEqual(EightPuzzleState.DefaultGoalState, state);
-        }
-
-        [TestMethod]
-        public void DijkstraSearch()
-        {
-            // Arrange
-            var priorityQueueSearch = new PriorityQueueSearch<IPriorityQueue<INode<ISlidingPuzzleState, SlidingPuzzleAction>>, SlidingPuzzleProblem, ISlidingPuzzleState, SlidingPuzzleAction>();
-            _sut = new DijkstraSearch<SlidingPuzzleProblem, ISlidingPuzzleState, SlidingPuzzleAction>(priorityQueueSearch);
-            _problem = CreateProblem();
-
-            // Act
-            _actions = _sut.Search(_problem); // Equivalent to Uniform Cost
 
             // Assert
             ISlidingPuzzleState state = Solve(_problem.InitialState, _actions);

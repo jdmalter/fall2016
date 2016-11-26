@@ -7,8 +7,6 @@ namespace Artificial_Intelligence.Environment.Queens
     /// </summary>
     public class QueensAction : Action
     {
-        //"Add"   public static readonly string ADD = "Add";
-
         public static readonly QueensAction NULL = new QueensAction("Null", 0, 0);
 
         /// <summary>

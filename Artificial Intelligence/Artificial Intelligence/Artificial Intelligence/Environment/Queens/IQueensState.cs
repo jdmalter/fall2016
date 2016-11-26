@@ -3,7 +3,7 @@
 namespace Artificial_Intelligence.Environment.Queens
 {
     /// <summary>
-    /// 
+    ///  An agent's memory of its environment.
     /// </summary>
     public interface IQueensState : IState
     {

@@ -57,7 +57,7 @@ namespace Artificial_IntelligenceTests.Environment.Queens
             _actions = _sut.Search(_problem);
 
             // Assert
-            Assert.AreEqual(8, _actions.Count); // Much slower than DFS, faster than graph version
+            Assert.AreEqual((int)_problem.InitialState.Length, _actions.Count); // Much slower than DFS, faster than graph version
         }
 
         [TestMethod]
@@ -72,7 +72,7 @@ namespace Artificial_IntelligenceTests.Environment.Queens
             _actions = _sut.Search(_problem);
 
             // Assert
-            Assert.AreEqual(8, _actions.Count); // Much faster than BFS, faster than graph version
+            Assert.AreEqual((int)_problem.InitialState.Length, _actions.Count); // Much faster than BFS, faster than graph version
         }
 
         [TestMethod]
@@ -87,7 +87,7 @@ namespace Artificial_IntelligenceTests.Environment.Queens
             _actions = _sut.Search(_problem);
 
             // Assert
-            Assert.AreEqual(8, _actions.Count); // Much slower than DFS, slower than tree version
+            Assert.AreEqual((int)_problem.InitialState.Length, _actions.Count); // Much slower than DFS, slower than tree version
         }
 
         [TestMethod]
@@ -102,7 +102,7 @@ namespace Artificial_IntelligenceTests.Environment.Queens
             _actions = _sut.Search(_problem);
 
             // Assert
-            Assert.AreEqual(8, _actions.Count); // Much faster than BFS, slower than tree version
+            Assert.AreEqual((int)_problem.InitialState.Length, _actions.Count); // Much faster than BFS, slower than tree version
         }
     }
 }

@@ -61,6 +61,10 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="Environment\Map\MapActionsFunctionTests.cs" />
+    <Compile Include="Environment\Map\MapGoalTestFunctionTests.cs" />
+    <Compile Include="Environment\Map\MapResultFunctionTests.cs" />
+    <Compile Include="Environment\Map\MapStepCostFunctionTests.cs" />
     <Compile Include="Environment\Queens\EightQueens\EightQueensStateTests.cs" />
     <Compile Include="Environment\Queens\OneHundredQueens\OneHundredQueensStateTests.cs" />
     <Compile Include="Environment\Queens\QueensActionsFunctionTests.cs" />
