@@ -3,6 +3,7 @@ using Artificial_Intelligence.Chapter_3.Search;
 using Artificial_Intelligence.Chapter_3.Search.Informed.Function;
 using Artificial_Intelligence.Chapter_3.Search.QSearch;
 using Artificial_Intelligence.Chapter_3.Search.Uninformed;
+using Artificial_Intelligence.Chapter_3.Search.Uninformed.DepthLimitedSearch;
 using Artificial_Intelligence.Collections;
 using Artificial_Intelligence.Environment.Map;
 using Artificial_Intelligence.Environment.Map.Romania;
@@ -241,6 +242,62 @@ namespace Artificial_IntelligenceTests.Environment.Map.Romania
             RomaniaMapState expected = RomaniaMapState.BUCHAREST;
             var queueSearch = new GraphSearch<IFIFOQueue<INode<RomaniaMapState, RomaniaMapAction>>, MapProblem<RomaniaMapState, RomaniaMapAction>, RomaniaMapState, RomaniaMapAction>();
             _sut = new BreadthFirstSearch<MapProblem<RomaniaMapState, RomaniaMapAction>, RomaniaMapState, RomaniaMapAction>(queueSearch);
+            _problem = CreateProblem(initialState, expected);
+
+            // Act
+            _actions = _sut.Search(_problem);
+            RomaniaMapState actual = Solve(_actions);
+
+            // Assert
+            Assert.AreEqual(RomaniaMapState.BUCHAREST, actual);
+        }
+
+        [TestMethod]
+        public void DepthFirstSearch()
+        {
+            // Arrange
+            RomaniaMapState initialState = RomaniaMapState.ARAD;
+            RomaniaMapState expected = RomaniaMapState.BUCHAREST;
+            var queueSearch = new GraphSearch<ILIFOQueue<INode<RomaniaMapState, RomaniaMapAction>>, MapProblem<RomaniaMapState, RomaniaMapAction>, RomaniaMapState, RomaniaMapAction>();
+            _sut = new DepthFirstSearch<MapProblem<RomaniaMapState, RomaniaMapAction>, RomaniaMapState, RomaniaMapAction>(queueSearch);
+            _problem = CreateProblem(initialState, expected);
+
+            // Act
+            _actions = _sut.Search(_problem);
+            RomaniaMapState actual = Solve(_actions);
+
+            // Assert
+            Assert.AreEqual(RomaniaMapState.BUCHAREST, actual);
+        }
+
+        [TestMethod]
+        public void DepthLimitedGraphSearch()
+        {
+            // Arrange
+            RomaniaMapState initialState = RomaniaMapState.ARAD;
+            RomaniaMapState expected = RomaniaMapState.BUCHAREST;
+            int limit = 3;
+            _sut = new DepthLimitedGraphSearch<MapProblem<RomaniaMapState, RomaniaMapAction>, RomaniaMapState, RomaniaMapAction>(limit);
+            _problem = CreateProblem(initialState, expected);
+
+            // Act
+            _actions = _sut.Search(_problem);
+            RomaniaMapState actual = Solve(_actions);
+
+            // Assert
+            Assert.AreEqual(RomaniaMapState.BUCHAREST, actual);
+        }
+
+        [TestMethod]
+        public void IterativeDeepeningSearch()
+        {
+            // Arrange
+            RomaniaMapState initialState = RomaniaMapState.ARAD;
+            RomaniaMapState expected = RomaniaMapState.BUCHAREST;
+            int limit = 4;
+            DepthLimitedSearch<MapProblem<RomaniaMapState, RomaniaMapAction>, RomaniaMapState, RomaniaMapAction> depthLimitedSearch =
+                new DepthLimitedGraphSearch<MapProblem<RomaniaMapState, RomaniaMapAction>, RomaniaMapState, RomaniaMapAction>(0);
+            _sut = new IterativeDeepeningSearch<MapProblem<RomaniaMapState, RomaniaMapAction>, RomaniaMapState, RomaniaMapAction>(depthLimitedSearch, limit);
             _problem = CreateProblem(initialState, expected);
 
             // Act
