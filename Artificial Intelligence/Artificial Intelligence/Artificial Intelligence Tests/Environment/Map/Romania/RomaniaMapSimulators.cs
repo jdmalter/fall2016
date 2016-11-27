@@ -1,5 +1,6 @@
 ﻿using Artificial_Intelligence.Chapter_3.Problem;
 using Artificial_Intelligence.Chapter_3.Search;
+using Artificial_Intelligence.Chapter_3.Search.Informed;
 using Artificial_Intelligence.Chapter_3.Search.Informed.Function;
 using Artificial_Intelligence.Chapter_3.Search.QSearch;
 using Artificial_Intelligence.Chapter_3.Search.Uninformed;
@@ -20,6 +21,11 @@ namespace Artificial_IntelligenceTests.Environment.Map.Romania
         /// Subject under test.
         /// </summary>
         private ISearch<MapProblem<RomaniaMapState, RomaniaMapAction>, RomaniaMapState, RomaniaMapAction> _sut;
+
+        /// <summary>
+        /// Dependency of subject under test.
+        /// </summary>
+        private IHeuristicFunction<RomaniaMapState> _heuristicFunction;
 
         /// <summary>
         /// Parameter to subject under test.
@@ -312,10 +318,48 @@ namespace Artificial_IntelligenceTests.Environment.Map.Romania
         public void UniformCostSearch()
         {
             // Arrange
-            RomaniaMapState initialState = RomaniaMapState.SIBIU;
+            RomaniaMapState initialState = RomaniaMapState.ARAD;
             RomaniaMapState expected = RomaniaMapState.BUCHAREST;
             var queueSearch = new PriorityQueueSearch<IPriorityQueue<INode<RomaniaMapState, RomaniaMapAction>>, MapProblem<RomaniaMapState, RomaniaMapAction>, RomaniaMapState, RomaniaMapAction>();
             _sut = new UniformCostSearch<MapProblem<RomaniaMapState, RomaniaMapAction>, RomaniaMapState, RomaniaMapAction>(queueSearch);
+            _problem = CreateProblem(initialState, expected);
+
+            // Act
+            _actions = _sut.Search(_problem);
+            RomaniaMapState actual = Solve(_actions);
+
+            // Assert
+            Assert.AreEqual(RomaniaMapState.BUCHAREST, actual);
+        }
+
+        [TestMethod]
+        public void StraightLineDistanceAStarSearch()
+        {
+            // Arrange
+            RomaniaMapState initialState = RomaniaMapState.ARAD;
+            RomaniaMapState expected = RomaniaMapState.BUCHAREST;
+            var priorityQueueSearch = new PriorityQueueSearch<IPriorityQueue<INode<RomaniaMapState, RomaniaMapAction>>, MapProblem<RomaniaMapState, RomaniaMapAction>, RomaniaMapState, RomaniaMapAction>();
+            _heuristicFunction = new StraightLineDistanceToBucharestHeuristicFunction();
+            _sut = new AStarSearch<MapProblem<RomaniaMapState, RomaniaMapAction>, RomaniaMapState, RomaniaMapAction>(priorityQueueSearch, _heuristicFunction);
+            _problem = CreateProblem(initialState, expected);
+
+            // Act
+            _actions = _sut.Search(_problem);
+            RomaniaMapState actual = Solve(_actions);
+
+            // Assert
+            Assert.AreEqual(RomaniaMapState.BUCHAREST, actual);
+        }
+
+        [TestMethod]
+        public void StraightLineDistanceGreedyBestFirstSearch()
+        {
+            // Arrange
+            RomaniaMapState initialState = RomaniaMapState.ARAD;
+            RomaniaMapState expected = RomaniaMapState.BUCHAREST;
+            var priorityQueueSearch = new PriorityQueueSearch<IPriorityQueue<INode<RomaniaMapState, RomaniaMapAction>>, MapProblem<RomaniaMapState, RomaniaMapAction>, RomaniaMapState, RomaniaMapAction>();
+            _heuristicFunction = new StraightLineDistanceToBucharestHeuristicFunction();
+            _sut = new GreedyBestFirstSearch<MapProblem<RomaniaMapState, RomaniaMapAction>, RomaniaMapState, RomaniaMapAction>(priorityQueueSearch, _heuristicFunction);
             _problem = CreateProblem(initialState, expected);
 
             // Act

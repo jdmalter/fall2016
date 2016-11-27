@@ -93,9 +93,9 @@ namespace Artificial_Intelligence.Chapter_3.Search
         {
             return
                 "State : \n" + State.ToString() +
-                "Parent : \n" + Parent?.ToString() +
-                "Action : " + Action?.ToString() +
-                "PathCost : " + PathCost.ToString();
+                "\nParent : \n" + Parent?.ToString() +
+                "\nAction : " + Action?.ToString() +
+                "\nPathCost : " + PathCost.ToString();
         }
     }
 

@@ -14,11 +14,21 @@ namespace Artificial_Intelligence.Chapter_3.Search.Informed
     /// <typeparam name="TProblem">Any problem of TState and TAction.</typeparam>
     /// <typeparam name="TState">Any state.</typeparam>
     /// <typeparam name="TAction">Any action.</typeparam>
-    public abstract class BestFirstSearch<TProblem, TState, TAction> : PrioritySearch<TProblem, TState, TAction>
+    public abstract class BestFirstSearch<TProblem, TState, TAction> : ISearch<TProblem, TState, TAction>
         where TProblem : IProblem<TState, TAction>
         where TState : IState
         where TAction : IAction
     {
+        /// <summary>
+        /// A priority queue search that stores explored nodes.
+        /// </summary>
+        private readonly PriorityQueueSearch<IPriorityQueue<INode<TState, TAction>>, TProblem, TState, TAction> _priorityQueueSearch;
+
+        /// <summary>
+        /// A functional interface for Evaluate.
+        /// </summary>
+        private readonly IEvaluationFunction<TState, TAction> _evaluationFunction;
+
         /// <summary>
         /// Specifies a priority queue search and an evaluation function.
         /// </summary>
@@ -26,9 +36,21 @@ namespace Artificial_Intelligence.Chapter_3.Search.Informed
         /// <param name="evaluationFunction">A functional interface for Evaluate.</param>
         public BestFirstSearch(PriorityQueueSearch<IPriorityQueue<INode<TState, TAction>>, TProblem, TState, TAction> priorityQueueSearch,
            IEvaluationFunction<TState, TAction> evaluationFunction)
-            : base(priorityQueueSearch, new EvaluationFunctionComparer(evaluationFunction))
         {
+            _priorityQueueSearch = priorityQueueSearch.NonNull();
+            _evaluationFunction = evaluationFunction.NonNull();
+        }
 
+        /// <summary>
+        /// Returns a sequence of actions that reaches the goal.
+        /// </summary>
+        /// <param name="problem">A problem.</param>
+        /// <returns>A sequence of actions that reaches the goal.</returns>
+        public IList<TAction> Search(TProblem problem)
+        {
+            IComparer<INode<TState, TAction>> comparer = new EvaluationFunctionComparer(_evaluationFunction);
+            IPriorityQueue<INode<TState, TAction>> frontier = new PriorityQueue<INode<TState, TAction>>(comparer);
+            return _priorityQueueSearch.Search(problem, frontier);
         }
 
         /// <summary>
