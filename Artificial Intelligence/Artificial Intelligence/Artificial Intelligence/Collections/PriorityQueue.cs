@@ -69,13 +69,20 @@ namespace Artificial_Intelligence.Collections
                 T first = _list[0];
                 _list.Swap(0, _list.Count - 1);
 
-                // Bubble down
+                // Bubble down except for _list.Count - 1 because we don't want the last element being swapped
                 for (int index = 0, left = 2 * index + 1, smaller = left;
-                    left < _list.Count;
+                    left < _list.Count - 1;
                     index = smaller, left = 2 * index + 1, smaller = left)
                 {
-                    smaller += left + 1 < _list.Count && Comparer.Compare(_list[left], _list[left + 1]) > 0 ? 1 : 0;
-                    _list.Swap(index, smaller);
+                    smaller += left + 1 < _list.Count - 1 && Comparer.Compare(_list[left], _list[left + 1]) > 0 ? 1 : 0;
+                    if (Comparer.Compare(_list[index], _list[smaller]) > 0) // I FOUND THE SECOND BUG!!!
+                    {
+                        _list.Swap(index, smaller);
+                    }
+                    else
+                    {
+                        break;
+                    }
                 }
 
                 _list.RemoveAt(_list.Count - 1);
@@ -94,7 +101,7 @@ namespace Artificial_Intelligence.Collections
 
             // Bubble up
             for (int index = _list.Count - 1, parent = (index - 1) / 2;
-                index > 0 && Comparer.Compare(_list[index], _list[parent]) >= 0;
+                index > 0 && Comparer.Compare(_list[index], _list[parent]) < 0; // I FOUND THE BUG!!!
                 index = parent, parent = (index - 1) / 2)
             {
                 _list.Swap(index, parent);
@@ -120,13 +127,20 @@ namespace Artificial_Intelligence.Collections
             {
                 _list.Swap(index, _list.Count - 1);
 
-                // Bubble down
+                // Bubble down except for _list.Count - 1 because we don't want the last element being swapped
                 for (int left = 2 * index + 1, smaller = left;
-                    left < _list.Count;
+                    left < _list.Count - 1;
                     index = smaller, left = 2 * index + 1, smaller = left)
                 {
-                    smaller += left + 1 < _list.Count && Comparer.Compare(_list[left], _list[left + 1]) > 0 ? 1 : 0;
-                    _list.Swap(index, smaller);
+                    smaller += left + 1 < _list.Count - 1 && Comparer.Compare(_list[left], _list[left + 1]) > 0 ? 1 : 0;
+                    if (Comparer.Compare(_list[index], _list[smaller]) > 0) // I FOUND THE SECOND BUG!!!
+                    {
+                        _list.Swap(index, smaller);
+                    }
+                    else
+                    {
+                        break;
+                    }
                 }
 
                 _list.RemoveAt(_list.Count - 1);

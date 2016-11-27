@@ -12,11 +12,6 @@ namespace Artificial_Intelligence.Environment.Queens.Tests
         private IQueensState _sut;
 
         /// <summary>
-        /// Dependency of subject under test.
-        /// </summary>
-        private bool[,] _locations;
-
-        /// <summary>
         /// Return of subject under test.
         /// </summary>
         private IQueensState _actual;
