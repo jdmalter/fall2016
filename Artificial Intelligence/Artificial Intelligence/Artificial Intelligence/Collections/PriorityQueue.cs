@@ -68,13 +68,14 @@ namespace Artificial_Intelligence.Collections
             {
                 T first = _list[0];
                 _list.Swap(0, _list.Count - 1);
+                _list.RemoveAt(_list.Count - 1); // Prevent last element from being swapped
 
-                // Bubble down except for _list.Count - 1 because we don't want the last element being swapped
+                // Bubble down
                 for (int index = 0, left = 2 * index + 1, smaller = left;
-                    left < _list.Count - 1;
+                    left < _list.Count;
                     index = smaller, left = 2 * index + 1, smaller = left)
                 {
-                    smaller += left + 1 < _list.Count - 1 && Comparer.Compare(_list[left], _list[left + 1]) > 0 ? 1 : 0;
+                    smaller += left + 1 < _list.Count && Comparer.Compare(_list[left], _list[left + 1]) > 0 ? 1 : 0;
                     if (Comparer.Compare(_list[index], _list[smaller]) > 0) // I FOUND THE SECOND BUG!!!
                     {
                         _list.Swap(index, smaller);
@@ -85,7 +86,6 @@ namespace Artificial_Intelligence.Collections
                     }
                 }
 
-                _list.RemoveAt(_list.Count - 1);
                 return first;
             }
         }
@@ -97,10 +97,11 @@ namespace Artificial_Intelligence.Collections
         /// <returns>Whether the given item was pushed onto the queue.</returns>
         public bool Push(T item)
         {
-            _list.Insert(_list.Count, item);
+            int index = _list.Count;
+            _list.Insert(index, item);
 
             // Bubble up
-            for (int index = _list.Count - 1, parent = (index - 1) / 2;
+            for (int parent = (index - 1) / 2;
                 index > 0 && Comparer.Compare(_list[index], _list[parent]) < 0; // I FOUND THE BUG!!!
                 index = parent, parent = (index - 1) / 2)
             {
@@ -118,7 +119,7 @@ namespace Artificial_Intelligence.Collections
         /// <returns>Whether the given item was removed from the queue.</returns>
         public bool Remove(T item)
         {
-            int index = _list.IndexOf(item);
+            int index = _list.IndexOf(item); // Oddly enough, this is faster than dictionary for now
             if (index < 0)
             {
                 return false;
@@ -126,13 +127,14 @@ namespace Artificial_Intelligence.Collections
             else
             {
                 _list.Swap(index, _list.Count - 1);
+                _list.RemoveAt(_list.Count - 1);  // Prevent last element from being swapped
 
-                // Bubble down except for _list.Count - 1 because we don't want the last element being swapped
+                // Bubble down
                 for (int left = 2 * index + 1, smaller = left;
-                    left < _list.Count - 1;
+                    left < _list.Count;
                     index = smaller, left = 2 * index + 1, smaller = left)
                 {
-                    smaller += left + 1 < _list.Count - 1 && Comparer.Compare(_list[left], _list[left + 1]) > 0 ? 1 : 0;
+                    smaller += left + 1 < _list.Count && Comparer.Compare(_list[left], _list[left + 1]) > 0 ? 1 : 0;
                     if (Comparer.Compare(_list[index], _list[smaller]) > 0) // I FOUND THE SECOND BUG!!!
                     {
                         _list.Swap(index, smaller);
@@ -143,7 +145,6 @@ namespace Artificial_Intelligence.Collections
                     }
                 }
 
-                _list.RemoveAt(_list.Count - 1);
                 return true;
             }
         }

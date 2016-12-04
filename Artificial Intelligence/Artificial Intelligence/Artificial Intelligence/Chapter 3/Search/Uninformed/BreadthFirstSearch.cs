@@ -13,7 +13,8 @@ namespace Artificial_Intelligence.Chapter_3.Search.Uninformed
     /// <typeparam name="TProblem">Any problem of TState and TAction.</typeparam>
     /// <typeparam name="TState">Any state.</typeparam>
     /// <typeparam name="TAction">Any action.</typeparam>
-    public class BreadthFirstSearch<TProblem, TState, TAction> : ISearch<TProblem, TState, TAction>
+    public class BreadthFirstSearch<TNode, TProblem, TState, TAction> : ISearch<TProblem, TState, TAction>
+        where TNode : INode<TState, TAction>
         where TProblem : IProblem<TState, TAction>
         where TState : IState
         where TAction : IAction
@@ -21,13 +22,13 @@ namespace Artificial_Intelligence.Chapter_3.Search.Uninformed
         /// <summary>
         /// A search using a queue of all leaf nodes available for expansion at any given point.
         /// </summary>
-        private readonly QueueSearch<IFIFOQueue<INode<TState, TAction>>, TProblem, TState, TAction> _queueSearch;
+        private readonly QueueSearch<IFIFOQueue<TNode>, TNode, TProblem, TState, TAction> _queueSearch;
 
         /// <summary>
         /// Specifies a queue search.
         /// </summary>
         /// <param name="queueSearch">A search using a queue of all leaf nodes available for expansion at any given point.</param>
-        public BreadthFirstSearch(QueueSearch<IFIFOQueue<INode<TState, TAction>>, TProblem, TState, TAction> queueSearch)
+        public BreadthFirstSearch(QueueSearch<IFIFOQueue<TNode>, TNode, TProblem, TState, TAction> queueSearch)
         {
             _queueSearch = queueSearch.NonNull();
         }
@@ -39,7 +40,7 @@ namespace Artificial_Intelligence.Chapter_3.Search.Uninformed
         /// <returns>A sequence of actions that reaches the goal.</returns>
         public IList<TAction> Search(TProblem problem)
         {
-            IFIFOQueue<INode<TState, TAction>> frontier = new FIFOQueue<INode<TState, TAction>>();
+            IFIFOQueue<TNode> frontier = new FIFOQueue<TNode>();
             return _queueSearch.Search(problem, frontier);
         }
     }

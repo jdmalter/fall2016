@@ -50,7 +50,7 @@ namespace Artificial_IntelligenceTests.Environment.Queens
         {
             // Arrange
             var queueSearch = new TreeSearch<IFIFOQueue<INode<IQueensState, QueensAction>>, QueensProblem, IQueensState, QueensAction>();
-            _sut = new BreadthFirstSearch<QueensProblem, IQueensState, QueensAction>(queueSearch);
+            _sut = new BreadthFirstSearch<INode<IQueensState, QueensAction>, QueensProblem, IQueensState, QueensAction>(queueSearch);
             _problem = CreateProblem();
 
             // Act
@@ -80,7 +80,7 @@ namespace Artificial_IntelligenceTests.Environment.Queens
         {
             // Arrange
             var queueSearch = new GraphSearch<IFIFOQueue<INode<IQueensState, QueensAction>>, QueensProblem, IQueensState, QueensAction>();
-            _sut = new BreadthFirstSearch<QueensProblem, IQueensState, QueensAction>(queueSearch);
+            _sut = new BreadthFirstSearch<INode<IQueensState, QueensAction>, QueensProblem, IQueensState, QueensAction>(queueSearch);
             _problem = CreateProblem();
 
             // Act

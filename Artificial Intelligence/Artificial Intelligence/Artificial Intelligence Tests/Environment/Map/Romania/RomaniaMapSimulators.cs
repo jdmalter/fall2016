@@ -53,9 +53,9 @@ namespace Artificial_IntelligenceTests.Environment.Map.Romania
         /// Returns a new instance of Romania map problem.
         /// </summary>
         /// <param name="initialState">The initial state that the agent starts in.</param>
-        /// <param name="goal">A singular goal state.</param>
+        /// <param name="goalState">A singular goal state.</param>
         /// <returns>A new instance of Romania map problem.</returns>
-        private MapProblem<RomaniaMapState, RomaniaMapAction> CreateProblem(RomaniaMapState initialState, RomaniaMapState goal)
+        private MapProblem<RomaniaMapState, RomaniaMapAction> CreateProblem(RomaniaMapState initialState, RomaniaMapState goalState)
         {
             IDictionary<RomaniaMapState, ISet<RomaniaMapAction>> actions = new Dictionary<RomaniaMapState, ISet<RomaniaMapAction>>()
             {
@@ -219,14 +219,12 @@ namespace Artificial_IntelligenceTests.Environment.Map.Romania
                 new MapActionsFunction<RomaniaMapState, RomaniaMapAction>(actions);
             IResultFunction<RomaniaMapState, RomaniaMapAction> resultFunction =
                 new MapResultFunction<RomaniaMapState, RomaniaMapAction>();
-            IGoalTestFunction<RomaniaMapState> goalTestFunction
-                = new MapGoalTestFunction<RomaniaMapState>(goal);
             IStepCostFunction<RomaniaMapState, RomaniaMapAction> stepCostFunction =
                 new MapStepCostFunction<RomaniaMapState, RomaniaMapAction>(stepCosts);
             return new MapProblem<RomaniaMapState, RomaniaMapAction>(initialState,
                 actionsFunction,
                 resultFunction,
-                goalTestFunction,
+                goalState,
                 stepCostFunction);
         }
 
@@ -247,7 +245,25 @@ namespace Artificial_IntelligenceTests.Environment.Map.Romania
             RomaniaMapState initialState = RomaniaMapState.ARAD;
             RomaniaMapState expected = RomaniaMapState.BUCHAREST;
             var queueSearch = new GraphSearch<IFIFOQueue<INode<RomaniaMapState, RomaniaMapAction>>, MapProblem<RomaniaMapState, RomaniaMapAction>, RomaniaMapState, RomaniaMapAction>();
-            _sut = new BreadthFirstSearch<MapProblem<RomaniaMapState, RomaniaMapAction>, RomaniaMapState, RomaniaMapAction>(queueSearch);
+            _sut = new BreadthFirstSearch<INode<RomaniaMapState, RomaniaMapAction>, MapProblem<RomaniaMapState, RomaniaMapAction>, RomaniaMapState, RomaniaMapAction>(queueSearch);
+            _problem = CreateProblem(initialState, expected);
+
+            // Act
+            _actions = _sut.Search(_problem);
+            RomaniaMapState actual = Solve(_actions);
+
+            // Assert
+            Assert.AreEqual(RomaniaMapState.BUCHAREST, actual);
+        }
+
+        [TestMethod]
+        public void BidirectionalBreadthFirstSearch()
+        {
+            // Arrange
+            RomaniaMapState initialState = RomaniaMapState.ARAD;
+            RomaniaMapState expected = RomaniaMapState.BUCHAREST;
+            var queueSearch = new BidirectionalSearch<IFIFOQueue<IBidirectionalNode<RomaniaMapState, RomaniaMapAction>>, MapProblem<RomaniaMapState, RomaniaMapAction>, RomaniaMapState, RomaniaMapAction>();
+            _sut = new BreadthFirstSearch<IBidirectionalNode<RomaniaMapState, RomaniaMapAction>, MapProblem<RomaniaMapState, RomaniaMapAction>, RomaniaMapState, RomaniaMapAction>(queueSearch);
             _problem = CreateProblem(initialState, expected);
 
             // Act

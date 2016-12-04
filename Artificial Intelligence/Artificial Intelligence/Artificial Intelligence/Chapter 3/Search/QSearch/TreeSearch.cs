@@ -11,7 +11,8 @@ namespace Artificial_Intelligence.Chapter_3.Search.QSearch
     /// <typeparam name="TProblem">Any problem of TState and TAction.</typeparam>
     /// <typeparam name="TState">Any state.</typeparam>
     /// <typeparam name="TAction">Any action.</typeparam>
-    public class TreeSearch<TQueue, TProblem, TState, TAction> : QueueSearch<TQueue, TProblem, TState, TAction>
+    public class TreeSearch<TQueue, TProblem, TState, TAction>
+        : QueueSearch<TQueue, INode<TState, TAction>, TProblem, TState, TAction>
         where TQueue : IQueue<INode<TState, TAction>>
         where TProblem : IProblem<TState, TAction>
         where TState : IState
@@ -44,6 +45,16 @@ namespace Artificial_Intelligence.Chapter_3.Search.QSearch
         public override INode<TState, TAction> Remove(TQueue frontier)
         {
             return frontier.Pop();
+        }
+
+        /// <summary>
+        /// Returns a new root noot available for expansion.
+        /// </summary>
+        /// <param name="state">The initial state in which the seach starts.</param>
+        /// <returns>A new root node available for expansion.</returns>
+        public override INode<TState, TAction> Root(TState state)
+        {
+            return new Node<TState, TAction>(state);
         }
     }
 }

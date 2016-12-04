@@ -17,16 +17,21 @@ namespace Artificial_Intelligence.Chapter_3.Search.Uninformed.DepthLimitedSearch
             where TAction : IAction
     {
         /// <summary>
-        /// Specifies a depth at which node have no successors.
+        /// An empty list which should not be returned by search.
         /// </summary>
-        /// <param name="limit">A depth at which node have no successors.</param>
+        private static readonly IList<TAction> _empty = new List<TAction>();
+
+        /// <summary>
+        /// Specifies a depth at which nodes have no successors.
+        /// </summary>
+        /// <param name="limit">A depth at which nodes have no successors.</param>
         public DepthLimitedSearch(int limit)
         {
             Limit = limit;
         }
 
         /// <summary>
-        /// A depth at which node have no successors.
+        /// A depth at which nodes have no successors.
         /// </summary>
         public int Limit { get; }
 
@@ -43,18 +48,18 @@ namespace Artificial_Intelligence.Chapter_3.Search.Uninformed.DepthLimitedSearch
         /// <returns>A sequence of actions that reaches the goal or an empty sequence.</returns>
         public virtual IList<TAction> Search(TProblem problem)
         {
-            INode<TState, TAction> root = problem.InitialState.RootNode<TState, TAction>();
-            return RecursiveDLS(root, problem, Limit);
+            INode<TState, TAction> root = new Node<TState, TAction>(problem.InitialState);
+            return RecursiveDLS(problem, root, Limit);
         }
 
         /// <summary>
         /// Returns a sequence of actions that reaches the goal.
         /// </summary>
-        /// <param name="node">A node.</param>
         /// <param name="problem">A problem.</param>
-        /// <param name="limit">A depth at which node have no successors.</param>
-        /// <returns>A sequence of actions that reaches the goal  or an empty sequence.</returns>
-        public virtual IList<TAction> RecursiveDLS(INode<TState, TAction> node, TProblem problem, int limit)
+        /// <param name="node">A node.</param>
+        /// <param name="limit">A depth at which nodes have no successors.</param>
+        /// <returns>A sequence of actions that reaches the goal or an empty sequence.</returns>
+        protected virtual IList<TAction> RecursiveDLS(TProblem problem, INode<TState, TAction> node, int limit)
         {
             if (problem.GoalTestFunction.GoalTest(node.State))
             {
@@ -62,21 +67,21 @@ namespace Artificial_Intelligence.Chapter_3.Search.Uninformed.DepthLimitedSearch
             }
             else if (limit == 0)
             {
-                return new List<TAction>();
+                return _empty;
             }
             else
             {
                 foreach (INode<TState, TAction> child in node.Expand(problem))
                 {
-                    IList<TAction> result = RecursiveDLS(child, problem, limit - 1);
+                    IList<TAction> next = RecursiveDLS(problem, child, limit - 1);
 
-                    if (!result.IsEmpty())
+                    if (!next.IsEmpty())
                     {
-                        return result;
+                        return next;
                     }
                 }
 
-                return new List<TAction>();
+                return _empty;
             }
         }
     }

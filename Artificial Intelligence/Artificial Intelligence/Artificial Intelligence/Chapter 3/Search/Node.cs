@@ -1,7 +1,6 @@
 ﻿using Artificial_Intelligence.Chapter_2.Agent;
 using Artificial_Intelligence.Chapter_3.Problem;
 using Artificial_Intelligence.Guard;
-using Artificial_Intelligence.Collections;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -92,6 +91,7 @@ namespace Artificial_Intelligence.Chapter_3.Search
         public override string ToString()
         {
             return
+                "Node\n" +
                 "State : \n" + State.ToString() +
                 "\nParent : \n" + Parent?.ToString() +
                 "\nAction : " + Action?.ToString() +
@@ -104,45 +104,6 @@ namespace Artificial_Intelligence.Chapter_3.Search
     /// </summary>
     public static class Node
     {
-        /// <summary>
-        /// Creates and returns node with state.
-        /// </summary>
-        /// <typeparam name="TState">Any state.</typeparam>
-        /// <typeparam name="TAction">Any action.</typeparam>
-        /// <param name="state">The state in the state space to which the node corresponds.</param>
-        /// <returns>Node with state.</returns>
-        public static INode<TState, TAction> RootNode<TState, TAction>(this TState state)
-            where TState : IState
-            where TAction : IAction
-        {
-            return new Node<TState, TAction>(state);
-        }
-
-        /// <summary>
-        /// Returns a node with the state that results from doing the given action in the parent's state,
-        /// the parent, the action, and the parent's path cost plus the cost of taking the given action
-        /// in the parent's state to reach the child state.
-        /// </summary>
-        /// <typeparam name="TState">Any state.</typeparam>
-        /// <typeparam name="TAction">Any action.</typeparam>
-        /// <param name="parent">The node in the search tree that generated this node.</param>
-        /// <param name="problem">Components that provide the child state and the step cost.</param>
-        /// <param name="action">The action that was applied to the parent to generate the node.</param>
-        /// <returns>A node with the state that results from doing the given action in the parent's state,
-        /// the parent, the action, and the parent's path cost plus the cost of taking the given action
-        /// in the parent's state to reach the child state.</returns>
-        public static INode<TState, TAction> ChildNode<TState, TAction>(
-            this INode<TState, TAction> parent,
-            IProblem<TState, TAction> problem,
-            TAction action)
-            where TState : IState
-            where TAction : IAction
-        {
-            TState state = problem.ResultFunction.Result(parent.State, action);
-            double stepCost = problem.StepCostFunction.StepCost(parent.State, action, state);
-            return new Node<TState, TAction>(state, parent, action, parent.PathCost + stepCost);
-        }
-
         /// <summary>
         /// Returns a list of nodes by creating a child node for each action in the set of actions
         /// that can be executed in the parent's state.
@@ -162,26 +123,62 @@ namespace Artificial_Intelligence.Chapter_3.Search
             return problem
                 .ActionsFunction
                 .Actions(parent.State)
-                .Select(action => parent.ChildNode(problem, action));
+                .Select(action =>
+                {
+                    TState state = problem.ResultFunction.Result(parent.State, action);
+                    double stepCost = problem.StepCostFunction.StepCost(parent.State, action, state);
+                    return new Node<TState, TAction>(state, parent, action, parent.PathCost + stepCost);
+                });
         }
 
         /// <summary>
-        /// Returns a list of actions taken from the root node which generate this node.
+        /// Returns a list of actions taken from the root node to generate this node.
         /// </summary>
         /// <typeparam name="TState">Any state.</typeparam>
         /// <typeparam name="TAction">Any action.</typeparam>
-        /// <param name="child">The node at the bottom of the search tree that generated this node.</param>
-        /// <returns>A list of actions taken from the root node which generate this node.</returns>
+        /// <param name="child">The node at the bottom of the search tree.</param>
+        /// <returns>A list of actions taken from the root node to generate this node.</returns>
         public static IList<TAction> Solution<TState, TAction>(this INode<TState, TAction> child)
             where TState : IState
             where TAction : IAction
         {
-            child.NonNull();
             IList<TAction> path = new List<TAction>();
 
-            for (INode<TState, TAction> current = child; child.Parent != null; child = child.Parent)
+            for (INode<TState, TAction> current = child; current.Parent != null; current = current.Parent)
             {
-                path = child.Action.Cons(path);
+                path.Insert(0, current.Action);
+            }
+
+            return path;
+        }
+
+        /// <summary>
+        /// Returns a list of actions taken from this node to generate the root node.
+        /// </summary>
+        /// <typeparam name="TState">Any state.</typeparam>
+        /// <typeparam name="TAction">Any action.</typeparam>
+        /// <param name="child">The node at the bottom of the search tree.</param>
+        /// <returns>A list of actions taken from this node to generate the root node.</returns>
+        public static IList<TAction> ReverseSolution<TState, TAction>(
+            this INode<TState, TAction> child,
+            IProblem<TState, TAction> problem)
+            where TState : IState
+            where TAction : IAction
+        {
+            IList<TAction> path = new List<TAction>();
+
+            for (INode<TState, TAction> current = child; current.Parent != null; current = current.Parent)
+            {
+                TAction reverseAction =
+                    problem
+                    .ActionsFunction
+                    .Actions(current.State)
+                    .Single(action =>
+                    {
+                        TState parent = problem.ResultFunction.Result(current.State, action);
+                        return current.Parent.State.Equals(parent);
+                    });
+                path.Insert(path.Count, reverseAction);
             }
 
             return path;

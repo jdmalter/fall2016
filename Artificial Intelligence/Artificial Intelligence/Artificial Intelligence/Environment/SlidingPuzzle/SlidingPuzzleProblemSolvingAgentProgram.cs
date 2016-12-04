@@ -51,7 +51,7 @@ namespace Artificial_Intelligence.Environment.SlidingPuzzle
             return new SlidingPuzzleProblem(state,
                 new SlidingPuzzleActionsFunction(),
                 new SlidingPuzzleResultFunction(),
-                new SlidingPuzzleGoalTestFunction(goal));
+                goal);
         }
     }
 }

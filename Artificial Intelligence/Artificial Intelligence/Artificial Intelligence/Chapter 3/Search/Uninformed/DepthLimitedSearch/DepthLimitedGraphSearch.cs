@@ -1,9 +1,6 @@
 ﻿using Artificial_Intelligence.Chapter_2.Agent;
 using Artificial_Intelligence.Chapter_3.Problem;
-using Artificial_Intelligence.Collections;
 using System.Collections.Generic;
-using System;
-using System.Diagnostics;
 
 namespace Artificial_Intelligence.Chapter_3.Search.Uninformed.DepthLimitedSearch
 {
@@ -24,9 +21,9 @@ namespace Artificial_Intelligence.Chapter_3.Search.Uninformed.DepthLimitedSearch
         private readonly ISet<TState> _explored = new HashSet<TState>();
 
         /// <summary>
-        /// Specifies a depth at which node have no successors.
+        /// Specifies depth at which nodes have no successors.
         /// </summary>
-        /// <param name="limit">A depth at which node have no successors.</param>
+        /// <param name="limit">A depth at which nodes have no successors.</param>
         public DepthLimitedGraphSearch(int limit) : base(limit)
         {
 
@@ -55,11 +52,11 @@ namespace Artificial_Intelligence.Chapter_3.Search.Uninformed.DepthLimitedSearch
         /// <summary>
         /// Returns a sequence of actions that reaches the goal.
         /// </summary>
-        /// <param name="node">A node.</param>
         /// <param name="problem">A problem.</param>
-        /// <param name="limit">A depth at which node have no successors.</param>
-        /// <returns>A sequence of actions that reaches the goal  or an empty sequence.</returns>
-        public override IList<TAction> RecursiveDLS(INode<TState, TAction> node, TProblem problem, int limit)
+        /// <param name="node">A node.</param>
+        /// <param name="limit">A depth at which nodes have no successors.</param>
+        /// <returns>A sequence of actions that reaches the goal or an empty sequence.</returns>
+        protected override IList<TAction> RecursiveDLS(TProblem problem, INode<TState, TAction> node, int limit)
         {
             if (_explored.Contains(node.State))
             {
@@ -68,7 +65,7 @@ namespace Artificial_Intelligence.Chapter_3.Search.Uninformed.DepthLimitedSearch
             else
             {
                 _explored.Add(node.State);
-                return base.RecursiveDLS(node, problem, limit);
+                return base.RecursiveDLS(problem, node, limit);
             }
         }
     }

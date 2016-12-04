@@ -55,7 +55,7 @@ namespace Artificial_Intelligence.Environment.Map
             return new MapProblem<TState, TAction>(state,
                 new MapActionsFunction<TState, TAction>(null),
                 new MapResultFunction<TState, TAction>(),
-                new MapGoalTestFunction<TState>(goal),
+                goal,
                 new MapStepCostFunction<TState, TAction>(null));
         }
     }

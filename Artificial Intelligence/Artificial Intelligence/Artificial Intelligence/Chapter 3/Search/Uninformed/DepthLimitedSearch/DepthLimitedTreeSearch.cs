@@ -1,5 +1,4 @@
-﻿using System;
-using Artificial_Intelligence.Chapter_2.Agent;
+﻿using Artificial_Intelligence.Chapter_2.Agent;
 using Artificial_Intelligence.Chapter_3.Problem;
 
 namespace Artificial_Intelligence.Chapter_3.Search.Uninformed.DepthLimitedSearch
@@ -16,9 +15,9 @@ namespace Artificial_Intelligence.Chapter_3.Search.Uninformed.DepthLimitedSearch
             where TAction : IAction
     {
         /// <summary>
-        /// Specifies a depth at which node have no successors.
+        /// Specifies depth at which nodes have no successors.
         /// </summary>
-        /// <param name="limit">A depth at which node have no successors.</param>
+        /// <param name="limit">A depth at which nodes have no successors.</param>
         public DepthLimitedTreeSearch(int limit) : base(limit)
         {
 

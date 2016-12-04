@@ -8,11 +8,12 @@ namespace Artificial_Intelligence.Chapter_3.Search.QSearch
     /// <summary>
     /// A priority queue search that stores explored nodes.
     /// </summary>
-    /// <typeparam name="TQueue">Any queue of INode of TState and TAction</typeparam>
+    /// <typeparam name="TQueue">Any queue of INode of TState and TAction.</typeparam>
     /// <typeparam name="TProblem">Any problem of TState and TAction.</typeparam>
     /// <typeparam name="TState">Any state.</typeparam>
     /// <typeparam name="TAction">Any action.</typeparam>
-    public class PriorityQueueSearch<TQueue, TProblem, TState, TAction> : QueueSearch<TQueue, TProblem, TState, TAction>
+    public class PriorityQueueSearch<TQueue, TProblem, TState, TAction>
+        : QueueSearch<TQueue, INode<TState, TAction>, TProblem, TState, TAction>
           where TQueue : IPriorityQueue<INode<TState, TAction>>
           where TProblem : IProblem<TState, TAction>
           where TState : IState
@@ -88,6 +89,16 @@ namespace Artificial_Intelligence.Chapter_3.Search.QSearch
             _frontierNodes.Remove(node.State);
             _explored.Add(node.State);
             return node;
+        }
+
+        /// <summary>
+        /// Returns a new root noot available for expansion.
+        /// </summary>
+        /// <param name="state">The initial state in which the seach starts.</param>
+        /// <returns>A new root node available for expansion.</returns>
+        public override INode<TState, TAction> Root(TState state)
+        {
+            return new Node<TState, TAction>(state);
         }
     }
 }

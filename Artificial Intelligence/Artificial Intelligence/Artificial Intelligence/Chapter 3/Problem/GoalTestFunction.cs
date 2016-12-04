@@ -11,18 +11,18 @@ namespace Artificial_Intelligence.Chapter_3.Problem
         where TState : IState
     {
         /// <summary>
-        /// A singular goal state.
-        /// </summary>
-        private readonly TState _goal;
-
-        /// <summary>
         /// Specifies a singular goal state.
         /// </summary>
-        /// <param name="goal">A singular goal state.</param>
-        public GoalTestFunction(TState goal)
+        /// <param name="goalState">A singular goal state.</param>
+        public GoalTestFunction(TState goalState)
         {
-            _goal = goal.NonNull();
+            GoalState = goalState.NonNull();
         }
+
+        /// <summary>
+        /// A singular goal state.
+        /// </summary>
+        public TState GoalState { get; }
 
         /// <summary>
         /// Determines whether the given state is a goal state.
@@ -32,7 +32,7 @@ namespace Artificial_Intelligence.Chapter_3.Problem
         public bool GoalTest(TState state)
         {
             state.NonNull();
-            return _goal.Equals(state);
+            return GoalState.Equals(state);
         }
     }
 }

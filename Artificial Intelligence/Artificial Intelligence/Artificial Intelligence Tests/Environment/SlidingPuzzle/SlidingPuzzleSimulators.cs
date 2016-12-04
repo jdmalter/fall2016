@@ -50,18 +50,16 @@ namespace Artificial_IntelligenceTests.Environment.SlidingPuzzle
             };
             ISlidingPuzzleState initialState =
                 new EightPuzzleState(eightPuzzle);
-            ISlidingPuzzleState goal =
+            ISlidingPuzzleState goalState =
                 EightPuzzleState.DefaultGoalState;
             IActionsFunction<ISlidingPuzzleState, SlidingPuzzleAction> actionsFunction =
                 new SlidingPuzzleActionsFunction();
             IResultFunction<ISlidingPuzzleState, SlidingPuzzleAction> resultFunction =
                 new SlidingPuzzleResultFunction();
-            IGoalTestFunction<ISlidingPuzzleState> goalTestFunction =
-                new SlidingPuzzleGoalTestFunction(goal);
             return new SlidingPuzzleProblem(initialState,
                  actionsFunction,
                  resultFunction,
-                 goalTestFunction);
+                 goalState);
         }
 
         /// <summary>
@@ -100,7 +98,23 @@ namespace Artificial_IntelligenceTests.Environment.SlidingPuzzle
         {
             // Arrange
             var queueSearch = new GraphSearch<IFIFOQueue<INode<ISlidingPuzzleState, SlidingPuzzleAction>>, SlidingPuzzleProblem, ISlidingPuzzleState, SlidingPuzzleAction>();
-            _sut = new BreadthFirstSearch<SlidingPuzzleProblem, ISlidingPuzzleState, SlidingPuzzleAction>(queueSearch);
+            _sut = new BreadthFirstSearch<INode<ISlidingPuzzleState, SlidingPuzzleAction>, SlidingPuzzleProblem, ISlidingPuzzleState, SlidingPuzzleAction>(queueSearch);
+            _problem = CreateProblem();
+
+            // Act
+            _actions = _sut.Search(_problem);
+
+            // Assert
+            ISlidingPuzzleState state = Solve(_problem.InitialState, _actions);
+            Assert.AreEqual(EightPuzzleState.DefaultGoalState, state);
+        }
+
+        [TestMethod]
+        public void BidirectionalBreadthFirstSearch()
+        {
+            // Arrange
+            var queueSearch = new BidirectionalSearch<IFIFOQueue<IBidirectionalNode<ISlidingPuzzleState, SlidingPuzzleAction>>, SlidingPuzzleProblem, ISlidingPuzzleState, SlidingPuzzleAction>();
+            _sut = new BreadthFirstSearch<IBidirectionalNode<ISlidingPuzzleState, SlidingPuzzleAction>, SlidingPuzzleProblem, ISlidingPuzzleState, SlidingPuzzleAction>(queueSearch);
             _problem = CreateProblem();
 
             // Act
@@ -201,6 +215,23 @@ namespace Artificial_IntelligenceTests.Environment.SlidingPuzzle
             var priorityQueueSearch = new PriorityQueueSearch<IPriorityQueue<INode<ISlidingPuzzleState, SlidingPuzzleAction>>, SlidingPuzzleProblem, ISlidingPuzzleState, SlidingPuzzleAction>();
             _heuristicFunction = new SlidingPuzzleManhattanHeuristicFunction();
             _sut = new AStarSearch<SlidingPuzzleProblem, ISlidingPuzzleState, SlidingPuzzleAction>(priorityQueueSearch, _heuristicFunction);
+            _problem = CreateProblem();
+
+            // Act
+            _actions = _sut.Search(_problem);
+
+            // Assert
+            ISlidingPuzzleState state = Solve(_problem.InitialState, _actions);
+            Assert.AreEqual(EightPuzzleState.DefaultGoalState, state);
+        }
+
+        [TestMethod]
+        public void ManhattanIterativeDeepeningAStarSearch()
+        {
+            // Arrange
+            double limit = 31;
+            _heuristicFunction = new SlidingPuzzleManhattanHeuristicFunction();
+            _sut = new IterativeDeepeningAStarSearch<SlidingPuzzleProblem, ISlidingPuzzleState, SlidingPuzzleAction>(_heuristicFunction, limit);
             _problem = CreateProblem();
 
             // Act
