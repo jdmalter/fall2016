@@ -13,7 +13,7 @@ namespace Artificial_Intelligence.Chapter_3.Search.QSearch
     /// <typeparam name="TState">Any state.</typeparam>
     /// <typeparam name="TAction">Any action.</typeparam>
     public class GraphSearch<TQueue, TProblem, TState, TAction>
-        : QueueSearch<TQueue, INode<TState, TAction>, TProblem, TState, TAction>
+        : QueueSearch<TQueue, TProblem, TState, TAction>
         where TQueue : IQueue<INode<TState, TAction>>
         where TProblem : IProblem<TState, TAction>
         where TState : IState
@@ -71,16 +71,6 @@ namespace Artificial_Intelligence.Chapter_3.Search.QSearch
             INode<TState, TAction> node = frontier.Pop();
             _explored.Add(node.State);
             return node;
-        }
-
-        /// <summary>
-        /// Returns a new root noot available for expansion.
-        /// </summary>
-        /// <param name="state">The initial state in which the seach starts.</param>
-        /// <returns>A new root node available for expansion.</returns>
-        public override INode<TState, TAction> Root(TState state)
-        {
-            return new Node<TState, TAction>(state);
         }
     }
 }

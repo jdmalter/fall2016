@@ -98,7 +98,7 @@ namespace Artificial_IntelligenceTests.Environment.SlidingPuzzle
         {
             // Arrange
             var queueSearch = new GraphSearch<IFIFOQueue<INode<ISlidingPuzzleState, SlidingPuzzleAction>>, SlidingPuzzleProblem, ISlidingPuzzleState, SlidingPuzzleAction>();
-            _sut = new BreadthFirstSearch<INode<ISlidingPuzzleState, SlidingPuzzleAction>, SlidingPuzzleProblem, ISlidingPuzzleState, SlidingPuzzleAction>(queueSearch);
+            _sut = new BreadthFirstSearch<SlidingPuzzleProblem, ISlidingPuzzleState, SlidingPuzzleAction>(queueSearch);
             _problem = CreateProblem();
 
             // Act
@@ -113,8 +113,8 @@ namespace Artificial_IntelligenceTests.Environment.SlidingPuzzle
         public void BidirectionalBreadthFirstSearch()
         {
             // Arrange
-            var queueSearch = new BidirectionalSearch<IFIFOQueue<IBidirectionalNode<ISlidingPuzzleState, SlidingPuzzleAction>>, SlidingPuzzleProblem, ISlidingPuzzleState, SlidingPuzzleAction>();
-            _sut = new BreadthFirstSearch<IBidirectionalNode<ISlidingPuzzleState, SlidingPuzzleAction>, SlidingPuzzleProblem, ISlidingPuzzleState, SlidingPuzzleAction>(queueSearch);
+            var queueSearch = new BidirectionalSearch<IFIFOQueue<INode<ISlidingPuzzleState, SlidingPuzzleAction>>, SlidingPuzzleProblem, ISlidingPuzzleState, SlidingPuzzleAction>();
+            _sut = new BreadthFirstSearch<SlidingPuzzleProblem, ISlidingPuzzleState, SlidingPuzzleAction>(queueSearch);
             _problem = CreateProblem();
 
             // Act

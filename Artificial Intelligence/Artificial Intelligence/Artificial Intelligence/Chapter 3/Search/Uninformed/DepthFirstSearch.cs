@@ -21,13 +21,13 @@ namespace Artificial_Intelligence.Chapter_3.Search.Uninformed
         /// <summary>
         /// A search using a queue of all leaf nodes available for expansion at any given point.
         /// </summary>
-        private readonly QueueSearch<ILIFOQueue<INode<TState, TAction>>, INode<TState, TAction>, TProblem, TState, TAction> _queueSearch;
+        private readonly QueueSearch<ILIFOQueue<INode<TState, TAction>>, TProblem, TState, TAction> _queueSearch;
 
         /// <summary>
         /// Specifies a queue search.
         /// </summary>
         /// <param name="queueSearch">A search using a queue of all leaf nodes available for expansion at any given point.</param>
-        public DepthFirstSearch(QueueSearch<ILIFOQueue<INode<TState, TAction>>, INode<TState, TAction>, TProblem, TState, TAction> queueSearch)
+        public DepthFirstSearch(QueueSearch<ILIFOQueue<INode<TState, TAction>>, TProblem, TState, TAction> queueSearch)
         {
             _queueSearch = queueSearch.NonNull();
         }

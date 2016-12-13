@@ -7,7 +7,7 @@ namespace Artificial_Intelligence.Environment.SlidingPuzzle
     /// initial state, actions, transition model, goal test, and path cost.
     /// </summary>
     public class SlidingPuzzleProblem : Problem<ISlidingPuzzleState, SlidingPuzzleAction>,
-        IBidirectionalProblem<SlidingPuzzleProblem, ISlidingPuzzleState, SlidingPuzzleAction>
+        IBidirectionalProblem<ISlidingPuzzleState, SlidingPuzzleAction>
     {
         /// <summary>
         /// Specifies initial state, actions, transition model, and goal.
@@ -53,6 +53,6 @@ namespace Artificial_Intelligence.Environment.SlidingPuzzle
         /// <summary>
         /// A problem whose initial state and goal state are reverse of the original problem.
         /// </summary>
-        public SlidingPuzzleProblem Reverse { get; }
+        public IBidirectionalProblem<ISlidingPuzzleState, SlidingPuzzleAction> Reverse { get; }
     }
 }

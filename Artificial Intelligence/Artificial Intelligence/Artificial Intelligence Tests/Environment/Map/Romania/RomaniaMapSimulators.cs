@@ -245,7 +245,7 @@ namespace Artificial_IntelligenceTests.Environment.Map.Romania
             RomaniaMapState initialState = RomaniaMapState.ARAD;
             RomaniaMapState expected = RomaniaMapState.BUCHAREST;
             var queueSearch = new GraphSearch<IFIFOQueue<INode<RomaniaMapState, RomaniaMapAction>>, MapProblem<RomaniaMapState, RomaniaMapAction>, RomaniaMapState, RomaniaMapAction>();
-            _sut = new BreadthFirstSearch<INode<RomaniaMapState, RomaniaMapAction>, MapProblem<RomaniaMapState, RomaniaMapAction>, RomaniaMapState, RomaniaMapAction>(queueSearch);
+            _sut = new BreadthFirstSearch<MapProblem<RomaniaMapState, RomaniaMapAction>, RomaniaMapState, RomaniaMapAction>(queueSearch);
             _problem = CreateProblem(initialState, expected);
 
             // Act
@@ -262,8 +262,8 @@ namespace Artificial_IntelligenceTests.Environment.Map.Romania
             // Arrange
             RomaniaMapState initialState = RomaniaMapState.ARAD;
             RomaniaMapState expected = RomaniaMapState.BUCHAREST;
-            var queueSearch = new BidirectionalSearch<IFIFOQueue<IBidirectionalNode<RomaniaMapState, RomaniaMapAction>>, MapProblem<RomaniaMapState, RomaniaMapAction>, RomaniaMapState, RomaniaMapAction>();
-            _sut = new BreadthFirstSearch<IBidirectionalNode<RomaniaMapState, RomaniaMapAction>, MapProblem<RomaniaMapState, RomaniaMapAction>, RomaniaMapState, RomaniaMapAction>(queueSearch);
+            var queueSearch = new BidirectionalSearch<IFIFOQueue<INode<RomaniaMapState, RomaniaMapAction>>, MapProblem<RomaniaMapState, RomaniaMapAction>, RomaniaMapState, RomaniaMapAction>();
+            _sut = new BreadthFirstSearch<MapProblem<RomaniaMapState, RomaniaMapAction>, RomaniaMapState, RomaniaMapAction>(queueSearch);
             _problem = CreateProblem(initialState, expected);
 
             // Act

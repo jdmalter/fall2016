@@ -9,16 +9,16 @@ namespace Artificial_Intelligence.Chapter_3.Search.QSearch
     /// <summary>
     /// A queue search that uses bidirectional nodes.
     /// </summary>
-    /// <typeparam name="TQueue">Any queue of IBidirectionalNode of TState and TAction.</typeparam>
-    /// <typeparam name="TProblem">Any problem of TState and TAction.</typeparam>
+    /// <typeparam name="TQueue">Any queue of INode of TState and TAction.</typeparam>
+    /// <typeparam name="TProblem">Any bidirectional problem of TState and TAction.</typeparam>
     /// <typeparam name="TState">Any state.</typeparam>
     /// <typeparam name="TAction">Any action.</typeparam>
     public class BidirectionalSearch<TQueue, TProblem, TState, TAction>
-        : QueueSearch<TQueue, IBidirectionalNode<TState, TAction>, TProblem, TState, TAction>
-         where TQueue : IQueue<IBidirectionalNode<TState, TAction>>
-         where TProblem : IBidirectionalProblem<TProblem, TState, TAction>
-         where TState : IState
-         where TAction : IAction
+        : QueueSearch<TQueue, TProblem, TState, TAction>
+        where TQueue : IQueue<INode<TState, TAction>>
+        where TProblem : IBidirectionalProblem<TState, TAction>
+        where TState : IState
+        where TAction : IAction
     {
         /// <summary>
         /// A data structure which remembers every expanded node in the original problem.
@@ -42,7 +42,7 @@ namespace Artificial_Intelligence.Chapter_3.Search.QSearch
         {
             _exploredOriginal.Clear();
             _exploredReverse.Clear();
-            IBidirectionalNode<TState, TAction> rootOriginal = Root(problem.InitialState);
+            IBidirectionalNode<TState, TAction> rootOriginal = new BidirectionalNode<TState, TAction>(problem.InitialState, true);
             IBidirectionalNode<TState, TAction> rootReverse = new BidirectionalNode<TState, TAction>(problem.Reverse.InitialState, false);
 
             if (rootOriginal.Equals(rootReverse))
@@ -56,7 +56,7 @@ namespace Artificial_Intelligence.Chapter_3.Search.QSearch
 
             while (!IsEmpty(frontier))
             {
-                IBidirectionalNode<TState, TAction> node = Remove(frontier);
+                IBidirectionalNode<TState, TAction> node = Cast(Remove(frontier));
 
                 if ((node.IsOriginal ? _exploredReverse : _exploredOriginal).ContainsKey(node.State))
                 {
@@ -82,9 +82,9 @@ namespace Artificial_Intelligence.Chapter_3.Search.QSearch
         /// </summary>
         /// <param name="frontier">A queue of all leaf nodes available for expansion at any given point.</param>
         /// <param name="node">A new leaf node available for expansion.</param>
-        public override void Add(TQueue frontier, IBidirectionalNode<TState, TAction> node)
+        public override void Add(TQueue frontier, INode<TState, TAction> node)
         {
-            if (!(node.IsOriginal ? _exploredOriginal : _exploredReverse).ContainsKey(node.State))
+            if (!(Cast(node).IsOriginal ? _exploredOriginal : _exploredReverse).ContainsKey(node.State))
             {
                 frontier.Push(node);
             }
@@ -97,7 +97,7 @@ namespace Artificial_Intelligence.Chapter_3.Search.QSearch
         /// <returns>Whether the frontier contains any nodes available for expansion.</returns>
         public override bool IsEmpty(TQueue frontier)
         {
-            frontier.PopWhile(node => (node.IsOriginal ? _exploredOriginal : _exploredReverse).ContainsKey(node.State));
+            frontier.PopWhile(node => (Cast(node).IsOriginal ? _exploredOriginal : _exploredReverse).ContainsKey(node.State));
             return frontier.IsEmpty();
         }
 
@@ -106,21 +106,21 @@ namespace Artificial_Intelligence.Chapter_3.Search.QSearch
         /// </summary>
         /// <param name="frontier">A queue of all leaf nodes available for expansion at any given point.</param>
         /// <returns>A node for expansion.</returns>
-        public override IBidirectionalNode<TState, TAction> Remove(TQueue frontier)
+        public override INode<TState, TAction> Remove(TQueue frontier)
         {
-            IBidirectionalNode<TState, TAction> node = frontier.Pop();
+            IBidirectionalNode<TState, TAction> node = Cast(frontier.Pop());
             (node.IsOriginal ? _exploredOriginal : _exploredReverse).Add(node.State, node);
             return node;
         }
 
         /// <summary>
-        /// Returns a new root noot available for expansion.
+        /// Casts a node and returns a bidirectional node.
         /// </summary>
-        /// <param name="state">The initial state in which the seach starts.</param>
-        /// <returns>A new root node available for expansion.</returns>
-        public override IBidirectionalNode<TState, TAction> Root(TState state)
+        /// <param name="node">A node.</param>
+        /// <returns>A bidirectional node.</returns>
+        private IBidirectionalNode<TState, TAction> Cast(INode<TState, TAction> node)
         {
-            return new BidirectionalNode<TState, TAction>(state, true);
+            return node as IBidirectionalNode<TState, TAction>;
         }
     }
 }

@@ -31,10 +31,10 @@ namespace Artificial_IntelligenceTests.Environment.Queens
         /// <summary>
         /// Returns a new instance of queens problem.
         /// </summary>
+        /// <param name="initialState">An initial state.</param>
         /// <returns>A new instance of queens problem.</returns>
-        private QueensProblem CreateProblem()
+        private QueensProblem CreateProblem(IQueensState initialState)
         {
-            IQueensState initialState = new EightQueensState();
             IActionsFunction<IQueensState, QueensAction> actionsFunction = new QueensReducedActionsFunction();
             IResultFunction<IQueensState, QueensAction> resultFunction = new QueensResultFunction();
             IGoalTestFunction<IQueensState> goalTestFunction = new QueensGoalTestFunction();
@@ -50,8 +50,8 @@ namespace Artificial_IntelligenceTests.Environment.Queens
         {
             // Arrange
             var queueSearch = new TreeSearch<IFIFOQueue<INode<IQueensState, QueensAction>>, QueensProblem, IQueensState, QueensAction>();
-            _sut = new BreadthFirstSearch<INode<IQueensState, QueensAction>, QueensProblem, IQueensState, QueensAction>(queueSearch);
-            _problem = CreateProblem();
+            _sut = new BreadthFirstSearch<QueensProblem, IQueensState, QueensAction>(queueSearch);
+            _problem = CreateProblem(new EightQueensState());
 
             // Act
             _actions = _sut.Search(_problem);
@@ -66,7 +66,7 @@ namespace Artificial_IntelligenceTests.Environment.Queens
             // Arrange
             var queueSearch = new TreeSearch<ILIFOQueue<INode<IQueensState, QueensAction>>, QueensProblem, IQueensState, QueensAction>();
             _sut = new DepthFirstSearch<QueensProblem, IQueensState, QueensAction>(queueSearch);
-            _problem = CreateProblem();
+            _problem = CreateProblem(new EightQueensState());
 
             // Act
             _actions = _sut.Search(_problem);
@@ -80,8 +80,8 @@ namespace Artificial_IntelligenceTests.Environment.Queens
         {
             // Arrange
             var queueSearch = new GraphSearch<IFIFOQueue<INode<IQueensState, QueensAction>>, QueensProblem, IQueensState, QueensAction>();
-            _sut = new BreadthFirstSearch<INode<IQueensState, QueensAction>, QueensProblem, IQueensState, QueensAction>(queueSearch);
-            _problem = CreateProblem();
+            _sut = new BreadthFirstSearch<QueensProblem, IQueensState, QueensAction>(queueSearch);
+            _problem = CreateProblem(new EightQueensState());
 
             // Act
             _actions = _sut.Search(_problem);
@@ -96,7 +96,7 @@ namespace Artificial_IntelligenceTests.Environment.Queens
             // Arrange
             var queueSearch = new GraphSearch<ILIFOQueue<INode<IQueensState, QueensAction>>, QueensProblem, IQueensState, QueensAction>();
             _sut = new DepthFirstSearch<QueensProblem, IQueensState, QueensAction>(queueSearch);
-            _problem = CreateProblem();
+            _problem = CreateProblem(new EightQueensState());
 
             // Act
             _actions = _sut.Search(_problem);

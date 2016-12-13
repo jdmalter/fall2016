@@ -8,7 +8,8 @@ namespace Artificial_Intelligence.Environment.Map
     /// </summary>
     /// <typeparam name="TState">Any map state.</typeparam>
     /// <typeparam name="TAction">Any map action of TState.</typeparam>
-    public class MapProblem<TState, TAction> : Problem<TState, TAction>, IBidirectionalProblem<MapProblem<TState, TAction>, TState, TAction>
+    public class MapProblem<TState, TAction> : Problem<TState, TAction>,
+        IBidirectionalProblem<TState, TAction>
         where TState : IMapState
         where TAction : MapAction<TState>
     {
@@ -58,6 +59,6 @@ namespace Artificial_Intelligence.Environment.Map
         /// <summary>
         /// A problem whose initial state and goal state are reverse of the original problem.
         /// </summary>
-        public MapProblem<TState, TAction> Reverse { get; }
+        public IBidirectionalProblem<TState, TAction> Reverse { get; }
     }
 }
